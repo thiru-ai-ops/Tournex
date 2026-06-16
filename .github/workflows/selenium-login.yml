@@ -2,9 +2,9 @@ name: Selenium E2E Automation Testing
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
 
 jobs:
   e2e-test:
@@ -19,37 +19,29 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+          cache-dependency-path: web/package-lock.json
 
       - name: Install Frontend Dependencies
+        working-directory: web
         run: npm ci
 
       - name: Install Selenium Test Dependencies
-        run: |
-          if [ -d selenium-tests ]; then
-            cd selenium-tests
-            npm ci || npm install
-          else
-            echo "selenium-tests directory not found, installing selenium dependencies in project root"
-            npm install --save-dev selenium-webdriver mocha
-          fi
+        working-directory: web/selenium-tests
+        run: npm ci || npm install
 
       - name: Build React App
+        working-directory: web
         run: npm run build
 
       - name: Start Vite Preview Server
+        working-directory: web
         run: |
           npm run preview -- --port 3000 &
           npx wait-on http://localhost:3000 --timeout 60000
 
       - name: Run Selenium Tests
+        working-directory: web/selenium-tests
         env:
           HEADLESS: "true"
           TEST_URL: "http://localhost:3000"
-        run: |
-          if [ -d selenium-tests ]; then
-            cd selenium-tests
-            npm run login || npm test
-          else
-            echo "Running test command from root..."
-            npm run login || npm test || echo "No test script configured yet"
-          fi
+        run: npm run login || npm test
