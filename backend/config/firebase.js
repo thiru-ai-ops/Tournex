@@ -2,6 +2,126 @@ const admin = require('firebase-admin');
 const fs = require('fs');
 const path = require('path');
 
+// Self-contained in-memory mock for CI and testing environments
+if (process.env.MOCK_DB === 'true' || process.env.CI === 'true') {
+  console.log('--- RUNNING IN MOCK/EMULATED FIREBASE MODE FOR CI/TESTS ---');
+  
+  const store = {};
+
+  const makeDoc = (path, data) => ({
+    exists: data !== undefined,
+    id: path.split('/').pop(),
+    data: () => data,
+    ref: {
+      delete: async () => {
+        delete store[path];
+        return { writeTime: new Date() };
+      }
+    }
+  });
+
+  const makeQuerySnap = (docs) => ({
+    empty: docs.length === 0,
+    docs,
+    forEach: (cb) => docs.forEach(cb)
+  });
+
+  const createCollection = (colPath) => {
+    return {
+      doc: (docId) => {
+        const docPath = `${colPath}/${docId}`;
+        return {
+          id: docId,
+          get: async () => makeDoc(docPath, store[docPath]),
+          set: async (data) => {
+            store[docPath] = { ...data };
+            return { writeTime: new Date() };
+          },
+          update: async (data) => {
+            store[docPath] = { ...store[docPath], ...data };
+            return { writeTime: new Date() };
+          },
+          delete: async () => {
+            delete store[docPath];
+            return { writeTime: new Date() };
+          },
+          collection: (subColId) => createCollection(`${docPath}/${subColId}`)
+        };
+      },
+      get: async () => {
+        const docs = [];
+        for (const [key, val] of Object.entries(store)) {
+          if (key.startsWith(colPath + '/') && key.replace(colPath + '/', '').split('/').length === 1) {
+            docs.push(makeDoc(key, val));
+          }
+        }
+        return makeQuerySnap(docs);
+      },
+      where: (field, op, val) => {
+        return {
+          get: async () => {
+            const docs = [];
+            for (const [key, docVal] of Object.entries(store)) {
+              if (key.startsWith(colPath + '/') && key.replace(colPath + '/', '').split('/').length === 1) {
+                if (op === '==' && docVal[field] === val) {
+                  docs.push(makeDoc(key, docVal));
+                }
+              }
+            }
+            return makeQuerySnap(docs);
+          }
+        };
+      }
+    };
+  };
+
+  const db = {
+    collection: (colId) => createCollection(colId)
+  };
+
+  const auth = {
+    createUser: async (userRecord) => {
+      const uid = 'mock-user-id-' + userRecord.email.toLowerCase().replace(/[^a-z0-9]/g, '');
+      store[`users/${uid}`] = {
+        name: userRecord.displayName || 'Mock User',
+        email: userRecord.email,
+        avatar: userRecord.photoURL || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150',
+        role: 'user'
+      };
+      return { uid, ...userRecord };
+    },
+    getUserByEmail: async (email) => {
+      const uid = 'mock-user-id-' + email.toLowerCase().replace(/[^a-z0-9]/g, '');
+      const data = store[`users/${uid}`];
+      if (!data) {
+        throw new Error('User not found');
+      }
+      return { uid, email, displayName: data.name };
+    },
+    getUser: async (uid) => {
+      const data = store[`users/${uid}`];
+      if (!data) {
+        throw new Error('User not found');
+      }
+      return { uid, email: data.email, displayName: data.name };
+    },
+    verifyIdToken: async (token) => {
+      if (token.startsWith('mock-')) {
+        const uid = token.replace(/^mock-(id-token-|google-token-)/, '');
+        return { uid, email: 'test.user@tournex.com', name: 'Mock User' };
+      }
+      throw new Error('Invalid token');
+    }
+  };
+
+  module.exports = {
+    admin: {},
+    db,
+    auth
+  };
+  return;
+}
+
 let firebaseApp;
 
 const serviceAccountPath = process.env.FIREBASE_SERVICE_ACCOUNT_KEY || './config/firebase-service-account.json';
