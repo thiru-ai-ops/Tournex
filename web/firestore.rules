@@ -1,0 +1,112 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Pillar 1: Default-deny catch-all Global Safety Net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Helper Primitives
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // Pillar 3: Path Variable Hardening (ID Poisoning constraints)
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Static Data Schema Validation Helpers - Type, Boundary & Key Controls
+    function isValidUserProfile(data) {
+      return data.keys().hasAll(['name', 'avatar'])
+        && data.keys().size() <= 30
+        && data.name is string && data.name.size() > 0 && data.name.size() <= 512
+        && data.avatar is string && data.avatar.size() <= 4096
+        && (!('bio' in data) || (data.bio is string && data.bio.size() <= 4096))
+        && (!('location' in data) || (data.location is string && data.location.size() <= 512))
+        && (!('tier' in data) || (data.tier is string && data.tier.size() <= 256))
+        && (!('joinDate' in data) || (data.joinDate is string && data.joinDate.size() <= 256))
+        && (!('statesVisited' in data) || data.statesVisited is number)
+        && (!('savedTripsCount' in data) || data.savedTripsCount is number)
+        && (!('reviewsCount' in data) || data.reviewsCount is number)
+        && (!('savedTotal' in data) || data.savedTotal is number)
+        && (!('level' in data) || data.level is number)
+        && (!('currentXp' in data) || data.currentXp is number)
+        && (!('maxXp' in data) || data.maxXp is number);
+    }
+
+    function isValidBooking(data) {
+      return data.keys().hasAll(['id', 'name', 'price', 'bookingId'])
+        && data.keys().size() <= 25
+        && data.id is string && isValidId(data.id)
+        && data.name is string && data.name.size() <= 512
+        && data.price is number && data.price >= 0
+        && data.bookingId is string && data.bookingId.size() <= 256
+        && (!('status' in data) || (data.status is string && (data.status == 'UPCOMING' || data.status == 'COMPLETED' || data.status == 'CANCELLED')))
+        && (!('dates' in data) || (data.dates is string && data.dates.size() <= 256))
+        && (!('image' in data) || (data.image is string && data.image.size() <= 4096));
+    }
+
+    function isValidExpense(data) {
+      return data.keys().hasAll(['id', 'description', 'amount', 'paidBy', 'category', 'date'])
+        && data.keys().size() <= 10
+        && data.id is string && isValidId(data.id)
+        && data.description is string && data.description.size() <= 256
+        && data.amount is number && data.amount >= 0
+        && data.paidBy is string && data.paidBy.size() <= 64
+        && data.category is string && (data.category == 'Stay' || data.category == 'Food' || data.category == 'Activity' || data.category == 'Transit' || data.category == 'Shopping' || data.category == 'Other')
+        && data.date is string && data.date.size() <= 64
+        && (!('splitWith' in data) || data.splitWith is list);
+    }
+
+    function isValidMessage(data) {
+      return data.keys().hasAll(['id', 'sender', 'text', 'time'])
+        && data.keys().size() <= 6
+        && data.id is string && isValidId(data.id)
+        && data.sender is string && (data.sender == 'user' || data.sender == 'ai')
+        && data.text is string && data.text.size() <= 10000
+        && data.time is string && data.time.size() <= 64
+        && (!('image' in data) || (data.image is string && data.image.size() <= 4096));
+    }
+
+    // Match Rulesets - Enforcing Secure Queries & Action validations
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if isOwner(userId);
+      allow create: if isOwner(userId) && isValidUserProfile(request.resource.data);
+      allow update: if isOwner(userId) 
+                    && isValidUserProfile(request.resource.data)
+                    && (!('joinDate' in resource.data) || !('joinDate' in request.resource.data) || request.resource.data.joinDate == resource.data.joinDate); // Hardy Immutable Field Protection
+      allow delete: if isOwner(userId);
+
+      match /bookings/{bookingId} {
+        allow get, list: if isOwner(userId);
+        allow create: if isOwner(userId) && isValidId(bookingId) && isValidBooking(request.resource.data);
+        allow update: if isOwner(userId) 
+                      && isValidId(bookingId)
+                      && isValidBooking(request.resource.data)
+                      && (resource.data.status != 'CANCELLED' || request.resource.data.status == 'CANCELLED'); // Terminal State Locking
+        allow delete: if isOwner(userId) && isValidId(bookingId);
+      }
+
+      match /expenses/{expenseId} {
+        allow get, list: if isOwner(userId);
+        allow create: if isOwner(userId) && isValidId(expenseId) && isValidExpense(request.resource.data);
+        allow update: if isOwner(userId) && isValidId(expenseId) && isValidExpense(request.resource.data);
+        allow delete: if isOwner(userId) && isValidId(expenseId);
+      }
+
+      match /messages/{messageId} {
+        allow get, list: if isOwner(userId);
+        allow create: if isOwner(userId) && isValidId(messageId) && isValidMessage(request.resource.data);
+        allow update: if isOwner(userId) && isValidId(messageId) && isValidMessage(request.resource.data);
+        allow delete: if isOwner(userId) && isValidId(messageId);
+      }
+    }
+  }
+}

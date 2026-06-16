@@ -1,0 +1,14 @@
+{
+  "name": "tournex-selenium-tests",
+  "version": "1.0.0",
+  "description": "Selenium E2E automation tests for Tournex app",
+  "main": "tests/login.test.js",
+  "scripts": {
+    "test": "mocha tests/**/*.test.js --timeout 60000",
+    "login": "mocha tests/login.test.js --timeout 60000"
+  },
+  "devDependencies": {
+    "mocha": "^10.4.0",
+    "selenium-webdriver": "^4.20.0"
+  }
+}

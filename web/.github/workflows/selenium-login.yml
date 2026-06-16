@@ -1,0 +1,55 @@
+name: Selenium E2E Automation Testing
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  e2e-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Frontend Dependencies
+        run: npm ci
+
+      - name: Install Selenium Test Dependencies
+        run: |
+          if [ -d selenium-tests ]; then
+            cd selenium-tests
+            npm ci || npm install
+          else
+            echo "selenium-tests directory not found, installing selenium dependencies in project root"
+            npm install --save-dev selenium-webdriver mocha
+          fi
+
+      - name: Build React App
+        run: npm run build
+
+      - name: Start Vite Preview Server
+        run: |
+          npm run preview -- --port 3000 &
+          npx wait-on http://localhost:3000 --timeout 60000
+
+      - name: Run Selenium Tests
+        env:
+          HEADLESS: "true"
+          TEST_URL: "http://localhost:3000"
+        run: |
+          if [ -d selenium-tests ]; then
+            cd selenium-tests
+            npm run login || npm test
+          else
+            echo "Running test command from root..."
+            npm run login || npm test || echo "No test script configured yet"
+          fi

@@ -1,0 +1,86 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Personal traveler profile data",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string", "description": "Display name of the traveler" },
+        "tier": { "type": "string", "description": "Loyalty tier representation" },
+        "bio": { "type": "string", "description": "Explorer biography details" },
+        "location": { "type": "string", "description": "Current active location" },
+        "joinDate": { "type": "string", "description": "Registration date of user" },
+        "avatar": { "type": "string", "description": "Validated profile avatar source" },
+        "statesVisited": { "type": "integer", "description": "Amount of states explored" },
+        "savedTripsCount": { "type": "integer", "description": "Total count of trips flagged" },
+        "reviewsCount": { "type": "integer", "description": "Number of reviews published" },
+        "savedTotal": { "type": "integer", "description": "Accumulative saved finances in INR" },
+        "level": { "type": "integer", "description": "Travel XP system level" },
+        "currentXp": { "type": "integer", "description": "XP progress" },
+        "maxXp": { "type": "integer", "description": "XP max limit for next level" }
+      },
+      "required": ["name", "avatar"]
+    },
+    "Booking": {
+      "title": "Booking",
+      "description": "Itinerary booking reference linked to the traveler",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Primary unique key" },
+        "name": { "type": "string", "description": "Destination or package title" },
+        "status": { "type": "string", "enum": ["UPCOMING", "COMPLETED", "CANCELLED"] },
+        "dates": { "type": "string", "description": "Delineated calendar ranges" },
+        "price": { "type": "number", "description": "Amount in INR" },
+        "bookingId": { "type": "string", "description": "Visual format ticket record tag" },
+        "image": { "type": "string", "description": "Image card asset url" }
+      },
+      "required": ["id", "name", "price", "bookingId"]
+    },
+    "Expense": {
+      "title": "Expense",
+      "description": "Group ledger share expense transaction",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique record identity" },
+        "description": { "type": "string", "description": "What was split or purchased" },
+        "amount": { "type": "number", "description": "Sum of transaction in INR" },
+        "paidBy": { "type": "string", "description": "Member author of payment" },
+        "splitWith": { "type": "array", "description": "Members participating" },
+        "category": { "type": "string", "enum": ["Stay", "Food", "Activity", "Transit", "Shopping", "Other"] },
+        "date": { "type": "string", "description": "Visual timestamp date" }
+      },
+      "required": ["id", "description", "amount", "paidBy", "category", "date"]
+    },
+    "Message": {
+      "title": "Message",
+      "description": "AI Travel Companion contextual logging exchange",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "sender": { "type": "string", "enum": ["user", "ai"] },
+        "text": { "type": "string" },
+        "image": { "type": "string" },
+        "time": { "type": "string" }
+      },
+      "required": ["id", "sender", "text", "time"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Direct user profile document query index"
+    },
+    "/users/{userId}/bookings/{bookingId}": {
+      "schema": "Booking",
+      "description": "Nested listing of booking tickets verified by security rule validation"
+    },
+    "/users/{userId}/expenses/{expenseId}": {
+      "schema": "Expense",
+      "description": "Shared travel bills and split ledgers tracking"
+    },
+    "/users/{userId}/messages/{messageId}": {
+      "schema": "Message",
+      "description": "Live companion conversation exchanges"
+    }
+  }
+}

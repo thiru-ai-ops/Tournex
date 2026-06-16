@@ -1,0 +1,6 @@
+{
+  "name": "TourNex",
+  "description": "AI-powered travel companion and smart budget splitter with curated Indian journeys, real-time context-aware chats, interactive mood finders, travel profiles, and seamless expense settlement.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
