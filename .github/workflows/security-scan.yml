@@ -1,0 +1,55 @@
+name: Dependency Vulnerability Audit
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'backend/package.json'
+      - 'backend/package-lock.json'
+      - 'web/package.json'
+      - 'web/package-lock.json'
+      - 'mobile/package.json'
+      - 'mobile/package-lock.json'
+      - '.github/workflows/security-scan.yml'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'backend/package.json'
+      - 'backend/package-lock.json'
+      - 'web/package.json'
+      - 'web/package-lock.json'
+      - 'mobile/package.json'
+      - 'mobile/package-lock.json'
+      - '.github/workflows/security-scan.yml'
+  workflow_dispatch:
+
+jobs:
+  security-audit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Audit Backend Dependencies
+        working-directory: backend
+        run: |
+          echo "Auditing backend dependencies..."
+          npm audit --audit-level=high
+
+      - name: Audit Web Frontend Dependencies
+        working-directory: web
+        run: |
+          echo "Auditing web dependencies..."
+          npm audit --audit-level=high
+
+      - name: Audit Mobile App Dependencies
+        working-directory: mobile
+        run: |
+          echo "Auditing mobile dependencies..."
+          npm audit --audit-level=high
