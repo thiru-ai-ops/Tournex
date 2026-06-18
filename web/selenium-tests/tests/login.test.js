@@ -2,6 +2,30 @@ const { Builder, By, until } = require('selenium-webdriver');
 const chrome = require('selenium-webdriver/chrome');
 const assert = require('assert');
 
+async function setReactInput(driver, element, value) {
+  await driver.executeScript(`
+    const input = arguments[0];
+    const val = arguments[1];
+    
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+    
+    let nativeSetter;
+    if (input.tagName === 'TEXTAREA') {
+      nativeSetter = Object.getOwnPropertyDescriptor(iframe.contentWindow.HTMLTextAreaElement.prototype, 'value').set;
+    } else {
+      nativeSetter = Object.getOwnPropertyDescriptor(iframe.contentWindow.HTMLInputElement.prototype, 'value').set;
+    }
+    
+    nativeSetter.call(input, val);
+    iframe.remove();
+    
+    input.dispatchEvent(new Event('input', { bubbles: true }));
+    input.dispatchEvent(new Event('change', { bubbles: true }));
+  `, element, value);
+}
+
 describe('Tournex E2E Automation - 35 Comprehensive Test Cases', function () {
   let driver;
   const testUrl = process.env.TEST_URL || 'http://localhost:3000';
@@ -256,7 +280,8 @@ describe('Tournex E2E Automation - 35 Comprehensive Test Cases', function () {
 
   it('29. Should send message to AI Planner and receive auto-reply', async function () {
     const chatInput = await driver.wait(until.elementLocated(By.id('chat-input')), 5000);
-    await chatInput.sendKeys('Tell me about Jaipur crowd');
+    await driver.wait(until.elementIsVisible(chatInput), 5000);
+    await setReactInput(driver, chatInput, 'Tell me about Jaipur crowd');
     const sendBtn = await driver.findElement(By.id('chat-send-btn'));
     await driver.executeScript("arguments[0].click();", sendBtn);
     const aiBubble = await driver.wait(until.elementLocated(By.xpath("//*[contains(text(), 'Based on our live tourist density index')]")), 15000);
@@ -283,9 +308,10 @@ describe('Tournex E2E Automation - 35 Comprehensive Test Cases', function () {
 
   it('32. Should add new group expense successfully', async function () {
     const descField = await driver.wait(until.elementLocated(By.id('expense-desc-input')), 5000);
-    await descField.sendKeys('Autocab tour');
+    await driver.wait(until.elementIsVisible(descField), 5000);
+    await setReactInput(driver, descField, 'Autocab tour');
     const amountField = await driver.findElement(By.id('expense-amount-input'));
-    await amountField.sendKeys('450');
+    await setReactInput(driver, amountField, '450');
     const submitBtn = await driver.findElement(By.id('expense-submit-btn'));
     await driver.executeScript("arguments[0].click();", submitBtn);
     const item = await driver.wait(until.elementLocated(By.xpath("//*[contains(text(), 'Autocab tour')]")), 5000);
