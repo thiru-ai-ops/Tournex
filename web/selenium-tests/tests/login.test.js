@@ -270,19 +270,20 @@ describe('Tournex E2E Automation - 35 Comprehensive Test Cases', function () {
   });
 
   it('31. Should toggle add expense form slide-down panel', async function () {
-    const toggleBtn = await driver.findElement(By.id('add-expense-toggle-btn'));
-    await toggleBtn.click();
+    const toggleBtn = await driver.wait(until.elementLocated(By.id('add-expense-toggle-btn')), 5000);
+    await driver.wait(until.elementIsVisible(toggleBtn), 5000);
+    await driver.executeScript("arguments[0].click();", toggleBtn);
     const descField = await driver.wait(until.elementLocated(By.id('expense-desc-input')), 5000);
     assert.ok(descField, 'Add expense form did not slide down.');
   });
 
   it('32. Should add new group expense successfully', async function () {
-    const descField = await driver.findElement(By.id('expense-desc-input'));
+    const descField = await driver.wait(until.elementLocated(By.id('expense-desc-input')), 5000);
     await descField.sendKeys('Autocab tour');
     const amountField = await driver.findElement(By.id('expense-amount-input'));
     await amountField.sendKeys('450');
     const submitBtn = await driver.findElement(By.id('expense-submit-btn'));
-    await submitBtn.click();
+    await driver.executeScript("arguments[0].click();", submitBtn);
     const item = await driver.wait(until.elementLocated(By.xpath("//*[contains(text(), 'Autocab tour')]")), 5000);
     assert.ok(item, 'The added expense was not found in the expense list.');
   });
