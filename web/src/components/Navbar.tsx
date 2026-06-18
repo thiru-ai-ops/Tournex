@@ -1,6 +1,6 @@
 import React from 'react';
 import { TabType } from '../types';
-import { Compass, CalendarDays, MessageSquareCode, Receipt, User, History, Route, Menu, X, Landmark } from 'lucide-react';
+import { Compass, CalendarDays, MessageSquareCode, Receipt, User, History, Route, Menu, X, Landmark, Building, Smartphone, ShieldCheck } from 'lucide-react';
 
 interface NavbarProps {
   activeTab: TabType;
@@ -15,8 +15,12 @@ export default function Navbar({ activeTab, setActiveTab, userName }: NavbarProp
     { id: 'explore' as TabType, label: 'Explore', icon: Compass },
     { id: 'gateway' as TabType, label: 'Gateway Finder', icon: Route },
     { id: 'companion' as TabType, label: 'AI Planner', icon: MessageSquareCode },
-    { id: 'splitter' as TabType, label: 'Budget Splitter', icon: Receipt },
-    { id: 'bookings' as TabType, label: 'My Bookings', icon: History },
+    { id: 'itinerary' as TabType, label: 'Itinerary', icon: CalendarDays },
+    { id: 'stays' as TabType, label: 'Stays', icon: Building },
+    { id: 'splitter' as TabType, label: 'Splitter', icon: Receipt },
+    { id: 'bookings' as TabType, label: 'Bookings', icon: History },
+    { id: 'mobile-sim' as TabType, label: 'Mobile App', icon: Smartphone },
+    { id: 'admin-portal' as TabType, label: 'Admin Portal', icon: ShieldCheck },
     { id: 'profile' as TabType, label: 'Profile', icon: User },
   ];
 

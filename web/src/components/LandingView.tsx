@@ -64,7 +64,7 @@ export default function LandingView({ onLogin }: LandingViewProps) {
   const [selectedAvatar, setSelectedAvatar] = useState(AVATAR_PRESETS[0].url);
   const [adventureStyle, setAdventureStyle] = useState('Heritage & Palaces');
   const [bio, setBio] = useState('Wandering the cultural trails of India in search of stories and flavors.');
-  const [startFresh, setStartFresh] = useState(true); // Default to clean/unused state
+  const [startFresh, setStartFresh] = useState(false); // Default to clean/unused state
   const [signupError, setSignupError] = useState('');
   const [isAuthLoading, setIsAuthLoading] = useState(false);
 

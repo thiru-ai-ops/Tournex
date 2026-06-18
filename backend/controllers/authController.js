@@ -20,7 +20,7 @@ const registerUser = async (req, res, next) => {
     }
 
     const apiKey = process.env.FIREBASE_API_KEY;
-    const isLocalTest = email.toLowerCase() === 'test.user@tournex.com';
+    const isLocalTest = email.toLowerCase() === 'test.user@tournex.com' || process.env.MOCK_DB === 'true';
 
     let uid;
     const userProfile = {
@@ -87,7 +87,7 @@ const loginUser = async (req, res, next) => {
     }
 
     const apiKey = process.env.FIREBASE_API_KEY;
-    const isLocalTest = email.toLowerCase() === 'test.user@tournex.com';
+    const isLocalTest = email.toLowerCase() === 'test.user@tournex.com' || process.env.MOCK_DB === 'true';
     const isGoogleSim = password === 'google_oauth_bypass_pass';
 
     let idToken;

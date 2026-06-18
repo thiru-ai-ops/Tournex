@@ -425,7 +425,10 @@ export default function ExploreView({ onSelectDestination, onAddBooking, setActi
                 className="group relative flex flex-col bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition duration-300"
               >
                 {/* Image panel */}
-                <div className="relative h-48 overflow-hidden bg-slate-100">
+                <div 
+                  onClick={() => onSelectDestination(dest.name)}
+                  className="relative h-48 overflow-hidden bg-slate-100 cursor-pointer"
+                >
                   <img 
                     src={dest.image} 
                     alt={dest.name} 
@@ -454,7 +457,10 @@ export default function ExploreView({ onSelectDestination, onAddBooking, setActi
                     </div>
                   </div>
 
-                  <h3 className="font-display font-bold text-lg text-slate-900 group-hover:text-blue-600 transition truncate">
+                  <h3 
+                    onClick={() => onSelectDestination(dest.name)}
+                    className="font-display font-bold text-lg text-slate-900 group-hover:text-blue-600 transition truncate cursor-pointer"
+                  >
                     {dest.name}
                   </h3>
                   <p className="text-slate-500 text-xs mt-1.5 leading-relaxed flex-1 overflow-hidden line-clamp-2">

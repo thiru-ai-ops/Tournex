@@ -7,9 +7,11 @@ const { db } = require('../config/firebase');
  */
 const createBooking = async (req, res, next) => {
   try {
-    const { tourId, tourName, price, dates, bookingId, image, spotsIncluded, hotelName, hotelImage, nightsCount, roomsCount, isPackage } = req.body;
+    const { tourId, tourName, name, price, dates, bookingId, image, spotsIncluded, hotelName, hotelImage, nightsCount, roomsCount, isPackage } = req.body;
 
-    if (!tourName || price === undefined || !dates || !bookingId) {
+    const actualTourName = tourName || name;
+
+    if (!actualTourName || price === undefined || !dates || !bookingId) {
       return res.status(400).json({ success: false, message: 'Please provide all required booking fields' });
     }
 
@@ -17,7 +19,7 @@ const createBooking = async (req, res, next) => {
       user: req.user.uid,
       userName: req.user.name || 'Explorer',
       tourId: tourId || '',
-      tourName,
+      tourName: actualTourName,
       price: Number(price),
       status: 'UPCOMING',
       dates,

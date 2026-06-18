@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const XLSX = require('xlsx');
 
 function CustomReporter(runner) {
   const stats = { passes: 0, failures: 0, pending: 0, duration: 0 };
@@ -116,6 +117,75 @@ function CustomReporter(runner) {
     fs.writeFileSync(path.join(reportDir, 'report.html'), htmlContent);
     fs.writeFileSync(path.join(reportDir, 'report.json'), JSON.stringify(report, null, 2));
     console.log('Test report generated at:', path.join(reportDir, 'report.html'));
+
+    // --- EXCEL REPORT GENERATION ---
+    try {
+      const summaryData = [
+        { "Metric": "Total Tests", "Value": stats.passes + stats.failures },
+        { "Metric": "Passed Tests", "Value": stats.passes },
+        { "Metric": "Failed Tests", "Value": stats.failures },
+        { "Metric": "Pending Tests", "Value": stats.pending },
+        { "Metric": "Success Rate", "Value": `${((stats.passes / Math.max(1, stats.passes + stats.failures)) * 100).toFixed(2)}%` },
+        { "Metric": "Total Duration", "Value": `${(stats.duration / 1000).toFixed(2)}s` }
+      ];
+
+      const detailedData = tests.map((t, idx) => {
+        let stage = 'Explore Hub & Core Tab Router';
+        const ft = t.fullTitle.toLowerCase();
+        if (ft.includes('stage 1') || ft.includes('landing')) stage = 'Stage 1: Landing View & SEO';
+        else if (ft.includes('stage 2')) stage = 'Stage 2: Login Forms & Credentials';
+        else if (ft.includes('stage 3')) stage = 'Stage 3: Google Auth Simulator';
+        else if (ft.includes('stage 4')) stage = 'Stage 4: Dashboard Authentication';
+        else if (ft.includes('stage 5') || ft.includes('explore')) stage = 'Stage 5: Explore Feed';
+        else if (ft.includes('stage 6') || ft.includes('companion')) stage = 'Stage 6: AI Companion Logs';
+        else if (ft.includes('stage 7') || ft.includes('splitter')) stage = 'Stage 7: Budget Splitter';
+        else if (ft.includes('stage 8') || ft.includes('booking')) stage = 'Stage 8: My Bookings Panel';
+        else if (ft.includes('stage 9') || ft.includes('profile')) stage = 'Stage 9: Profile Details';
+        else if (ft.includes('onboarding')) stage = 'Onboarding Flow';
+        else if (ft.includes('destination detail')) stage = 'Destination Detailed View';
+        else if (ft.includes('monument detail')) stage = 'Monument Detailed View';
+        else if (ft.includes('stays')) stage = 'Stays Catalog & Hotels';
+        else if (ft.includes('mobile simulator')) stage = 'Mobile App Emulator';
+        else if (ft.includes('admin portal')) stage = 'Admin Console & Broadcasts';
+
+        return {
+          "Test #": idx + 1,
+          "Stage / Module": stage,
+          "Test Case Title": t.title,
+          "Execution Status": t.status.toUpperCase(),
+          "Duration (s)": (t.duration / 1000).toFixed(3),
+          "Error Message / Root Failure": t.error || 'N/A'
+        };
+      });
+
+      const wb = XLSX.utils.book_new();
+      
+      const wsSummary = XLSX.utils.json_to_sheet(summaryData);
+      const wsDetailed = XLSX.utils.json_to_sheet(detailedData);
+
+      // Add column width adjustments
+      wsSummary['!cols'] = [
+        { wch: 22 },
+        { wch: 15 }
+      ];
+      wsDetailed['!cols'] = [
+        { wch: 8 },
+        { wch: 30 },
+        { wch: 55 },
+        { wch: 18 },
+        { wch: 15 },
+        { wch: 70 }
+      ];
+
+      XLSX.utils.book_append_sheet(wb, wsSummary, "Summary Statistics");
+      XLSX.utils.book_append_sheet(wb, wsDetailed, "Test Execution Details");
+
+      const excelPath = path.join(reportDir, 'E2E_Test_Report.xlsx');
+      XLSX.writeFile(wb, excelPath);
+      console.log('Excel report generated at:', excelPath);
+    } catch (excelErr) {
+      console.error('Failed to generate Excel report:', excelErr);
+    }
   });
 }
 

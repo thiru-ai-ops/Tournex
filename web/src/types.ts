@@ -2,7 +2,7 @@
  * Shared Type Definitions for TourNex
  */
 
-export type TabType = 'explore' | 'gateway' | 'companion' | 'splitter' | 'bookings' | 'profile';
+export type TabType = 'explore' | 'gateway' | 'companion' | 'splitter' | 'bookings' | 'profile' | 'itinerary' | 'stays' | 'mobile-sim' | 'admin-portal';
 
 export interface TouristSpot {
   name: string;

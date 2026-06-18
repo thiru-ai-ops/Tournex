@@ -17,6 +17,15 @@ import ProfileView from './components/ProfileView';
 import LandingView from './components/LandingView';
 import FloatingAIAssistant from './components/FloatingAIAssistant';
 import GoogleAuthSimulator from './components/GoogleAuthSimulator';
+
+import DestinationDetailView from './components/expanded/DestinationDetailView';
+import MonumentDetailView from './components/expanded/MonumentDetailView';
+import ItineraryPlannerView from './components/expanded/ItineraryPlannerView';
+import StaysCatalogView from './components/expanded/StaysCatalogView';
+import HotelDetailView from './components/expanded/HotelDetailView';
+import MobileSimulator from './components/expanded/MobileSimulator';
+import AdminPortal from './components/expanded/AdminPortal';
+import SignupOnboarding from './components/expanded/SignupOnboarding';
 import { Landmark, Compass, ShieldAlert, Sparkles, MessageSquare, History, Heart, CheckCircle2 } from 'lucide-react';
 import { auth } from './lib/firebase';
 import { signOut } from 'firebase/auth';
@@ -28,6 +37,11 @@ export default function App() {
   const [destinations, setDestinations] = useState<Destination[]>(ALL_DESTINATIONS);
   const [selectedDestination, setSelectedDestination] = useState<string>('Jaipur Palace Loop');
   const [profile, setProfile] = useState<UserProfile>(USER_CURRENT_PROFILE);
+  const [isOnboarding, setIsOnboarding] = useState(false);
+  const [tempProfile, setTempProfile] = useState<UserProfile | null>(null);
+  const [detailedDestination, setDetailedDestination] = useState<Destination | null>(null);
+  const [detailedMonument, setDetailedMonument] = useState<{ name: string; city: string; image: string } | null>(null);
+  const [detailedHotel, setDetailedHotel] = useState<Hotel | null>(null);
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -112,11 +126,32 @@ export default function App() {
         try {
           const token = await currentUser.getIdToken();
           localStorage.setItem('token', token);
-          setIsLoggedIn(true);
           
-          const profileResponse = await api.getProfile();
-          if (profileResponse.success && profileResponse.data?.user) {
+          let profileResponse;
+          try {
+            profileResponse = await api.getProfile();
+          } catch (profileErr) {
+            console.log("Profile not found in database, auto-registering new Google/SSO User...");
+            try {
+              await api.register({
+                name: currentUser.displayName || 'Google Explorer',
+                email: currentUser.email || 'explorer@gmail.com',
+                password: 'google_oauth_bypass_pass',
+                location: 'New Delhi, India',
+                avatar: currentUser.photoURL || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150',
+                role: 'user',
+                bio: `Securely logged in using cloud-connected Google Account (${currentUser.email}).`
+              });
+              profileResponse = await api.getProfile();
+            } catch (regErr) {
+              console.error("Google auto-register failed:", regErr);
+              throw regErr;
+            }
+          }
+
+          if (profileResponse && profileResponse.success && profileResponse.data?.user) {
             setProfile(profileResponse.data.user);
+            setIsLoggedIn(true);
           }
           await refreshUserData();
         } catch (err) {
@@ -304,26 +339,29 @@ export default function App() {
   };
 
   const handleLogin = (customProfile: UserProfile, startFresh: boolean) => {
+    if (startFresh) {
+      setTempProfile(customProfile);
+      setIsOnboarding(true);
+      return;
+    }
     setProfile(customProfile);
     setIsLoggedIn(true);
     setActiveTab('explore');
-    if (startFresh) {
-      // Clear data for new session
-      api.clearExpenses().catch(console.error);
-      api.clearMessages().catch(console.error);
-      setExpenses([]);
-      setBookings([]);
-      setMessages([
-        {
-          id: 'welcome-fresh',
-          sender: 'ai',
-          text: `Namaste, ${customProfile.name}! Welcome to your fresh TourNex AI travel engine. Your journey starts today with completely clean ledgers, zero active bookings, and optimized companion support! Let me know where you'd like to explore first.`,
-          time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        }
-      ]);
-    } else {
-      refreshUserData();
-    }
+    refreshUserData();
+  };
+
+  const handleBookHotelOnly = (hotel: Hotel) => {
+    const randomId = `TNX-STAY-${Math.floor(100000 + Math.random() * 900000)}`;
+    const newBooking: Booking = {
+      id: `booking-${Date.now()}`,
+      name: `Luxury Stay at ${hotel.name}`,
+      status: 'UPCOMING',
+      dates: `Next Week • 3 Nights (1 Room)`,
+      price: hotel.price * 3,
+      bookingId: randomId,
+      image: hotel.image
+    };
+    handleAddBooking(newBooking);
   };
 
   // Check if we are rendering inside the Google Auth Simulator popup frame
@@ -332,6 +370,34 @@ export default function App() {
 
   if (isSimulatorPopup) {
     return <GoogleAuthSimulator />;
+  }
+
+  if (isOnboarding && tempProfile) {
+    return (
+      <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4">
+        <SignupOnboarding 
+          onComplete={(onboardedProfile) => {
+            setProfile(onboardedProfile);
+            setIsLoggedIn(true);
+            setIsOnboarding(false);
+            setTempProfile(null);
+            setActiveTab('explore');
+            api.clearExpenses().catch(console.error);
+            api.clearMessages().catch(console.error);
+            setExpenses([]);
+            setBookings([]);
+            setMessages([
+              {
+                id: 'welcome-fresh',
+                sender: 'ai',
+                text: `Namaste, ${onboardedProfile.name}! Welcome to your fresh TourNex AI travel engine. Your journey starts today with completely clean ledgers, zero active bookings, and optimized companion support! Let me know where you'd like to explore first.`,
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+              }
+            ]);
+          }} 
+        />
+      </div>
+    );
   }
 
   if (!isLoggedIn) {
@@ -363,13 +429,87 @@ export default function App() {
 
         {/* Tab Switch Panels Router */}
         {activeTab === 'explore' && (
-          <ExploreView 
-            destinations={destinations}
-            onAddDestination={handleAddDestination}
-            onSelectDestination={(name) => setSelectedDestination(name)}
-            onAddBooking={handleAddBooking}
-            setActiveTab={setActiveTab} 
-          />
+          detailedMonument ? (
+            <MonumentDetailView 
+              monumentName={detailedMonument.name}
+              cityName={detailedMonument.city}
+              image={detailedMonument.image}
+              onBack={() => setDetailedMonument(null)}
+              onBookTicket={() => {
+                const randomId = `TNX-PASS-${Math.floor(100000 + Math.random() * 900000)}`;
+                const newBooking: Booking = {
+                  id: `booking-${Date.now()}`,
+                  name: `ASI Entrance Fast-Pass for ${detailedMonument.name}`,
+                  status: 'UPCOMING',
+                  dates: `Next Week • 1 Day Pass`,
+                  price: 50,
+                  bookingId: randomId,
+                  image: detailedMonument.image
+                };
+                handleAddBooking(newBooking);
+                setDetailedMonument(null);
+                setDetailedDestination(null);
+              }}
+            />
+          ) : detailedDestination ? (
+            <DestinationDetailView 
+              destination={detailedDestination}
+              onBack={() => setDetailedDestination(null)}
+              onBook={() => {
+                const localHotels = detailedDestination.hotels && detailedDestination.hotels.length > 0 ? detailedDestination.hotels : POPULAR_HOTELS;
+                const selectedHotel = localHotels[0];
+                const randomId = `TNX-PKHST-${Math.floor(100000 + Math.random() * 900000)}`;
+                const newBooking: Booking = {
+                  id: `booking-${Date.now()}`,
+                  name: `Premium Package Tour in ${detailedDestination.name} + Stay at ${selectedHotel.name}`,
+                  status: 'UPCOMING',
+                  dates: `Next Week • 4 Days & 4 Nights (1 Room)`,
+                  price: 14000 + selectedHotel.price * 4,
+                  bookingId: randomId,
+                  image: selectedHotel.image || detailedDestination.image,
+                  spotsIncluded: detailedDestination.touristSpots?.map(s => s.name) || [],
+                  hotelName: selectedHotel.name,
+                  hotelImage: selectedHotel.image,
+                  nightsCount: 4,
+                  roomsCount: 1,
+                  isPackage: true
+                };
+                handleAddBooking(newBooking);
+                setDetailedDestination(null);
+              }}
+              onDiscussAI={() => {
+                setSelectedDestination(detailedDestination.name);
+                setDetailedDestination(null);
+                setActiveTab('companion');
+              }}
+              onSelectMonument={(name, city, image) => {
+                setDetailedMonument({ name, city, image });
+              }}
+            />
+          ) : (
+            <ExploreView 
+              destinations={destinations}
+              onAddDestination={handleAddDestination}
+              onSelectDestination={(name) => {
+                setSelectedDestination(name);
+                const dest = destinations.find(d => d.name === name);
+                if (dest) setDetailedDestination(dest);
+              }}
+              onAddBooking={handleAddBooking}
+              setActiveTab={(tab) => {
+                if (tab === 'gateway') {
+                  const dest = destinations.find(d => d.name === selectedDestination);
+                  if (dest) {
+                    setDetailedDestination(dest);
+                  } else {
+                    setActiveTab('gateway');
+                  }
+                } else {
+                  setActiveTab(tab);
+                }
+              }} 
+            />
+          )
         )}
 
         {activeTab === 'gateway' && (
@@ -379,6 +519,36 @@ export default function App() {
             onSelectDestination={(name) => setSelectedDestination(name)}
             setActiveTab={setActiveTab}
           />
+        )}
+
+        {activeTab === 'itinerary' && (
+          <ItineraryPlannerView />
+        )}
+
+        {activeTab === 'stays' && (
+          detailedHotel ? (
+            <HotelDetailView 
+              hotel={detailedHotel}
+              onBack={() => setDetailedHotel(null)}
+              onBook={() => {
+                handleBookHotelOnly(detailedHotel);
+                setDetailedHotel(null);
+              }}
+            />
+          ) : (
+            <StaysCatalogView 
+              onSelectHotel={(hotel) => setDetailedHotel(hotel)}
+              onBookHotel={(hotel) => handleBookHotelOnly(hotel)}
+            />
+          )
+        )}
+
+        {activeTab === 'mobile-sim' && (
+          <MobileSimulator />
+        )}
+
+        {activeTab === 'admin-portal' && (
+          <AdminPortal />
         )}
 
         {activeTab === 'companion' && (

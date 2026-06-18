@@ -32,3 +32,8 @@ lerna-debug.log*
 # System Files
 .DS_Store
 Thumbs.db
+
+# Test reports
+*.xlsx
+mochawesome-report/
+

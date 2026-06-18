@@ -354,4 +354,284 @@ describe('Tournex E2E Automation - 35 Comprehensive Test Cases', function () {
     const viewport = await driver.wait(until.elementLocated(By.id('landing-view-viewport')), 15000);
     assert.ok(viewport, 'Did not redirect back to landing page after logout.');
   });
+
+  // --- STAGE 10: NEW USER REGISTRATION & MULTI-STEP ONBOARDING WIZARD ---
+
+  it('36. Should navigate to signup form and fill credentials', async function () {
+    const goSignupBtn = await driver.findElement(By.id('go-to-signup'));
+    await goSignupBtn.click();
+    const signupName = await driver.wait(until.elementLocated(By.id('signup-name')), 5000);
+    await setReactInput(driver, signupName, 'Arjun Dev');
+    const signupEmail = await driver.findElement(By.id('signup-email'));
+    await setReactInput(driver, signupEmail, 'arjun.dev@tournex.com');
+    const signupPassword = await driver.findElement(By.id('signup-password'));
+    await setReactInput(driver, signupPassword, 'arjun123');
+    
+    // Ensure "Start Fresh" database option is checked in signup
+    const toggleDb = await driver.findElement(By.id('signup-toggle-reset-db'));
+    const text = await toggleDb.getText();
+    if (!text.includes('Yes')) {
+      await toggleDb.click();
+    }
+  });
+
+  it('37. Should submit signup form to trigger onboarding wizard Step 1', async function () {
+    const signupBtn = await driver.findElement(By.id('signup-button'));
+    await signupBtn.click();
+    const onboardingRoot = await driver.wait(until.elementLocated(By.id('onboarding-wizard-root')), 15000);
+    assert.ok(onboardingRoot, 'Traveler onboarding wizard did not load.');
+  });
+
+  it('38. Should fill Onboarding Step 1 (Traveler Details) and click continue', async function () {
+    const onboardingName = await driver.wait(until.elementLocated(By.id('onboarding-name')), 5000);
+    await setReactInput(driver, onboardingName, 'Arjun Dev');
+    const onboardingLocation = await driver.findElement(By.id('onboarding-location'));
+    await setReactInput(driver, onboardingLocation, 'Jaipur, India');
+    const nextBtn = await driver.findElement(By.id('onboarding-next-btn'));
+    await nextBtn.click();
+  });
+
+  it('39. Should complete Onboarding Step 2 (Expedition Style) and click continue', async function () {
+    const heritagePref = await driver.wait(until.elementLocated(By.id('onboarding-pref-Heritage')), 5000);
+    await heritagePref.click();
+    const nextBtn = await driver.findElement(By.id('onboarding-next-btn'));
+    await nextBtn.click();
+  });
+
+  it('40. Should complete Onboarding Step 3 (Traveler Tier) and finish onboarding', async function () {
+    const eliteTier = await driver.wait(until.elementLocated(By.id('onboarding-tier-Elite-Explorer')), 5000);
+    await eliteTier.click();
+    const finishBtn = await driver.findElement(By.id('onboarding-next-btn'));
+    await finishBtn.click();
+    
+    // Onboarding finishes and lands on explore view viewport
+    const appViewport = await driver.wait(until.elementLocated(By.id('applet-viewport')), 15000);
+    assert.ok(appViewport, 'App viewport did not load after completing onboarding.');
+  });
+
+  // --- STAGE 11: DESTINATION & MONUMENT DETAILED VIEWS ---
+
+  it('41. Should select Jaipur destination card to open detailed view', async function () {
+    const jaipurCard = await driver.wait(until.elementLocated(By.id('destination-card-jaipur')), 5000);
+    const viewSpotsBtn = await jaipurCard.findElement(By.xpath(".//button[contains(., 'View Tourist Spots')]"));
+    await driver.executeScript("arguments[0].click();", viewSpotsBtn);
+    
+    const spotsPortal = await driver.wait(until.elementLocated(By.id('spots-booking-portal')), 5000);
+    assert.ok(spotsPortal, 'Spots & Booking Portal modal did not open.');
+    
+    // Close the overlay modal to proceed to standard destination detail view
+    const closeBtn = await spotsPortal.findElement(By.xpath(".//button"));
+    await driver.executeScript("arguments[0].click();", closeBtn);
+    
+    // Click destination title itself or image to open DestinationDetailView
+    const jaipurTitle = await jaipurCard.findElement(By.xpath(".//h3[contains(text(), 'Jaipur')]"));
+    await driver.executeScript("arguments[0].click();", jaipurTitle);
+    
+    const detailRoot = await driver.wait(until.elementLocated(By.id('destination-detail-root')), 5000);
+    assert.ok(detailRoot, 'Destination detail view page did not load.');
+  });
+
+  it('42. Should navigate sub-tabs in Destination Detail View', async function () {
+    const culinaryTab = await driver.findElement(By.xpath("//button[contains(translate(., 'CULINARY', 'culinary'), 'culinary')]"));
+    await culinaryTab.click();
+    const content = await driver.wait(until.elementLocated(By.xpath("//h4[contains(text(), 'Famous Local Plate')]")), 5000);
+    assert.ok(content, 'Culinary tab content did not render.');
+    
+    const overviewTab = await driver.findElement(By.xpath("//button[contains(translate(., 'OVERVIEW', 'overview'), 'overview')]"));
+    await overviewTab.click();
+  });
+
+  it('43. Should click sight card to open Monument Detail page', async function () {
+    const sightsHeader = await driver.wait(until.elementLocated(By.xpath("//h4[contains(text(), 'Iconic Landmarks')]")), 5000);
+    assert.ok(sightsHeader, 'Landmarks header not visible.');
+    
+    const hawaMahalSight = await driver.wait(until.elementLocated(By.id('sight-card-hawa-mahal')), 5000);
+    await driver.executeScript("arguments[0].click();", hawaMahalSight);
+    
+    const monumentRoot = await driver.wait(until.elementLocated(By.id('monument-detail-root')), 5000);
+    assert.ok(monumentRoot, 'Monument detail page did not load.');
+  });
+
+  it('44. Should book monument entry pass successfully', async function () {
+    const bookBtn = await driver.findElement(By.xpath("//button[contains(text(), 'Book Entry Pass Now')]"));
+    await driver.executeScript("arguments[0].click();", bookBtn);
+    
+    // Direct back to explore page after booking
+    const exploreRoot = await driver.wait(until.elementLocated(By.id('explore-view-root')), 10000);
+    assert.ok(exploreRoot, 'Did not navigate back to explore feed after booking entry pass.');
+  });
+
+  // --- STAGE 12: STAYS CATALOG & HOTEL DETAILS ---
+
+  it('45. Should switch to Stays tab and verify catalog list loads', async function () {
+    const staysTab = await driver.findElement(By.id('nav-item-stays'));
+    await driver.executeScript("arguments[0].click();", staysTab);
+    
+    const catalogRoot = await driver.wait(until.elementLocated(By.id('stays-catalog-root')), 5000);
+    assert.ok(catalogRoot, 'Stays catalog view did not load.');
+  });
+
+  it('46. Should navigate to Hotel Detail View page', async function () {
+    const hotelDetailsBtn = await driver.wait(until.elementLocated(By.xpath("(//button[contains(text(), 'Details')])[1]")), 5000);
+    await driver.executeScript("arguments[0].click();", hotelDetailsBtn);
+    
+    const hotelRoot = await driver.wait(until.elementLocated(By.id('hotel-detail-root')), 5000);
+    assert.ok(hotelRoot, 'Hotel detail view page did not load.');
+  });
+
+  it('47. Should select a room suite and secure stay booking', async function () {
+    const royalSuite = await driver.findElement(By.xpath("//h5[contains(text(), 'Royal Heritage Suite')]/ancestor::div[contains(@class, 'cursor-pointer')]"));
+    await royalSuite.click();
+    
+    const secureBtn = await driver.findElement(By.xpath("//button[contains(text(), 'Secure Stay Booking')]"));
+    await driver.executeScript("arguments[0].click();", secureBtn);
+    
+    // Redirects back to stays catalog on successful booking
+    const catalogRoot = await driver.wait(until.elementLocated(By.id('stays-catalog-root')), 5000);
+    assert.ok(catalogRoot, 'Did not redirect back to stays catalog after secure stay booking.');
+  });
+
+  // --- STAGE 13: MOBILE APP SIMULATOR INTERACTIVE FLOWS ---
+
+  it('48. Should switch to Mobile Simulator and trigger Splash Screen', async function () {
+    const mobileTab = await driver.findElement(By.id('nav-item-mobile-sim'));
+    await driver.executeScript("arguments[0].click();", mobileTab);
+    
+    const simRoot = await driver.wait(until.elementLocated(By.id('mobile-simulator-root')), 5000);
+    assert.ok(simRoot, 'Mobile simulator view did not load.');
+    
+    const splashScreen = await driver.findElement(By.xpath("//p[contains(text(), 'AI TRAVEL ENGINE')]"));
+    assert.ok(splashScreen, 'Splash screen not active inside phone chassis.');
+    
+    const startBtn = await driver.findElement(By.xpath("//button[text()='Get Started']"));
+    await startBtn.click();
+  });
+
+  it('49. Should verify Mobile Simulator Login and authenticate to Home Dashboard', async function () {
+    const emailInput = await driver.wait(until.elementLocated(By.xpath("//input[@placeholder='explorer@tournex.com']")), 5000);
+    await emailInput.sendKeys('arjun.dev@tournex.com');
+    const pwdInput = await driver.findElement(By.xpath("//input[@placeholder='••••••']"));
+    await pwdInput.sendKeys('pass123');
+    
+    const authBtn = await driver.findElement(By.xpath("//button[contains(text(), 'Authenticate')]"));
+    await authBtn.click();
+    
+    const warningAlert = await driver.wait(until.elementLocated(By.xpath("//strong[text()='Weather warning alert']")), 5000);
+    assert.ok(warningAlert, 'Mobile Home Dashboard did not load.');
+  });
+
+  it('50. Should interact with mobile simulated screens: AR Scanner, Passes, Receipt Splitter, Offline Map, and Badges', async function () {
+    // 1. AR Scanner Screen
+    const arLink = await driver.findElement(By.xpath("//span[text()='19. AR Scanner']/ancestor::button"));
+    await arLink.click();
+    const arViewport = await driver.wait(until.elementLocated(By.xpath("//span[text()='SCANNING TARGET']")), 5000);
+    assert.ok(arViewport, 'AR Scanner screen not loaded.');
+    const arHomeBtn = await driver.findElement(By.xpath("//button[text()='← Home']"));
+    await arHomeBtn.click();
+
+    // 2. Active Passes
+    const passesLink = await driver.wait(until.elementLocated(By.xpath("//span[text()='21. Booking Passes']/ancestor::button")), 5000);
+    await passesLink.click();
+    const voucherText = await driver.wait(until.elementLocated(By.xpath("//strong[text()='Hawa Mahal Entry Pass']")), 5000);
+    assert.ok(voucherText, 'Passes screen not loaded.');
+    const passesHomeBtn = await driver.findElement(By.xpath("//button[text()='← Home']"));
+    await passesHomeBtn.click();
+
+    // 3. Receipt OCR Scan
+    const receiptLink = await driver.wait(until.elementLocated(By.xpath("//span[text()='22. Receipt Scan']/ancestor::button")), 5000);
+    await receiptLink.click();
+    const scanBtn = await driver.wait(until.elementLocated(By.xpath("//button[contains(text(), 'Start Bill OCR Scan')]")), 5000);
+    await scanBtn.click();
+    const scanSuccessText = await driver.wait(until.elementLocated(By.xpath("//p[contains(text(), 'Split details auto-populated')]")), 5000);
+    assert.ok(scanSuccessText, 'OCR Scan did not complete successfully.');
+    const receiptHomeBtn = await driver.findElement(By.xpath("//button[text()='← Home']"));
+    await receiptHomeBtn.click();
+
+    // 4. Offline Map
+    const mapLink = await driver.wait(until.elementLocated(By.xpath("//span[text()='23. Offline Map']/ancestor::button")), 5000);
+    await mapLink.click();
+    const mapText = await driver.wait(until.elementLocated(By.xpath("//strong[contains(text(), 'download')]")), 5000);
+    assert.ok(mapText, 'Offline Map screen not loaded.');
+    const mapHomeBtn = await driver.findElement(By.xpath("//button[text()='← Home']"));
+    await mapHomeBtn.click();
+
+    // 5. Achievements & Gamification
+    const badgesLink = await driver.wait(until.elementLocated(By.xpath("//span[text()='24. Achievements']/ancestor::button")), 5000);
+    await badgesLink.click();
+    const badgeText = await driver.wait(until.elementLocated(By.xpath("//span[text()='Rajput Explorer']")), 5000);
+    assert.ok(badgeText, 'Achievements screen not loaded.');
+    const badgesHomeBtn = await driver.findElement(By.xpath("//button[text()='← Home']"));
+    await badgesHomeBtn.click();
+  });
+
+  // --- STAGE 14: ADMIN PORTAL SECURITY & CONSOLE OPERATIONS ---
+
+  it('51. Should switch to Admin Portal, fill credentials, and authenticate admin session', async function () {
+    const adminTab = await driver.findElement(By.id('nav-item-admin-portal'));
+    await driver.executeScript("arguments[0].click();", adminTab);
+    
+    const loginRoot = await driver.wait(until.elementLocated(By.id('admin-login-root')), 5000);
+    assert.ok(loginRoot, 'Admin Portal Login view did not load.');
+    
+    const emailInput = await driver.findElement(By.xpath("//div[@id='admin-login-root']//input[@type='email']"));
+    await setReactInput(driver, emailInput, 'admin@tournex.com');
+    const passwordInput = await driver.findElement(By.xpath("//div[@id='admin-login-root']//input[@type='password']"));
+    await setReactInput(driver, passwordInput, 'adminpassword');
+    
+    const submitBtn = await driver.findElement(By.xpath("//button[text()='Authenticate Administrator']"));
+    await submitBtn.click();
+    
+    const adminDashboard = await driver.wait(until.elementLocated(By.id('admin-dashboard-root')), 5000);
+    assert.ok(adminDashboard, 'Admin Console Dashboard did not authenticate successfully.');
+  });
+
+  it('52. Should perform CRUD operation under Monument Management portal', async function () {
+    const monNavBtn = await driver.findElement(By.xpath("//span[text()='27. Monuments Management']/ancestor::button"));
+    await monNavBtn.click();
+    
+    const monForm = await driver.wait(until.elementLocated(By.xpath("//form[.//input[@placeholder='e.g. City Palace']]")), 5000);
+    assert.ok(monForm, 'Monument CRUD form not loaded.');
+    
+    const monName = await driver.findElement(By.xpath("//input[@placeholder='e.g. City Palace']"));
+    await setReactInput(driver, monName, 'Jaigarh Fort');
+    const monCity = await driver.findElement(By.xpath("//input[@placeholder='e.g. Jaipur']"));
+    await setReactInput(driver, monCity, 'Jaipur');
+    const monFee = await driver.findElement(By.xpath("//input[@type='number']"));
+    await setReactInput(driver, monFee, '120');
+    
+    const addBtn = await driver.findElement(By.xpath("//button[.//span[text()='Add Monument']]"));
+    await addBtn.click();
+    
+    const addedItem = await driver.wait(until.elementLocated(By.xpath("//td[contains(text(), 'Jaigarh Fort')]")), 5000);
+    assert.ok(addedItem, 'New monument was not added successfully to the admin list.');
+  });
+
+  it('53. Should approve local guide under Guide Verification portal', async function () {
+    const guideNavBtn = await driver.findElement(By.xpath("//span[text()='28. Guide Verification']/ancestor::button"));
+    await guideNavBtn.click();
+    
+    const approveBtn = await driver.wait(until.elementLocated(By.xpath("//button[contains(text(), 'Approve Guide')]")), 5000);
+    await approveBtn.click();
+    
+    const approvedBadge = await driver.wait(until.elementLocated(By.xpath("//span[text()='Approved' and contains(@class, 'text-emerald-600')]")), 5000);
+    assert.ok(approvedBadge, 'Guide status did not transition to Approved.');
+  });
+
+  it('54. Should send broadcast message safety alert to mobile clients', async function () {
+    const alertNavBtn = await driver.findElement(By.xpath("//span[text()='30. Broadcast Alerts']/ancestor::button"));
+    await alertNavBtn.click();
+    
+    const alertTextArea = await driver.wait(until.elementLocated(By.xpath("//textarea[contains(@placeholder, 'e.g. Heavy crowd')]")), 5000);
+    await setReactInput(driver, alertTextArea, 'Test safety alert: Crowd congestion at Hawa Mahal');
+    
+    const sendBtn = await driver.findElement(By.xpath("//button[.//span[text()='Broadcast Alert Notification']]"));
+    await sendBtn.click();
+    
+    // Wait for native browser window.alert and accept it
+    await driver.wait(until.alertIsPresent(), 5000);
+    const alert = await driver.switchTo().alert();
+    const alertText = await alert.getText();
+    assert.ok(alertText.includes('Broadcast notification'), 'Alert text mismatch.');
+    await alert.accept();
+  });
 });
