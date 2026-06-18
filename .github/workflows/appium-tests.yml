@@ -3,8 +3,16 @@ name: Mobile Appium Automation Testing
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'mobile/**'
+      - 'backend/**'
+      - '.github/workflows/appium-tests.yml'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'mobile/**'
+      - 'backend/**'
+      - '.github/workflows/appium-tests.yml'
 
 jobs:
   appium-test:

@@ -3,8 +3,16 @@ name: Selenium E2E Automation Testing
 on:
   push:
     branches: [ main ]
+    paths:
+      - 'web/**'
+      - 'backend/**'
+      - '.github/workflows/selenium-login.yml'
   pull_request:
     branches: [ main ]
+    paths:
+      - 'web/**'
+      - 'backend/**'
+      - '.github/workflows/selenium-login.yml'
 
 jobs:
   e2e-test:
