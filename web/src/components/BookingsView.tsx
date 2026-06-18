@@ -14,7 +14,12 @@ export default function BookingsView({ bookings, onAddBooking }: BookingsViewPro
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [activeGatewayBooking, setActiveGatewayBooking] = useState<Booking | null>(null);
 
-  const filteredBookings = bookings.filter((b) => {
+  const normalizedBookings = bookings.map(b => ({
+    ...b,
+    name: b.name || (b as any).tourName || 'Standard Booking'
+  }));
+
+  const filteredBookings = normalizedBookings.filter((b) => {
     if (activeTab === 'ALL') return true;
     return b.status === activeTab;
   });
