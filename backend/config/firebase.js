@@ -13,6 +13,7 @@ if (process.env.MOCK_DB === 'true' || process.env.CI === 'true') {
     id: path.split('/').pop(),
     data: () => data,
     ref: {
+      path,
       delete: async () => {
         delete store[path];
         return { writeTime: new Date() };
@@ -48,6 +49,28 @@ if (process.env.MOCK_DB === 'true' || process.env.CI === 'true') {
           collection: (subColId) => createCollection(`${docPath}/${subColId}`)
         };
       },
+      add: async (data) => {
+        const docId = 'mock-doc-id-' + Math.random().toString(36).substr(2, 9);
+        const docPath = `${colPath}/${docId}`;
+        store[docPath] = { ...data };
+        return {
+          id: docId,
+          path: docPath,
+          get: async () => makeDoc(docPath, store[docPath]),
+          set: async (newData) => {
+            store[docPath] = { ...newData };
+            return { writeTime: new Date() };
+          },
+          update: async (newData) => {
+            store[docPath] = { ...store[docPath], ...newData };
+            return { writeTime: new Date() };
+          },
+          delete: async () => {
+            delete store[docPath];
+            return { writeTime: new Date() };
+          }
+        };
+      },
       get: async () => {
         const docs = [];
         for (const [key, val] of Object.entries(store)) {
@@ -71,12 +94,50 @@ if (process.env.MOCK_DB === 'true' || process.env.CI === 'true') {
             return makeQuerySnap(docs);
           }
         };
+      },
+      orderBy: (field, direction = 'asc') => {
+        return {
+          get: async () => {
+            const snap = await createCollection(colPath).get();
+            const docs = [...snap.docs];
+            docs.sort((a, b) => {
+              const valA = a.data()[field];
+              const valB = b.data()[field];
+              if (valA === undefined) return 1;
+              if (valB === undefined) return -1;
+              if (direction === 'desc') {
+                return valA < valB ? 1 : (valA > valB ? -1 : 0);
+              } else {
+                return valA > valB ? 1 : (valA < valB ? -1 : 0);
+              }
+            });
+            return makeQuerySnap(docs);
+          }
+        };
       }
     };
   };
 
   const db = {
-    collection: (colId) => createCollection(colId)
+    collection: (colId) => createCollection(colId),
+    batch: () => {
+      const operations = [];
+      return {
+        delete: (docRef) => {
+          operations.push(() => {
+            if (docRef && docRef.path) {
+              delete store[docRef.path];
+            }
+          });
+        },
+        commit: async () => {
+          for (const op of operations) {
+            op();
+          }
+          return [];
+        }
+      };
+    }
   };
 
   const auth = {

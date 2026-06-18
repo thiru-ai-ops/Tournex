@@ -78,6 +78,7 @@ export default function ProfileView({ profile, setActiveTab, onSelectDestination
               <div>
                 <label className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest block mb-1">Full Name</label>
                 <input 
+                  id="profile-name-input"
                   type="text"
                   value={editName}
                   onChange={(e) => setEditName(e.target.value)}
@@ -88,6 +89,7 @@ export default function ProfileView({ profile, setActiveTab, onSelectDestination
               <div>
                 <label className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest block mb-1">Location</label>
                 <input 
+                  id="profile-location-input"
                   type="text"
                   value={editLocation}
                   onChange={(e) => setEditLocation(e.target.value)}
@@ -98,6 +100,7 @@ export default function ProfileView({ profile, setActiveTab, onSelectDestination
               <div>
                 <label className="text-[9px] font-mono font-bold text-slate-400 uppercase tracking-widest block mb-1">Biography & Travel Style</label>
                 <textarea 
+                  id="profile-bio-input"
                   value={profileBio} 
                   onChange={(e) => setProfileBio(e.target.value)}
                   className="w-full text-xs font-semibold bg-slate-50 border border-slate-200 rounded-xl p-2.5 focus:outline-none focus:ring-1 focus:ring-blue-500 h-20 text-slate-700"
@@ -106,6 +109,7 @@ export default function ProfileView({ profile, setActiveTab, onSelectDestination
 
               <div className="flex space-x-2 pt-1">
                 <button 
+                  id="profile-save-btn"
                   onClick={() => {
                     setIsEditing(false);
                     if (onUpdateProfile) {
@@ -158,6 +162,7 @@ export default function ProfileView({ profile, setActiveTab, onSelectDestination
                   "{profileBio}"
                 </p>
                 <button 
+                  id="profile-edit-btn"
                   onClick={() => setIsEditing(true)}
                   className="text-blue-600 hover:underline text-[10px] font-bold mt-2 block"
                 >
@@ -187,6 +192,7 @@ export default function ProfileView({ profile, setActiveTab, onSelectDestination
           {/* Disconnect Log-out button */}
           <div className="pt-3 mt-3 border-t border-slate-100">
             <button 
+              id="profile-logout-btn"
               onClick={() => {
                 if (onLogout) onLogout();
               }}

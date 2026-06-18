@@ -764,6 +764,7 @@ export default function ChatCompanionView({ selectedDestination, onSelectDestina
         <div className="p-4 bg-white border-t border-slate-150 shrink-0">
           <form onSubmit={handleSendText} className="flex gap-2.5 items-center">
             <input 
+              id="chat-input"
               type="text" 
               placeholder={`Ask anything about ${selectedDestination}...`}
               value={inputText}
@@ -772,6 +773,7 @@ export default function ChatCompanionView({ selectedDestination, onSelectDestina
             />
             
             <button 
+              id="chat-send-btn"
               type="submit"
               disabled={!inputText.trim()}
               className="bg-blue-600 hover:bg-blue-700 disabled:bg-slate-150 disabled:text-slate-400 text-white rounded-xl p-3 font-semibold transition shadow-md active:scale-95 shrink-0 flex items-center justify-center h-10 w-10 cursor-pointer"

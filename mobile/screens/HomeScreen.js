@@ -102,11 +102,11 @@ export default function HomeScreen({ navigation }) {
             style={styles.avatar} 
           />
           <View>
-            <Text style={styles.welcome}>Namaste, {profile?.name}</Text>
+            <Text testID="welcomeText" style={styles.welcome}>Namaste, {profile?.name}</Text>
             <Text style={styles.role}>{profile?.tier || 'Explorer'}</Text>
           </View>
         </View>
-        <TouchableOpacity style={styles.logoutButton} onPress={handleLogout}>
+        <TouchableOpacity testID="logoutButton" style={styles.logoutButton} onPress={handleLogout}>
           <Text style={styles.logoutText}>Logout</Text>
         </TouchableOpacity>
       </View>

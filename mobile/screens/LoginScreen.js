@@ -125,6 +125,7 @@ export default function LoginScreen({ navigation }) {
               <Text style={styles.inputLabel}>EMAIL ADDRESS</Text>
               <TextInput 
                 style={styles.input}
+                testID="emailInput"
                 placeholder="explorer@tournex.com"
                 placeholderTextColor="#94a3b8"
                 keyboardType="email-address"
@@ -138,6 +139,7 @@ export default function LoginScreen({ navigation }) {
               <Text style={styles.inputLabel}>PASSWORD</Text>
               <TextInput 
                 style={styles.input}
+                testID="passwordInput"
                 placeholder="Enter passcode"
                 placeholderTextColor="#94a3b8"
                 secureTextEntry
@@ -149,6 +151,7 @@ export default function LoginScreen({ navigation }) {
 
             <TouchableOpacity 
               style={styles.button}
+              testID="loginButton"
               onPress={handleLogin}
               disabled={loading}
             >

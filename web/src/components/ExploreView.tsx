@@ -340,6 +340,7 @@ export default function ExploreView({ onSelectDestination, onAddBooking, setActi
             <div className="relative flex-1 w-full flex items-center pl-3">
               <Search className="h-5 w-5 text-slate-400 mr-2 shrink-0" />
               <input 
+                id="destination-search-input"
                 type="text" 
                 placeholder="Where would you like to explore? (e.g. Kerala, Jaipur...)"
                 value={searchQuery}
@@ -348,6 +349,7 @@ export default function ExploreView({ onSelectDestination, onAddBooking, setActi
               />
             </div>
             <button 
+              id="destination-search-btn"
               type="submit"
               className="w-full sm:w-auto bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-semibold text-sm transition-all shadow-md active:scale-95 text-center flex items-center justify-center space-x-2 shrink-0 cursor-pointer"
             >
@@ -419,6 +421,7 @@ export default function ExploreView({ onSelectDestination, onAddBooking, setActi
             {filteredDestinations.slice(0, 6).map((dest) => (
               <div 
                 key={dest.id}
+                id={`destination-card-${dest.id}`}
                 className="group relative flex flex-col bg-white border border-slate-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition duration-300"
               >
                 {/* Image panel */}
@@ -469,6 +472,7 @@ export default function ExploreView({ onSelectDestination, onAddBooking, setActi
 
                     <div className="flex items-center justify-between gap-2.5">
                       <button 
+                        id={`discuss-ai-btn-${dest.id}`}
                         onClick={() => {
                           onSelectDestination(dest.name);
                           setActiveTab('companion');

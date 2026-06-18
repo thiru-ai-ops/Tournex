@@ -1,0 +1,341 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Tournex Test E2E Report</title>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 32px; background: #f8fafc; color: #0f172a; max-width: 900px; margin: 0 auto; }
+    .header { margin-bottom: 24px; padding-bottom: 16px; border-bottom: 2px solid #e2e8f0; }
+    h1 { margin: 0 0 8px; color: #1e3a8a; font-size: 28px; font-weight: 800; }
+    .stats { display: flex; gap: 16px; margin-bottom: 24px; }
+    .stat-card { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; flex: 1; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .stat-label { font-size: 12px; color: #64748b; font-weight: bold; text-transform: uppercase; letter-spacing: 0.05em; }
+    .stat-val { font-size: 28px; font-weight: 800; margin-top: 4px; }
+    .passed { color: #10b981; }
+    .failed { color: #ef4444; }
+    .duration { color: #64748b; }
+    .test-list { background: white; border: 1px solid #e2e8f0; border-radius: 12px; padding: 8px 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+    .test-item { padding: 14px 0; border-bottom: 1px solid #f1f5f9; display: flex; align-items: flex-start; justify-content: space-between; }
+    .test-item:last-child { border-bottom: none; }
+    .test-title { font-weight: 600; font-size: 14px; color: #334155; }
+    .test-badge { padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: bold; text-transform: uppercase; margin-left: 12px; flex-shrink: 0; }
+    .badge-passed { background: #d1fae5; color: #065f46; }
+    .badge-failed { background: #fee2e2; color: #991b1b; }
+    .error-msg { margin-top: 8px; color: #991b1b; font-size: 12px; font-family: monospace; background: #fef2f2; padding: 10px; border-radius: 6px; border: 1px solid #fca5a5; white-space: pre-wrap; word-break: break-all; }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <h1>Tournex Selenium Automation E2E Test Report</h1>
+    <div class="stats">
+      <div class="stat-card">
+        <div class="stat-label">Total Tests</div>
+        <div class="stat-val">35</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label passed">Passed</div>
+        <div class="stat-val passed">29</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label failed">Failed</div>
+        <div class="stat-val failed">6</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label duration">Duration</div>
+        <div class="stat-val duration">23.68s</div>
+      </div>
+    </div>
+  </div>
+  <div class="test-list">
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">1. 1. Should load the landing page successfully</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">2. 2. Should have the correct page title</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">3. 3. Should contain structural header in landing page</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">4. 4. Should display the AI Companion Assistant feature card</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">5. 5. Should load popular states showcase under landing view</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">6. 6. Should navigate to login form view</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">7. 7. Should verify login email input is visible</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">8. 8. Should verify login password input is visible</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">9. 9. Should show warning on empty credentials submission</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">10. 10. Should show warning on password less than 5 characters</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">11. 11. Should toggle password visibility to show password text</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">12. 12. Should toggle database reset option in login view</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">13. 13. Should navigate back to landing view from login</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">14. 14. Should navigate to signup form view</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">15. 15. Should verify signup name, email, and password fields are visible</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">16. 16. Should show warning on empty signup form submission</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">17. 17. Should allow selecting avatar presets in signup form</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">18. 18. Should toggle database reset option in signup view</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">19. 19. Should navigate back to login view from signup</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">20. 20. Should trigger Google authentication simulator popup</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">21. 21. Should close Google authentication simulator popup</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">22. 22. Should authenticate successfully with test credentials</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">23. 23. Should display user info in Navbar after logging in</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">24. 24. Should display destination list under explore view</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">25. 25. Should filter destination list by search input</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">26. 26. Should click Explore tab in Navbar to ensure active view</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">27. 27. Should switch to Gateway tab and render Gateway view</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">28. 28. Should switch to AI Planner Companion tab and render Companion view</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">29. 29. Should send message to AI Planner and receive auto-reply</div>
+          
+        </div>
+        <span class="test-badge badge-passed">passed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">30. 30. Should switch to Budget Splitter tab and render Splitter view</div>
+          <div class="error-msg">Waiting for element to be located By(css selector, *[id="splitter-view-root"])
+Wait timed out after 5031ms</div>
+        </div>
+        <span class="test-badge badge-failed">failed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">31. 31. Should toggle add expense form slide-down panel</div>
+          <div class="error-msg">no such element: Unable to locate element: {"method":"css selector","selector":"*[id="add-expense-toggle-btn"]"}
+  (Session info: chrome=149.0.7827.103)</div>
+        </div>
+        <span class="test-badge badge-failed">failed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">32. 32. Should add new group expense successfully</div>
+          <div class="error-msg">no such element: Unable to locate element: {"method":"css selector","selector":"*[id="expense-desc-input"]"}
+  (Session info: chrome=149.0.7827.103)</div>
+        </div>
+        <span class="test-badge badge-failed">failed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">33. 33. Should delete the newly added expense successfully</div>
+          <div class="error-msg">no such element: Unable to locate element: {"method":"xpath","selector":"//*[contains(text(), 'Autocab tour')]/ancestor::*[contains(@id, 'expense-feed-item-')]"}
+  (Session info: chrome=149.0.7827.103)</div>
+        </div>
+        <span class="test-badge badge-failed">failed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">34. 34. Should switch to My Bookings tab and check bookings list</div>
+          <div class="error-msg">Waiting for element to be located By(css selector, *[id="bookings-view-root"])
+Wait timed out after 5001ms</div>
+        </div>
+        <span class="test-badge badge-failed">failed</span>
+      </div>
+    
+      <div class="test-item">
+        <div style="flex: 1;">
+          <div class="test-title">35. 35. Should switch to Profile tab, edit bio, and log out successfully</div>
+          <div class="error-msg">Waiting for element to be located By(css selector, *[id="profile-view-root"])
+Wait timed out after 5063ms</div>
+        </div>
+        <span class="test-badge badge-failed">failed</span>
+      </div>
+    
+  </div>
+</body>
+</html>
+    

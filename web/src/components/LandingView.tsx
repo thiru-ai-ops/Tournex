@@ -173,6 +173,7 @@ export default function LandingView({ onLogin }: LandingViewProps) {
       <header className="w-full border-b border-slate-200/80 bg-white shadow-xs sticky top-0 z-40">
         <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div 
+            id="landing-logo"
             className="flex items-center space-x-2.5 cursor-pointer"
             onClick={() => setAuthMode('landing')}
           >
@@ -202,6 +203,7 @@ export default function LandingView({ onLogin }: LandingViewProps) {
               Log In
             </button>
             <button 
+              id="go-to-signup"
               onClick={() => {
                 setSignupError('');
                 setAuthMode('signup');
@@ -239,6 +241,7 @@ export default function LandingView({ onLogin }: LandingViewProps) {
 
             <div className="mt-10 flex flex-col sm:flex-row justify-center items-center gap-4 max-w-md mx-auto">
               <button
+                id="landing-go-to-signup"
                 onClick={() => {
                   setSignupError('');
                   setAuthMode('signup');
@@ -249,6 +252,7 @@ export default function LandingView({ onLogin }: LandingViewProps) {
                 <ArrowRight className="h-4 w-4" />
               </button>
               <button
+                id="landing-go-to-login"
                 onClick={() => {
                   setLoginError('');
                   setAuthMode('login');
@@ -312,7 +316,7 @@ export default function LandingView({ onLogin }: LandingViewProps) {
             </div>
 
             {/* Login Form Inputs */}
-            <form onSubmit={handleLoginSubmit} className="p-8 space-y-6">
+            <form onSubmit={handleLoginSubmit} noValidate className="p-8 space-y-6">
               
               {/* Database status banner reminder */}
               <div className="bg-slate-50 border border-slate-200/80 rounded-2xl p-4 flex gap-3 text-xs text-slate-600">
@@ -352,6 +356,7 @@ export default function LandingView({ onLogin }: LandingViewProps) {
                     Security Password
                   </label>
                   <button
+                    id="toggle-password-visibility"
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
                     className="text-[10px] font-mono text-blue-600 hover:underline flex items-center gap-1 cursor-pointer"
@@ -381,6 +386,7 @@ export default function LandingView({ onLogin }: LandingViewProps) {
               <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
                 <span className="text-[11px] text-slate-500 font-medium">Reset sandbox databases to zero:</span>
                 <button
+                  id="login-toggle-reset-db"
                   type="button"
                   onClick={() => setStartFresh(!startFresh)}
                   className={`px-3 py-1.5 rounded-lg text-[10px] font-mono font-bold border transition ${
@@ -459,6 +465,7 @@ export default function LandingView({ onLogin }: LandingViewProps) {
                         setIsAuthLoading(false);
                       });
                   }}
+                  id="google-login-button"
                   className={`w-full bg-white hover:bg-slate-50 text-slate-700 font-extrabold py-3 px-4 rounded-xl text-xs transition border border-slate-200 shadow-sm active:scale-95 cursor-pointer flex items-center justify-center gap-2 ${isAuthLoading ? 'opacity-70 cursor-not-allowed' : ''}`}
                 >
                   <span className="w-4 h-4 flex items-center justify-center font-sans font-black text-[10px] text-blue-600 bg-blue-50 rounded-full border border-blue-200/60 grow-0 shrink-0">
@@ -469,6 +476,7 @@ export default function LandingView({ onLogin }: LandingViewProps) {
                 
                 <div className="text-center">
                   <button
+                    id="google-simulator-launcher"
                     type="button"
                     onClick={() => {
                       setLoginError('');
@@ -518,7 +526,7 @@ export default function LandingView({ onLogin }: LandingViewProps) {
             </div>
 
             {/* Signup Forms with Preferences */}
-            <form onSubmit={handleSignupSubmit} className="p-6 space-y-5 max-h-[75vh] overflow-y-auto">
+            <form onSubmit={handleSignupSubmit} noValidate className="p-6 space-y-5 max-h-[75vh] overflow-y-auto">
               
               {/* Database status banner reminder */}
               <div className="bg-blue-50 border border-blue-100/80 rounded-2xl p-4 flex gap-3 text-xs text-blue-800">
@@ -544,6 +552,7 @@ export default function LandingView({ onLogin }: LandingViewProps) {
                     <div className="relative">
                       <User className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
                       <input 
+                        id="signup-name"
                         type="text" 
                         required
                         placeholder="e.g. Satyajit Ray"
@@ -565,6 +574,7 @@ export default function LandingView({ onLogin }: LandingViewProps) {
                     <div className="relative">
                       <Mail className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
                       <input 
+                        id="signup-email"
                         type="email" 
                         required
                         placeholder="satyajit@example.com"
@@ -587,6 +597,7 @@ export default function LandingView({ onLogin }: LandingViewProps) {
                   <div className="relative">
                     <Lock className="absolute left-3.5 top-3 h-4 w-4 text-slate-400" />
                     <input 
+                      id="signup-password"
                       type="password" 
                       required
                       placeholder="Minimum 5 standard characters"
@@ -612,6 +623,7 @@ export default function LandingView({ onLogin }: LandingViewProps) {
                     {AVATAR_PRESETS.map((preset) => (
                       <button
                         key={preset.id}
+                        id={preset.id}
                         type="button"
                         onClick={() => setSelectedAvatar(preset.url)}
                         className={`relative rounded-xl p-1.5 border-2 text-center transition flex flex-col items-center justify-center cursor-pointer ${
@@ -642,6 +654,7 @@ export default function LandingView({ onLogin }: LandingViewProps) {
               <div className="pt-2 border-t border-slate-100 flex items-center justify-between">
                 <span className="text-[11px] text-slate-500 font-medium">Initialize with clean, empty databases:</span>
                 <button
+                  id="signup-toggle-reset-db"
                   type="button"
                   onClick={() => setStartFresh(!startFresh)}
                   className={`px-3 py-1.5 rounded-lg text-[10px] font-mono font-bold border transition ${
@@ -664,6 +677,7 @@ export default function LandingView({ onLogin }: LandingViewProps) {
               {/* Submit & Sign Up */}
               <div className="pt-2">
                 <button
+                  id="signup-button"
                   type="submit"
                   className="w-full bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white font-extrabold py-3.5 px-4 rounded-xl text-xs transition shadow-md active:scale-95 cursor-pointer flex items-center justify-center gap-1.5"
                 >
@@ -678,6 +692,7 @@ export default function LandingView({ onLogin }: LandingViewProps) {
                 <p className="text-xs text-slate-500">
                   Already have account credentials created of your own?{' '}
                   <button
+                    id="go-back-to-login"
                     type="button"
                     onClick={() => {
                       setLoginError('');
@@ -722,6 +737,7 @@ export default function LandingView({ onLogin }: LandingViewProps) {
                   </div>
                 </div>
                 <button 
+                  id="google-simulator-close"
                   onClick={() => setShowGoogleSimulator(false)}
                   className="rounded-full p-1.5 bg-slate-100 hover:bg-slate-200 hover:text-slate-800 text-slate-400 font-bold transition duration-150 cursor-pointer"
                 >

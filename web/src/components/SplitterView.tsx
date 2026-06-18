@@ -152,7 +152,7 @@ export default function SplitterView({ expenses, onAddExpense, onDeleteExpense, 
       
       {/* Dynamic Alert Banner */}
       {settledAlert && (
-        <div className="bg-emerald-50 border border-emerald-200 text-emerald-800 p-4 rounded-xl flex items-center space-x-2 shadow-sm animate-bounce-once">
+        <div id="settled-alert-banner" className="bg-emerald-50 border border-emerald-200 text-emerald-800 p-4 rounded-xl flex items-center space-x-2 shadow-sm animate-bounce-once">
           <CheckCircle2 className="h-5 w-5 text-emerald-600" />
           <span className="font-semibold text-xs leading-none">Balances completely settled up! Itinerary reset to empty sheet.</span>
         </div>
@@ -270,6 +270,7 @@ export default function SplitterView({ expenses, onAddExpense, onDeleteExpense, 
             
             <div className="flex gap-2">
               <button 
+                id="expense-settle-up-btn"
                 onClick={triggerSettleUp}
                 className="bg-slate-100 hover:bg-slate-250 text-slate-700 text-xs font-bold px-3 py-2 rounded-lg transition active:scale-95 flex items-center space-x-1"
                 title="Settle up entire trip expenses"
@@ -279,6 +280,7 @@ export default function SplitterView({ expenses, onAddExpense, onDeleteExpense, 
               </button>
               
               <button
+                id="add-expense-toggle-btn"
                 onClick={() => setShowAddForm(!showAddForm)}
                 className="bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2 rounded-lg transition active:scale-95 flex items-center space-x-1.5"
               >
@@ -297,6 +299,7 @@ export default function SplitterView({ expenses, onAddExpense, onDeleteExpense, 
                 <div className="flex flex-col">
                   <label className="text-[10px] text-slate-500 font-bold mb-1 uppercase">What was this spend for?</label>
                   <input 
+                    id="expense-desc-input"
                     type="text" 
                     placeholder="e.g. Udaipur Fort Tickets, TukTuk Ride..."
                     value={desc}
@@ -311,6 +314,7 @@ export default function SplitterView({ expenses, onAddExpense, onDeleteExpense, 
                   <div className="relative">
                     <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400">₹</span>
                     <input 
+                      id="expense-amount-input"
                       type="number" 
                       step="0.01"
                       placeholder="0.00"
@@ -393,6 +397,7 @@ export default function SplitterView({ expenses, onAddExpense, onDeleteExpense, 
                   Cancel
                 </button>
                 <button
+                  id="expense-submit-btn"
                   type="submit"
                   className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-xl text-xs font-bold transition active:scale-95 shadow-md"
                 >
@@ -441,6 +446,7 @@ export default function SplitterView({ expenses, onAddExpense, onDeleteExpense, 
                       <div className="flex items-center space-x-2 shrink-0">
                         <span className="text-[9px] font-mono text-slate-400">{exp.date}</span>
                         <button 
+                          id={`delete-btn-${exp.id}`}
                           onClick={() => onDeleteExpense(exp.id)}
                           className="opacity-0 group-hover:opacity-100 text-red-500 hover:text-red-700 p-1 rounded-lg transition"
                           title="Delete Transaction"

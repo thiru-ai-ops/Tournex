@@ -1,0 +1,14 @@
+{
+  "name": "tournex-appium-tests",
+  "version": "1.0.0",
+  "description": "Appium E2E automation tests for Tournex mobile app",
+  "main": "tests/login.test.js",
+  "scripts": {
+    "test": "mocha tests/**/*.test.js --timeout 180000",
+    "login": "mocha tests/login.test.js --timeout 180000"
+  },
+  "devDependencies": {
+    "mocha": "^10.4.0",
+    "webdriverio": "^8.36.0"
+  }
+}

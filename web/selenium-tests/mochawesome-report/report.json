@@ -1,0 +1,226 @@
+{
+  "stats": {
+    "passes": 29,
+    "failures": 6,
+    "pending": 0,
+    "duration": 23675
+  },
+  "tests": [
+    {
+      "title": "1. Should load the landing page successfully",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 1. Should load the landing page successfully",
+      "status": "passed",
+      "duration": 836
+    },
+    {
+      "title": "2. Should have the correct page title",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 2. Should have the correct page title",
+      "status": "passed",
+      "duration": 9
+    },
+    {
+      "title": "3. Should contain structural header in landing page",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 3. Should contain structural header in landing page",
+      "status": "passed",
+      "duration": 20
+    },
+    {
+      "title": "4. Should display the AI Companion Assistant feature card",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 4. Should display the AI Companion Assistant feature card",
+      "status": "passed",
+      "duration": 29
+    },
+    {
+      "title": "5. Should load popular states showcase under landing view",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 5. Should load popular states showcase under landing view",
+      "status": "passed",
+      "duration": 17
+    },
+    {
+      "title": "6. Should navigate to login form view",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 6. Should navigate to login form view",
+      "status": "passed",
+      "duration": 227
+    },
+    {
+      "title": "7. Should verify login email input is visible",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 7. Should verify login email input is visible",
+      "status": "passed",
+      "duration": 38
+    },
+    {
+      "title": "8. Should verify login password input is visible",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 8. Should verify login password input is visible",
+      "status": "passed",
+      "duration": 53
+    },
+    {
+      "title": "9. Should show warning on empty credentials submission",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 9. Should show warning on empty credentials submission",
+      "status": "passed",
+      "duration": 130
+    },
+    {
+      "title": "10. Should show warning on password less than 5 characters",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 10. Should show warning on password less than 5 characters",
+      "status": "passed",
+      "duration": 505
+    },
+    {
+      "title": "11. Should toggle password visibility to show password text",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 11. Should toggle password visibility to show password text",
+      "status": "passed",
+      "duration": 192
+    },
+    {
+      "title": "12. Should toggle database reset option in login view",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 12. Should toggle database reset option in login view",
+      "status": "passed",
+      "duration": 139
+    },
+    {
+      "title": "13. Should navigate back to landing view from login",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 13. Should navigate back to landing view from login",
+      "status": "passed",
+      "duration": 293
+    },
+    {
+      "title": "14. Should navigate to signup form view",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 14. Should navigate to signup form view",
+      "status": "passed",
+      "duration": 152
+    },
+    {
+      "title": "15. Should verify signup name, email, and password fields are visible",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 15. Should verify signup name, email, and password fields are visible",
+      "status": "passed",
+      "duration": 96
+    },
+    {
+      "title": "16. Should show warning on empty signup form submission",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 16. Should show warning on empty signup form submission",
+      "status": "passed",
+      "duration": 151
+    },
+    {
+      "title": "17. Should allow selecting avatar presets in signup form",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 17. Should allow selecting avatar presets in signup form",
+      "status": "passed",
+      "duration": 115
+    },
+    {
+      "title": "18. Should toggle database reset option in signup view",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 18. Should toggle database reset option in signup view",
+      "status": "passed",
+      "duration": 136
+    },
+    {
+      "title": "19. Should navigate back to login view from signup",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 19. Should navigate back to login view from signup",
+      "status": "passed",
+      "duration": 132
+    },
+    {
+      "title": "20. Should trigger Google authentication simulator popup",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 20. Should trigger Google authentication simulator popup",
+      "status": "passed",
+      "duration": 151
+    },
+    {
+      "title": "21. Should close Google authentication simulator popup",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 21. Should close Google authentication simulator popup",
+      "status": "passed",
+      "duration": 57
+    },
+    {
+      "title": "22. Should authenticate successfully with test credentials",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 22. Should authenticate successfully with test credentials",
+      "status": "passed",
+      "duration": 741
+    },
+    {
+      "title": "23. Should display user info in Navbar after logging in",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 23. Should display user info in Navbar after logging in",
+      "status": "passed",
+      "duration": 20
+    },
+    {
+      "title": "24. Should display destination list under explore view",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 24. Should display destination list under explore view",
+      "status": "passed",
+      "duration": 19
+    },
+    {
+      "title": "25. Should filter destination list by search input",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 25. Should filter destination list by search input",
+      "status": "passed",
+      "duration": 186
+    },
+    {
+      "title": "26. Should click Explore tab in Navbar to ensure active view",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 26. Should click Explore tab in Navbar to ensure active view",
+      "status": "passed",
+      "duration": 141
+    },
+    {
+      "title": "27. Should switch to Gateway tab and render Gateway view",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 27. Should switch to Gateway tab and render Gateway view",
+      "status": "passed",
+      "duration": 333
+    },
+    {
+      "title": "28. Should switch to AI Planner Companion tab and render Companion view",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 28. Should switch to AI Planner Companion tab and render Companion view",
+      "status": "passed",
+      "duration": 163
+    },
+    {
+      "title": "29. Should send message to AI Planner and receive auto-reply",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 29. Should send message to AI Planner and receive auto-reply",
+      "status": "passed",
+      "duration": 1754
+    },
+    {
+      "title": "30. Should switch to Budget Splitter tab and render Splitter view",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 30. Should switch to Budget Splitter tab and render Splitter view",
+      "status": "failed",
+      "duration": 5141,
+      "error": "Waiting for element to be located By(css selector, *[id=\"splitter-view-root\"])\nWait timed out after 5031ms"
+    },
+    {
+      "title": "31. Should toggle add expense form slide-down panel",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 31. Should toggle add expense form slide-down panel",
+      "status": "failed",
+      "duration": 24,
+      "error": "no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\"*[id=\"add-expense-toggle-btn\"]\"}\n  (Session info: chrome=149.0.7827.103)"
+    },
+    {
+      "title": "32. Should add new group expense successfully",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 32. Should add new group expense successfully",
+      "status": "failed",
+      "duration": 23,
+      "error": "no such element: Unable to locate element: {\"method\":\"css selector\",\"selector\":\"*[id=\"expense-desc-input\"]\"}\n  (Session info: chrome=149.0.7827.103)"
+    },
+    {
+      "title": "33. Should delete the newly added expense successfully",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 33. Should delete the newly added expense successfully",
+      "status": "failed",
+      "duration": 24,
+      "error": "no such element: Unable to locate element: {\"method\":\"xpath\",\"selector\":\"//*[contains(text(), 'Autocab tour')]/ancestor::*[contains(@id, 'expense-feed-item-')]\"}\n  (Session info: chrome=149.0.7827.103)"
+    },
+    {
+      "title": "34. Should switch to My Bookings tab and check bookings list",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 34. Should switch to My Bookings tab and check bookings list",
+      "status": "failed",
+      "duration": 5126,
+      "error": "Waiting for element to be located By(css selector, *[id=\"bookings-view-root\"])\nWait timed out after 5001ms"
+    },
+    {
+      "title": "35. Should switch to Profile tab, edit bio, and log out successfully",
+      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 35. Should switch to Profile tab, edit bio, and log out successfully",
+      "status": "failed",
+      "duration": 5191,
+      "error": "Waiting for element to be located By(css selector, *[id=\"profile-view-root\"])\nWait timed out after 5063ms"
+    }
+  ]
+}
