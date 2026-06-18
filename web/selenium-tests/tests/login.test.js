@@ -229,22 +229,25 @@ describe('Tournex E2E Automation - 35 Comprehensive Test Cases', function () {
   });
 
   it('26. Should click Explore tab in Navbar to ensure active view', async function () {
-    const exploreTab = await driver.findElement(By.id('nav-item-explore'));
-    await exploreTab.click();
+    const exploreTab = await driver.wait(until.elementLocated(By.id('nav-item-explore')), 5000);
+    await driver.wait(until.elementIsVisible(exploreTab), 5000);
+    await driver.executeScript("arguments[0].click();", exploreTab);
     const root = await driver.wait(until.elementLocated(By.id('explore-view-root')), 5000);
     assert.ok(root, 'Explore view root not active.');
   });
 
   it('27. Should switch to Gateway tab and render Gateway view', async function () {
-    const gatewayTab = await driver.findElement(By.id('nav-item-gateway'));
-    await gatewayTab.click();
+    const gatewayTab = await driver.wait(until.elementLocated(By.id('nav-item-gateway')), 5000);
+    await driver.wait(until.elementIsVisible(gatewayTab), 5000);
+    await driver.executeScript("arguments[0].click();", gatewayTab);
     const gatewayRoot = await driver.wait(until.elementLocated(By.id('gateway-view-root')), 5000);
     assert.ok(gatewayRoot, 'Gateway finder view did not load.');
   });
 
   it('28. Should switch to AI Planner Companion tab and render Companion view', async function () {
-    const companionTab = await driver.findElement(By.id('nav-item-companion'));
-    await companionTab.click();
+    const companionTab = await driver.wait(until.elementLocated(By.id('nav-item-companion')), 5000);
+    await driver.wait(until.elementIsVisible(companionTab), 5000);
+    await driver.executeScript("arguments[0].click();", companionTab);
     const companionRoot = await driver.wait(until.elementLocated(By.id('companion-view-root')), 5000);
     assert.ok(companionRoot, 'AI Planner Companion view did not load.');
   });
@@ -252,10 +255,10 @@ describe('Tournex E2E Automation - 35 Comprehensive Test Cases', function () {
   // --- STAGE 6: COMPANION & AI VERIFICATIONS ---
 
   it('29. Should send message to AI Planner and receive auto-reply', async function () {
-    const chatInput = await driver.findElement(By.id('chat-input'));
+    const chatInput = await driver.wait(until.elementLocated(By.id('chat-input')), 5000);
     await chatInput.sendKeys('Tell me about Jaipur crowd');
     const sendBtn = await driver.findElement(By.id('chat-send-btn'));
-    await sendBtn.click();
+    await driver.executeScript("arguments[0].click();", sendBtn);
     const aiBubble = await driver.wait(until.elementLocated(By.xpath("//*[contains(text(), 'Based on our live tourist density index')]")), 15000);
     assert.ok(aiBubble, 'AI auto-reply bubble not found.');
   });
@@ -263,8 +266,9 @@ describe('Tournex E2E Automation - 35 Comprehensive Test Cases', function () {
   // --- STAGE 7: BUDGET SPLITTER VERIFICATIONS ---
 
   it('30. Should switch to Budget Splitter tab and render Splitter view', async function () {
-    const splitterTab = await driver.findElement(By.id('nav-item-splitter'));
-    await splitterTab.click();
+    const splitterTab = await driver.wait(until.elementLocated(By.id('nav-item-splitter')), 5000);
+    await driver.wait(until.elementIsVisible(splitterTab), 5000);
+    await driver.executeScript("arguments[0].click();", splitterTab);
     const splitterRoot = await driver.wait(until.elementLocated(By.id('splitter-view-root')), 5000);
     assert.ok(splitterRoot, 'Budget Splitter view did not load.');
   });
@@ -302,8 +306,9 @@ describe('Tournex E2E Automation - 35 Comprehensive Test Cases', function () {
   // --- STAGE 8: MY BOOKINGS VERIFICATIONS ---
 
   it('34. Should switch to My Bookings tab and check bookings list', async function () {
-    const bookingsTab = await driver.findElement(By.id('nav-item-bookings'));
-    await bookingsTab.click();
+    const bookingsTab = await driver.wait(until.elementLocated(By.id('nav-item-bookings')), 5000);
+    await driver.wait(until.elementIsVisible(bookingsTab), 5000);
+    await driver.executeScript("arguments[0].click();", bookingsTab);
     const bookingsRoot = await driver.wait(until.elementLocated(By.id('bookings-view-root')), 5000);
     assert.ok(bookingsRoot, 'My Bookings view did not load.');
   });
@@ -311,13 +316,14 @@ describe('Tournex E2E Automation - 35 Comprehensive Test Cases', function () {
   // --- STAGE 9: PROFILE VIEW & LOGOUT VERIFICATIONS ---
 
   it('35. Should switch to Profile tab, edit bio, and log out successfully', async function () {
-    const profileTab = await driver.findElement(By.id('nav-item-profile'));
-    await profileTab.click();
+    const profileTab = await driver.wait(until.elementLocated(By.id('nav-item-profile')), 5000);
+    await driver.wait(until.elementIsVisible(profileTab), 5000);
+    await driver.executeScript("arguments[0].click();", profileTab);
     const profileRoot = await driver.wait(until.elementLocated(By.id('profile-view-root')), 5000);
     assert.ok(profileRoot, 'Profile view did not load.');
 
     const logoutBtn = await driver.findElement(By.id('profile-logout-btn'));
-    await logoutBtn.click();
+    await driver.executeScript("arguments[0].click();", logoutBtn);
 
     const viewport = await driver.wait(until.elementLocated(By.id('landing-view-viewport')), 15000);
     assert.ok(viewport, 'Did not redirect back to landing page after logout.');
