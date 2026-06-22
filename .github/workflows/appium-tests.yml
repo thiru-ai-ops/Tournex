@@ -87,10 +87,11 @@ jobs:
       - name: Build Android Debug APK
         working-directory: mobile/android
         run: |
+          echo "" >> gradle.properties
           echo "org.gradle.caching=true" >> gradle.properties
           echo "org.gradle.parallel=true" >> gradle.properties
           echo "org.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m" >> gradle.properties
-          ./gradlew assembleDebug --stacktrace --info
+          ./gradlew assembleDebug --stacktrace
 
       - name: Upload Gradle Build Reports
         if: failure()
