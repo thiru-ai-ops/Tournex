@@ -45,14 +45,24 @@ const registerUser = async (req, res, next) => {
       uid = 'mock-user-id-' + email.toLowerCase().replace(/[^a-z0-9]/g, '');
       await db.collection('users').doc(uid).set(userProfile);
     } else {
-      // Create user in Firebase Authentication
-      const userRecord = await auth.createUser({
-        email: email.toLowerCase(),
-        password,
-        displayName: name,
-        photoURL: avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150'
-      });
-      uid = userRecord.uid;
+      try {
+        // Create user in Firebase Authentication
+        const userRecord = await auth.createUser({
+          email: email.toLowerCase(),
+          password,
+          displayName: name,
+          photoURL: avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150'
+        });
+        uid = userRecord.uid;
+      } catch (authError) {
+        // If user already exists in Firebase Auth (e.g. from Google SSO auto-registration)
+        if (authError.code === 'auth/email-already-exists' || authError.message.includes('already exists') || authError.message.includes('already in use')) {
+          const userRecord = await auth.getUserByEmail(email.toLowerCase());
+          uid = userRecord.uid;
+        } else {
+          throw authError;
+        }
+      }
       // Store user profile in Firestore
       await db.collection('users').doc(uid).set(userProfile);
     }
