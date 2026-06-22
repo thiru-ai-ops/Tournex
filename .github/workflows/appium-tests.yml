@@ -67,10 +67,6 @@ jobs:
         working-directory: mobile
         run: npm install
 
-      - name: Expo Prebuild Android
-        working-directory: mobile
-        run: npx expo prebuild --platform android
-
       - name: Make gradlew executable
         working-directory: mobile/android
         run: chmod +x gradlew
