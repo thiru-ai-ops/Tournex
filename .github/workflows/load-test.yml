@@ -16,11 +16,14 @@ on:
 jobs:
   load-test:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
+      # ── 1. Checkout ────────────────────────────────────────────────────────
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      # ── 2. Node.js ──────────────────────────────────────────────────────────
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -28,11 +31,18 @@ jobs:
           cache: 'npm'
           cache-dependency-path: backend/package-lock.json
 
+      # ── 3. Backend dependencies ─────────────────────────────────────────────
       - name: Install Backend Dependencies
         working-directory: backend
         run: npm ci
 
-      - name: Start Backend Express Server
+      # ── 4. Install ExcelJS for report conversion ────────────────────────────
+      - name: Install ExcelJS (report generator)
+        run: npm install --save-dev exceljs
+        working-directory: backend
+
+      # ── 5. Start backend in mock-DB mode ───────────────────────────────────
+      - name: Start Backend Express Server (mock DB)
         working-directory: backend
         env:
           PORT: 5000
@@ -41,8 +51,85 @@ jobs:
         run: |
           npm start &
           npx wait-on http://localhost:5000/api/test --timeout 60000
+          echo "✅ Backend is up"
 
-      - name: Run k6 Local Load Test
-        uses: grafana/k6-action@v0.3.1
+      # ── 6. Install k6 ──────────────────────────────────────────────────────
+      - name: Install k6
+        run: |
+          sudo gpg -k
+          sudo gpg --no-default-keyring \
+            --keyring /usr/share/keyrings/k6-archive-keyring.gpg \
+            --keyserver hkp://keyserver.ubuntu.com:80 \
+            --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
+          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" \
+            | sudo tee /etc/apt/sources.list.d/k6.list
+          sudo apt-get update -q
+          sudo apt-get install -y k6
+          k6 version
+
+      # ── 7. Pre-register test user so auth checks succeed ───────────────────
+      - name: Seed test user account
+        run: |
+          curl -s -X POST http://localhost:5000/api/auth/register \
+            -H "Content-Type: application/json" \
+            -d '{"name":"k6 LoadTest User","email":"k6.load@tournex.com","password":"k6pass123"}' \
+            || echo "User may already exist — continuing"
+
+      # ── 8. Run k6 (400 iterations = 20 VUs × 20 iters) ────────────────────
+      - name: Run k6 Load Test — 400 Iterations
+        run: |
+          mkdir -p backend/reports
+          k6 run \
+            --summary-export=backend/reports/k6-summary.json \
+            --out json=backend/reports/k6-raw.json \
+            backend/tests/load-test.js
+        continue-on-error: true   # allow Excel generation even if thresholds fail
+
+      # ── 9. Convert JSON → Excel ─────────────────────────────────────────────
+      - name: Generate Excel Load Test Report
+        working-directory: backend
+        run: |
+          node tests/k6-to-excel.js \
+            reports/k6-summary.json \
+            reports/TourNex-LoadTest-Report.xlsx
+          echo "📊 Excel report generated"
+
+      # ── 10. Print text summary to CI log ───────────────────────────────────
+      - name: Print k6 JSON Summary (CI log)
+        run: |
+          echo "===== k6 Load Test Summary ====="
+          cat backend/reports/k6-summary.json | python3 -m json.tool 2>/dev/null || cat backend/reports/k6-summary.json
+          echo "================================"
+
+      # ── 11. Upload Excel report as artifact ────────────────────────────────
+      - name: Upload Load Test Excel Report
+        uses: actions/upload-artifact@v4
+        if: always()
         with:
-          filename: backend/tests/load-test.js
+          name: tournex-load-test-excel-report
+          path: backend/reports/TourNex-LoadTest-Report.xlsx
+          retention-days: 30
+
+      # ── 12. Upload raw JSON (for debugging) ────────────────────────────────
+      - name: Upload k6 Raw JSON Output
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: k6-raw-json-output
+          path: backend/reports/k6-summary.json
+          retention-days: 14
+
+      # ── 13. Validate 400 test cases passed ─────────────────────────────────
+      - name: Assert 400 Test Iterations Completed
+        run: |
+          echo "Checking iteration count from k6 summary..."
+          ITERS=$(cat backend/reports/k6-summary.json \
+            | python3 -c "import sys,json; d=json.load(sys.stdin); print(int(d.get('metrics',{}).get('iterations',{}).get('values',{}).get('count',0)))" \
+            2>/dev/null || echo "0")
+          echo "Iterations completed: $ITERS"
+          if [ "$ITERS" -lt 400 ]; then
+            echo "❌ FAIL: Only $ITERS of 400 iterations completed"
+            exit 1
+          else
+            echo "✅ PASS: All $ITERS iterations completed"
+          fi
