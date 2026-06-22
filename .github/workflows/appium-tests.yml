@@ -58,7 +58,7 @@ jobs:
 
       - name: Expo Prebuild Android
         working-directory: mobile
-        run: npx expo prebuild --platform android --no-interactive
+        run: npx expo prebuild --platform android
 
       - name: Make gradlew executable
         working-directory: mobile/android
