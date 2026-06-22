@@ -67,6 +67,16 @@ jobs:
         working-directory: mobile
         run: npm install
 
+      - name: Regenerate Android Native Files
+        working-directory: mobile
+        env:
+          EXPO_NO_TELEMETRY: "1"
+        run: |
+          # --clean wipes old android/ folder and regenerates for installed SDK 56.
+          # --no-install skips npm install since we already ran it above.
+          # This generates a settings.gradle WITHOUT the removed autolinking.gradle reference.
+          npx expo prebuild --platform android --clean --no-install
+
       - name: Make gradlew executable
         working-directory: mobile/android
         run: chmod +x gradlew
