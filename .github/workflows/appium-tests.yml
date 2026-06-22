@@ -89,9 +89,8 @@ jobs:
         run: |
           echo "org.gradle.caching=true" >> gradle.properties
           echo "org.gradle.parallel=true" >> gradle.properties
-          echo "org.gradle.configureondemand=true" >> gradle.properties
           echo "org.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m" >> gradle.properties
-          ./gradlew assembleDebug
+          ./gradlew assembleDebug --stacktrace
 
       - name: Install Appium and Drivers
         run: |
