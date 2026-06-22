@@ -11,6 +11,9 @@
     },
     "splash": {
       "backgroundColor": "#ffffff"
-    }
+    },
+    "plugins": [
+      "expo-status-bar"
+    ]
   }
 }

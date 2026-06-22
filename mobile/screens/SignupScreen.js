@@ -12,7 +12,7 @@ import {
   Platform,
   Alert
 } from 'react-native';
-import { api } from '../services/api';
+import { api, setAuthToken } from '../services/api';
 
 export default function SignupScreen({ navigation }) {
   const [name, setName] = useState('');
@@ -222,6 +222,18 @@ export default function SignupScreen({ navigation }) {
               <Text style={styles.googleButtonText}>Continue with Google</Text>
             </TouchableOpacity>
 
+            {/* Guest Bypass Button */}
+            <TouchableOpacity 
+              style={styles.guestButton}
+              onPress={() => {
+                setAuthToken('mock-guest-token');
+                navigation.replace('Home');
+              }}
+              disabled={loading}
+            >
+              <Text style={styles.guestButtonText}>Explore as Guest (Offline Mode) →</Text>
+            </TouchableOpacity>
+
             <TouchableOpacity 
               style={styles.switchButton}
               onPress={() => navigation.navigate('Login')}
@@ -376,6 +388,21 @@ const styles = StyleSheet.create({
   },
   googleButtonText: {
     color: '#0f172a',
+    fontSize: 12,
+    fontWeight: 'bold',
+  },
+  guestButton: {
+    backgroundColor: 'transparent',
+    borderRadius: 10,
+    paddingVertical: 11,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: '#334155',
+    marginTop: 10,
+  },
+  guestButtonText: {
+    color: '#3b82f6',
     fontSize: 12,
     fontWeight: 'bold',
   },

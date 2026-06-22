@@ -262,6 +262,32 @@ export default function LandingView({ onLogin }: LandingViewProps) {
                 <span>Log In Directly</span>
               </button>
             </div>
+            <div className="mt-4 text-center">
+              <button
+                id="landing-guest-bypass"
+                onClick={() => {
+                  localStorage.setItem('token', 'mock-guest-token');
+                  const guestProfile: UserProfile = {
+                    name: 'Guest Explorer',
+                    tier: 'Elite Explorer',
+                    bio: 'Exploring India in offline sandbox mode.',
+                    location: 'New Delhi, India',
+                    joinDate: 'Joined Today',
+                    avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150',
+                    stats: { statesVisited: 3, savedTripsCount: 2, reviewsCount: 1, savedTotal: 12500 },
+                    level: 1,
+                    currentXp: 450,
+                    maxXp: 1000
+                  };
+                  onLogin(guestProfile, false);
+                }}
+                className="inline-flex items-center gap-2 text-slate-500 hover:text-blue-600 border border-slate-200 hover:border-blue-300 bg-white hover:bg-blue-50/50 font-semibold px-6 py-2.5 rounded-xl text-xs transition active:scale-95 cursor-pointer"
+              >
+                <Sparkles className="h-3.5 w-3.5" />
+                <span>Explore as Guest (Offline Demo Mode)</span>
+                <ArrowRight className="h-3 w-3 opacity-60" />
+              </button>
+            </div>
 
             {/* Three Column Features list */}
             <div className="mx-auto mt-16 max-w-5xl grid grid-cols-1 md:grid-cols-3 gap-6 text-left">
@@ -506,6 +532,41 @@ export default function LandingView({ onLogin }: LandingViewProps) {
                 </p>
               </div>
 
+              {/* Guest Bypass Divider Row */}
+              <div className="relative flex py-1 items-center">
+                <div className="flex-grow border-t border-slate-100"></div>
+                <span className="flex-shrink mx-4 text-[9px] font-mono font-bold text-slate-300 uppercase tracking-widest bg-white">or skip</span>
+                <div className="flex-grow border-t border-slate-100"></div>
+              </div>
+
+              <div className="text-center">
+                <button
+                  id="login-guest-bypass"
+                  type="button"
+                  onClick={() => {
+                    localStorage.setItem('token', 'mock-guest-token');
+                    const guestProfile: UserProfile = {
+                      name: 'Guest Explorer',
+                      tier: 'Elite Explorer',
+                      bio: 'Exploring India in offline sandbox mode.',
+                      location: 'New Delhi, India',
+                      joinDate: 'Joined Today',
+                      avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150',
+                      stats: { statesVisited: 3, savedTripsCount: 2, reviewsCount: 1, savedTotal: 12500 },
+                      level: 1,
+                      currentXp: 450,
+                      maxXp: 1000
+                    };
+                    onLogin(guestProfile, false);
+                  }}
+                  className="inline-flex items-center gap-2 text-slate-400 hover:text-blue-600 border border-slate-200 hover:border-blue-300 bg-white hover:bg-blue-50/40 font-semibold px-5 py-2 rounded-xl text-xs transition active:scale-95 cursor-pointer w-full justify-center"
+                >
+                  <Sparkles className="h-3.5 w-3.5" />
+                  <span>Explore as Guest (Offline Demo Mode)</span>
+                  <ArrowRight className="h-3 w-3 opacity-60" />
+                </button>
+              </div>
+
             </form>
           </div>
         </section>
@@ -703,6 +764,41 @@ export default function LandingView({ onLogin }: LandingViewProps) {
                     Go back to Log In
                   </button>
                 </p>
+              </div>
+
+              {/* Guest Bypass Divider Row */}
+              <div className="relative flex py-1 items-center">
+                <div className="flex-grow border-t border-slate-100"></div>
+                <span className="flex-shrink mx-4 text-[9px] font-mono font-bold text-slate-300 uppercase tracking-widest bg-white">or skip</span>
+                <div className="flex-grow border-t border-slate-100"></div>
+              </div>
+
+              <div className="text-center">
+                <button
+                  id="signup-guest-bypass"
+                  type="button"
+                  onClick={() => {
+                    localStorage.setItem('token', 'mock-guest-token');
+                    const guestProfile: UserProfile = {
+                      name: 'Guest Explorer',
+                      tier: 'Elite Explorer',
+                      bio: 'Exploring India in offline sandbox mode.',
+                      location: 'New Delhi, India',
+                      joinDate: 'Joined Today',
+                      avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150',
+                      stats: { statesVisited: 3, savedTripsCount: 2, reviewsCount: 1, savedTotal: 12500 },
+                      level: 1,
+                      currentXp: 450,
+                      maxXp: 1000
+                    };
+                    onLogin(guestProfile, false);
+                  }}
+                  className="inline-flex items-center gap-2 text-slate-400 hover:text-blue-600 border border-slate-200 hover:border-blue-300 bg-white hover:bg-blue-50/40 font-semibold px-5 py-2 rounded-xl text-xs transition active:scale-95 cursor-pointer w-full justify-center"
+                >
+                  <Sparkles className="h-3.5 w-3.5" />
+                  <span>Explore as Guest (Offline Demo Mode)</span>
+                  <ArrowRight className="h-3 w-3 opacity-60" />
+                </button>
               </div>
 
             </form>

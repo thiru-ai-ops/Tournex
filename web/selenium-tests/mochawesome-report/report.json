@@ -1,334 +1,2410 @@
 {
   "stats": {
-    "passes": 54,
+    "passes": 400,
     "failures": 0,
     "pending": 0,
-    "duration": 18576
+    "duration": 27789
   },
   "tests": [
     {
       "title": "1. Should load the landing page successfully",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 1. Should load the landing page successfully",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 1. Should load the landing page successfully",
       "status": "passed",
-      "duration": 1701
+      "duration": 903
     },
     {
-      "title": "2. Should have the correct page title",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 2. Should have the correct page title",
+      "title": "2. Should verify document title contains TourNex",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 2. Should verify document title contains TourNex",
       "status": "passed",
-      "duration": 11
+      "duration": 39
     },
     {
-      "title": "3. Should contain structural header in landing page",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 3. Should contain structural header in landing page",
+      "title": "3. Should locate structural header element",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 3. Should locate structural header element",
       "status": "passed",
-      "duration": 23
+      "duration": 25
     },
     {
-      "title": "4. Should display the AI Companion Assistant feature card",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 4. Should display the AI Companion Assistant feature card",
+      "title": "4. Should find navigation logo element",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 4. Should find navigation logo element",
       "status": "passed",
-      "duration": 50
+      "duration": 20
     },
     {
-      "title": "5. Should load popular states showcase under landing view",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 5. Should load popular states showcase under landing view",
+      "title": "5. Should verify navigation logo text content",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 5. Should verify navigation logo text content",
       "status": "passed",
-      "duration": 24
+      "duration": 49
     },
     {
-      "title": "6. Should navigate to login form view",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 6. Should navigate to login form view",
+      "title": "6. Should check for go-to-login navigation element",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 6. Should check for go-to-login navigation element",
       "status": "passed",
-      "duration": 270
+      "duration": 20
     },
     {
-      "title": "7. Should verify login email input is visible",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 7. Should verify login email input is visible",
+      "title": "7. Should verify go-to-login button label",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 7. Should verify go-to-login button label",
       "status": "passed",
-      "duration": 37
+      "duration": 29
     },
     {
-      "title": "8. Should verify login password input is visible",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 8. Should verify login password input is visible",
+      "title": "8. Should check for go-to-signup button element",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 8. Should check for go-to-signup button element",
+      "status": "passed",
+      "duration": 20
+    },
+    {
+      "title": "9. Should verify go-to-signup button label",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 9. Should verify go-to-signup button label",
       "status": "passed",
       "duration": 30
     },
     {
-      "title": "9. Should show warning on empty credentials submission",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 9. Should show warning on empty credentials submission",
+      "title": "10. Should locate hero section title container",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 10. Should locate hero section title container",
       "status": "passed",
-      "duration": 154
+      "duration": 20
     },
     {
-      "title": "10. Should show warning on password less than 5 characters",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 10. Should show warning on password less than 5 characters",
+      "title": "11. Should verify hero title content has keywords",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 11. Should verify hero title content has keywords",
       "status": "passed",
-      "duration": 715
+      "duration": 29
     },
     {
-      "title": "11. Should toggle password visibility to show password text",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 11. Should toggle password visibility to show password text",
+      "title": "12. Should check for AI Companion Assistant card display",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 12. Should check for AI Companion Assistant card display",
       "status": "passed",
-      "duration": 212
+      "duration": 19
     },
     {
-      "title": "12. Should toggle database reset option in login view",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 12. Should toggle database reset option in login view",
+      "title": "13. Should check for Geographic Decoders card display",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 13. Should check for Geographic Decoders card display",
       "status": "passed",
-      "duration": 149
+      "duration": 23
     },
     {
-      "title": "13. Should navigate back to landing view from login",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 13. Should navigate back to landing view from login",
+      "title": "14. Should check for Smart Cost Splitter card display",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 14. Should check for Smart Cost Splitter card display",
       "status": "passed",
-      "duration": 150
+      "duration": 21
     },
     {
-      "title": "14. Should navigate to signup form view",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 14. Should navigate to signup form view",
+      "title": "15. Should check for features showcase section description",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 15. Should check for features showcase section description",
       "status": "passed",
-      "duration": 164
+      "duration": 19
     },
     {
-      "title": "15. Should verify signup name, email, and password fields are visible",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 15. Should verify signup name, email, and password fields are visible",
+      "title": "16. Should locate popular states showcase title",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 16. Should locate popular states showcase title",
       "status": "passed",
-      "duration": 100
+      "duration": 23
     },
     {
-      "title": "16. Should show warning on empty signup form submission",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 16. Should show warning on empty signup form submission",
+      "title": "17. Should verify Rajasthan state is displayed in showcase",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 17. Should verify Rajasthan state is displayed in showcase",
       "status": "passed",
-      "duration": 148
+      "duration": 21
     },
     {
-      "title": "17. Should allow selecting avatar presets in signup form",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 17. Should allow selecting avatar presets in signup form",
+      "title": "18. Should verify Goa Coastline state is displayed in showcase",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 18. Should verify Goa Coastline state is displayed in showcase",
       "status": "passed",
-      "duration": 125
+      "duration": 22
     },
     {
-      "title": "18. Should toggle database reset option in signup view",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 18. Should toggle database reset option in signup view",
+      "title": "19. Should verify Kerala Serene state is displayed in showcase",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 19. Should verify Kerala Serene state is displayed in showcase",
       "status": "passed",
-      "duration": 146
+      "duration": 22
     },
     {
-      "title": "19. Should navigate back to login view from signup",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 19. Should navigate back to login view from signup",
+      "title": "20. Should verify Kashmir Valley state is displayed in showcase",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 20. Should verify Kashmir Valley state is displayed in showcase",
       "status": "passed",
-      "duration": 136
+      "duration": 24
     },
     {
-      "title": "20. Should trigger Google authentication simulator popup",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 20. Should trigger Google authentication simulator popup",
+      "title": "21. Should verify hero action button label text",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 21. Should verify hero action button label text",
       "status": "passed",
-      "duration": 173
+      "duration": 22
     },
     {
-      "title": "21. Should close Google authentication simulator popup",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 21. Should close Google authentication simulator popup",
+      "title": "22. Should verify hero second action button label text",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 22. Should verify hero second action button label text",
       "status": "passed",
-      "duration": 70
+      "duration": 20
     },
     {
-      "title": "22. Should authenticate successfully with test credentials",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 22. Should authenticate successfully with test credentials",
+      "title": "23. Should verify footer block exists",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 23. Should verify footer block exists",
       "status": "passed",
-      "duration": 1445
+      "duration": 20
     },
     {
-      "title": "23. Should display user info in Navbar after logging in",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 23. Should display user info in Navbar after logging in",
+      "title": "24. Should check copyright text in footer",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 24. Should check copyright text in footer",
       "status": "passed",
-      "duration": 98
+      "duration": 22
     },
     {
-      "title": "24. Should display destination list under explore view",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 24. Should display destination list under explore view",
+      "title": "25. Should verify meta viewport tags exist in head",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 25. Should verify meta viewport tags exist in head",
       "status": "passed",
-      "duration": 16
+      "duration": 21
     },
     {
-      "title": "25. Should filter destination list by search input",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 25. Should filter destination list by search input",
+      "title": "26. Should verify body element is loaded",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 26. Should verify body element is loaded",
       "status": "passed",
-      "duration": 410
+      "duration": 25
     },
     {
-      "title": "26. Should click Explore tab in Navbar to ensure active view",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 26. Should click Explore tab in Navbar to ensure active view",
+      "title": "27. Should check layout container classes on main view",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 27. Should check layout container classes on main view",
       "status": "passed",
-      "duration": 68
+      "duration": 42
     },
     {
-      "title": "27. Should switch to Gateway tab and render Gateway view",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 27. Should switch to Gateway tab and render Gateway view",
+      "title": "28. Should verify explore stays landing action button exists",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 28. Should verify explore stays landing action button exists",
       "status": "passed",
-      "duration": 294
+      "duration": 27
     },
     {
-      "title": "28. Should switch to AI Planner Companion tab and render Companion view",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 28. Should switch to AI Planner Companion tab and render Companion view",
+      "title": "29. Should verify action button text is valid",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 29. Should verify action button text is valid",
+      "status": "passed",
+      "duration": 36
+    },
+    {
+      "title": "30. Should verify AI Companion feature text contains regional weather",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 30. Should verify AI Companion feature text contains regional weather",
+      "status": "passed",
+      "duration": 24
+    },
+    {
+      "title": "31. Should verify Geographic Decoders details describe hotspots",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 31. Should verify Geographic Decoders details describe hotspots",
+      "status": "passed",
+      "duration": 19
+    },
+    {
+      "title": "32. Should verify Smart Cost Splitter card details mention group spend",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 32. Should verify Smart Cost Splitter card details mention group spend",
+      "status": "passed",
+      "duration": 19
+    },
+    {
+      "title": "33. Should verify landing title contains Indian Getaways",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 33. Should verify landing title contains Indian Getaways",
+      "status": "passed",
+      "duration": 22
+    },
+    {
+      "title": "34. Should check login directly button is present",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 34. Should check login directly button is present",
+      "status": "passed",
+      "duration": 21
+    },
+    {
+      "title": "35. Should verify login directly button label",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 35. Should verify login directly button label",
+      "status": "passed",
+      "duration": 33
+    },
+    {
+      "title": "36. Should verify supported high density micro-climates header text content",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 36. Should verify supported high density micro-climates header text content",
+      "status": "passed",
+      "duration": 29
+    },
+    {
+      "title": "37. Should verify landing page container tag name is div",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 37. Should verify landing page container tag name is div",
+      "status": "passed",
+      "duration": 23
+    },
+    {
+      "title": "38. Should verify header class list is not empty",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 38. Should verify header class list is not empty",
+      "status": "passed",
+      "duration": 25
+    },
+    {
+      "title": "39. Should verify brand logo icon is displayed",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 39. Should verify brand logo icon is displayed",
+      "status": "passed",
+      "duration": 29
+    },
+    {
+      "title": "40. Should verify support count labels exist on micro-climates cards",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 1: Landing View & SEO 40. Should verify support count labels exist on micro-climates cards",
+      "status": "passed",
+      "duration": 19
+    },
+    {
+      "title": "41. Should click go-to-login navigation button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 41. Should click go-to-login navigation button",
+      "status": "passed",
+      "duration": 213
+    },
+    {
+      "title": "42. Should verify login email field is visible",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 42. Should verify login email field is visible",
+      "status": "passed",
+      "duration": 37
+    },
+    {
+      "title": "43. Should verify login password field is visible",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 43. Should verify login password field is visible",
+      "status": "passed",
+      "duration": 31
+    },
+    {
+      "title": "44. Should check login email placeholder text",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 44. Should check login email placeholder text",
+      "status": "passed",
+      "duration": 26
+    },
+    {
+      "title": "45. Should check login password placeholder text",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 45. Should check login password placeholder text",
+      "status": "passed",
+      "duration": 27
+    },
+    {
+      "title": "46. Should submit empty credentials form",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 46. Should submit empty credentials form",
+      "status": "passed",
+      "duration": 126
+    },
+    {
+      "title": "47. Should verify warning message is shown for empty inputs",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 47. Should verify warning message is shown for empty inputs",
+      "status": "passed",
+      "duration": 19
+    },
+    {
+      "title": "48. Should type short password credentials",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 48. Should type short password credentials",
+      "status": "passed",
+      "duration": 276
+    },
+    {
+      "title": "49. Should submit short credentials and verify warning",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 49. Should submit short credentials and verify warning",
+      "status": "passed",
+      "duration": 135
+    },
+    {
+      "title": "50. Should toggle password visibility to text mode",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 50. Should toggle password visibility to text mode",
+      "status": "passed",
+      "duration": 151
+    },
+    {
+      "title": "51. Should toggle password visibility back to password mode",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 51. Should toggle password visibility back to password mode",
+      "status": "passed",
+      "duration": 126
+    },
+    {
+      "title": "52. Should click database reset toggle option in login",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 52. Should click database reset toggle option in login",
       "status": "passed",
       "duration": 116
     },
     {
-      "title": "29. Should send message to AI Planner and receive auto-reply",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 29. Should send message to AI Planner and receive auto-reply",
+      "title": "53. Should verify database reset says Yes after click",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 53. Should verify database reset says Yes after click",
       "status": "passed",
-      "duration": 175
+      "duration": 25
     },
     {
-      "title": "30. Should switch to Budget Splitter tab and render Splitter view",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 30. Should switch to Budget Splitter tab and render Splitter view",
+      "title": "54. Should click database reset toggle option again",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 54. Should click database reset toggle option again",
       "status": "passed",
-      "duration": 161
+      "duration": 104
     },
     {
-      "title": "31. Should toggle add expense form slide-down panel",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 31. Should toggle add expense form slide-down panel",
+      "title": "55. Should verify database reset says No after toggle click",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 55. Should verify database reset says No after toggle click",
       "status": "passed",
-      "duration": 128
+      "duration": 26
     },
     {
-      "title": "32. Should add new group expense successfully",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 32. Should add new group expense successfully",
+      "title": "56. Should click header logo to navigate to landing page",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 56. Should click header logo to navigate to landing page",
       "status": "passed",
-      "duration": 335
+      "duration": 134
     },
     {
-      "title": "33. Should delete the newly added expense successfully",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 33. Should delete the newly added expense successfully",
+      "title": "57. Should click go-to-signup to navigate to signup page",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 57. Should click go-to-signup to navigate to signup page",
       "status": "passed",
-      "duration": 411
+      "duration": 139
     },
     {
-      "title": "34. Should switch to My Bookings tab and check bookings list",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 34. Should switch to My Bookings tab and check bookings list",
+      "title": "58. Should verify signup name input is visible",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 58. Should verify signup name input is visible",
       "status": "passed",
-      "duration": 82
+      "duration": 44
     },
     {
-      "title": "35. Should switch to Profile tab, edit bio, and log out successfully",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 35. Should switch to Profile tab, edit bio, and log out successfully",
+      "title": "59. Should verify signup email input is visible",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 59. Should verify signup email input is visible",
       "status": "passed",
-      "duration": 227
+      "duration": 35
     },
     {
-      "title": "36. Should navigate to signup form and fill credentials",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 36. Should navigate to signup form and fill credentials",
+      "title": "60. Should verify signup password input is visible",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 60. Should verify signup password input is visible",
       "status": "passed",
-      "duration": 372
+      "duration": 32
     },
     {
-      "title": "37. Should submit signup form to trigger onboarding wizard Step 1",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 37. Should submit signup form to trigger onboarding wizard Step 1",
+      "title": "61. Should submit empty signup form",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 61. Should submit empty signup form",
       "status": "passed",
-      "duration": 136
+      "duration": 112
     },
     {
-      "title": "38. Should fill Onboarding Step 1 (Traveler Details) and click continue",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 38. Should fill Onboarding Step 1 (Traveler Details) and click continue",
+      "title": "62. Should verify warning message for empty signup inputs",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 62. Should verify warning message for empty signup inputs",
       "status": "passed",
-      "duration": 179
+      "duration": 21
     },
     {
-      "title": "39. Should complete Onboarding Step 2 (Expedition Style) and click continue",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 39. Should complete Onboarding Step 2 (Expedition Style) and click continue",
+      "title": "63. Should select avatar preset 1",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 63. Should select avatar preset 1",
       "status": "passed",
-      "duration": 211
+      "duration": 104
     },
     {
-      "title": "40. Should complete Onboarding Step 3 (Traveler Tier) and finish onboarding",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 40. Should complete Onboarding Step 3 (Traveler Tier) and finish onboarding",
+      "title": "64. Should verify avatar preset 2 is clickable",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 64. Should verify avatar preset 2 is clickable",
       "status": "passed",
-      "duration": 387
+      "duration": 100
     },
     {
-      "title": "41. Should select Jaipur destination card to open detailed view",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 41. Should select Jaipur destination card to open detailed view",
+      "title": "65. Should verify avatar preset 3 is clickable",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 65. Should verify avatar preset 3 is clickable",
       "status": "passed",
-      "duration": 478
+      "duration": 108
     },
     {
-      "title": "42. Should navigate sub-tabs in Destination Detail View",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 42. Should navigate sub-tabs in Destination Detail View",
+      "title": "66. Should verify avatar preset 4 is clickable",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 66. Should verify avatar preset 4 is clickable",
       "status": "passed",
-      "duration": 268
+      "duration": 113
     },
     {
-      "title": "43. Should click sight card to open Monument Detail page",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 43. Should click sight card to open Monument Detail page",
+      "title": "67. Should verify avatar preset 3 selection active styling",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 67. Should verify avatar preset 3 selection active styling",
       "status": "passed",
-      "duration": 102
+      "duration": 115
     },
     {
-      "title": "44. Should book monument entry pass successfully",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 44. Should book monument entry pass successfully",
+      "title": "68. Should verify avatar preset 4 selection active styling",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 68. Should verify avatar preset 4 selection active styling",
       "status": "passed",
-      "duration": 440
+      "duration": 110
     },
     {
-      "title": "45. Should switch to Stays tab and verify catalog list loads",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 45. Should switch to Stays tab and verify catalog list loads",
+      "title": "69. Should toggle database reset in signup",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 69. Should toggle database reset in signup",
       "status": "passed",
-      "duration": 189
+      "duration": 117
     },
     {
-      "title": "46. Should navigate to Hotel Detail View page",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 46. Should navigate to Hotel Detail View page",
+      "title": "70. Should verify signup database reset is Yes after toggle",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 70. Should verify signup database reset is Yes after toggle",
+      "status": "passed",
+      "duration": 30
+    },
+    {
+      "title": "71. Should click Already a traveler link to go to login",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 71. Should click Already a traveler link to go to login",
+      "status": "passed",
+      "duration": 151
+    },
+    {
+      "title": "72. Should verify return to login email input field",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 72. Should verify return to login email input field",
+      "status": "passed",
+      "duration": 16
+    },
+    {
+      "title": "73. Should confirm database toggle status persists in login",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 73. Should confirm database toggle status persists in login",
+      "status": "passed",
+      "duration": 31
+    },
+    {
+      "title": "74. Should check database reset state is Yes again",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 74. Should check database reset state is Yes again",
+      "status": "passed",
+      "duration": 28
+    },
+    {
+      "title": "75. Should confirm password field is empty",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 75. Should confirm password field is empty",
+      "status": "passed",
+      "duration": 55
+    },
+    {
+      "title": "76. Should verify database status banner layout contains a shield icon",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 76. Should verify database status banner layout contains a shield icon",
+      "status": "passed",
+      "duration": 17
+    },
+    {
+      "title": "77. Should verify the Google login button has a class list",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 77. Should verify the Google login button has a class list",
+      "status": "passed",
+      "duration": 27
+    },
+    {
+      "title": "78. Should verify SSO divider layout elements exist",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 78. Should verify SSO divider layout elements exist",
+      "status": "passed",
+      "duration": 17
+    },
+    {
+      "title": "79. Should verify sign up portal key link text",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 79. Should verify sign up portal key link text",
+      "status": "passed",
+      "duration": 17
+    },
+    {
+      "title": "80. Should verify standard email inputs have correct spellcheck settings",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 2: Login Forms & Credentials 80. Should verify standard email inputs have correct spellcheck settings",
+      "status": "passed",
+      "duration": 21
+    },
+    {
+      "title": "81. Should verify google simulator launcher button is visible on login page",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 3: Google Auth Simulator 81. Should verify google simulator launcher button is visible on login page",
+      "status": "passed",
+      "duration": 28
+    },
+    {
+      "title": "82. Should click google simulator launcher to open overlay",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 3: Google Auth Simulator 82. Should click google simulator launcher to open overlay",
+      "status": "passed",
+      "duration": 124
+    },
+    {
+      "title": "83. Should verify simulator overlay is loaded in viewport",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 3: Google Auth Simulator 83. Should verify simulator overlay is loaded in viewport",
+      "status": "passed",
+      "duration": 20
+    },
+    {
+      "title": "84. Should verify google branding symbol G is present in header",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 3: Google Auth Simulator 84. Should verify google branding symbol G is present in header",
+      "status": "passed",
+      "duration": 23
+    },
+    {
+      "title": "85. Should verify simulator header title text",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 3: Google Auth Simulator 85. Should verify simulator header title text",
+      "status": "passed",
+      "duration": 33
+    },
+    {
+      "title": "86. Should verify sandbox warning alert container is visible",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 3: Google Auth Simulator 86. Should verify sandbox warning alert container is visible",
+      "status": "passed",
+      "duration": 18
+    },
+    {
+      "title": "87. Should check sandbox warning title is present",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 3: Google Auth Simulator 87. Should check sandbox warning title is present",
+      "status": "passed",
+      "duration": 18
+    },
+    {
+      "title": "88. Should verify default selected mock account is Arjun Dev",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 3: Google Auth Simulator 88. Should verify default selected mock account is Arjun Dev",
+      "status": "passed",
+      "duration": 28
+    },
+    {
+      "title": "89. Should verify Priya Sharma mock account radio option is present",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 3: Google Auth Simulator 89. Should verify Priya Sharma mock account radio option is present",
+      "status": "passed",
+      "duration": 24
+    },
+    {
+      "title": "90. Should verify Sanya Iyer mock account radio option is present",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 3: Google Auth Simulator 90. Should verify Sanya Iyer mock account radio option is present",
+      "status": "passed",
+      "duration": 23
+    },
+    {
+      "title": "91. Should verify Custom Identity option is visible",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 3: Google Auth Simulator 91. Should verify Custom Identity option is visible",
+      "status": "passed",
+      "duration": 17
+    },
+    {
+      "title": "92. Should click Custom Identity button option to expand inputs",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 3: Google Auth Simulator 92. Should click Custom Identity button option to expand inputs",
+      "status": "passed",
+      "duration": 109
+    },
+    {
+      "title": "93. Should verify custom mock name input exists",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 3: Google Auth Simulator 93. Should verify custom mock name input exists",
+      "status": "passed",
+      "duration": 19
+    },
+    {
+      "title": "94. Should verify custom mock email input exists",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 3: Google Auth Simulator 94. Should verify custom mock email input exists",
+      "status": "passed",
+      "duration": 19
+    },
+    {
+      "title": "95. Should check custom name input placeholder is e.g. Satyajit Ray",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 3: Google Auth Simulator 95. Should check custom name input placeholder is e.g. Satyajit Ray",
+      "status": "passed",
+      "duration": 23
+    },
+    {
+      "title": "96. Should check custom email input placeholder is satyajit@gmail.com",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 3: Google Auth Simulator 96. Should check custom email input placeholder is satyajit@gmail.com",
+      "status": "passed",
+      "duration": 27
+    },
+    {
+      "title": "97. Should verify simulator close button is active",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 3: Google Auth Simulator 97. Should verify simulator close button is active",
+      "status": "passed",
+      "duration": 30
+    },
+    {
+      "title": "98. Should click simulator close button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 3: Google Auth Simulator 98. Should click simulator close button",
+      "status": "passed",
+      "duration": 101
+    },
+    {
+      "title": "99. Should verify simulator overlay closed successfully",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 3: Google Auth Simulator 99. Should verify simulator overlay closed successfully",
+      "status": "passed",
+      "duration": 12
+    },
+    {
+      "title": "100. Should verify login button is still visible and clickable",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 3: Google Auth Simulator 100. Should verify login button is still visible and clickable",
+      "status": "passed",
+      "duration": 34
+    },
+    {
+      "title": "101. Should verify signup navigation button is visible",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 101. Should verify signup navigation button is visible",
+      "status": "passed",
+      "duration": 24
+    },
+    {
+      "title": "102. Should fill traveler signup name",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 102. Should fill traveler signup name",
+      "status": "passed",
+      "duration": 129
+    },
+    {
+      "title": "103. Should fill traveler signup email",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 103. Should fill traveler signup email",
+      "status": "passed",
+      "duration": 34
+    },
+    {
+      "title": "104. Should fill traveler signup password",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 104. Should fill traveler signup password",
+      "status": "passed",
+      "duration": 34
+    },
+    {
+      "title": "105. Should select avatar preset 2 for traveler profile",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 105. Should select avatar preset 2 for traveler profile",
+      "status": "passed",
+      "duration": 101
+    },
+    {
+      "title": "106. Should enable database reset to start fresh",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 106. Should enable database reset to start fresh",
+      "status": "passed",
+      "duration": 27
+    },
+    {
+      "title": "107. Should click signup to launch onboarding wizard",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 107. Should click signup to launch onboarding wizard",
+      "status": "passed",
+      "duration": 366
+    },
+    {
+      "title": "108. Should verify onboarding step indicator is loaded",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 108. Should verify onboarding step indicator is loaded",
+      "status": "passed",
+      "duration": 17
+    },
+    {
+      "title": "109. Should verify onboarding step 1 title is visible",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 109. Should verify onboarding step 1 title is visible",
+      "status": "passed",
+      "duration": 18
+    },
+    {
+      "title": "110. Should confirm onboarding name input field is visible",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 110. Should confirm onboarding name input field is visible",
+      "status": "passed",
+      "duration": 29
+    },
+    {
+      "title": "111. Should enter traveler name information",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 111. Should enter traveler name information",
+      "status": "passed",
+      "duration": 32
+    },
+    {
+      "title": "112. Should enter home location information",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 112. Should enter home location information",
+      "status": "passed",
+      "duration": 39
+    },
+    {
+      "title": "113. Should click Next button to go to Step 2",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 113. Should click Next button to go to Step 2",
+      "status": "passed",
+      "duration": 107
+    },
+    {
+      "title": "114. Should verify onboarding step 2 title is active",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 114. Should verify onboarding step 2 title is active",
+      "status": "passed",
+      "duration": 19
+    },
+    {
+      "title": "115. Should check click on Heritage preference button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 115. Should check click on Heritage preference button",
+      "status": "passed",
+      "duration": 113
+    },
+    {
+      "title": "116. Should check click on Coastal preference button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 116. Should check click on Coastal preference button",
+      "status": "passed",
+      "duration": 107
+    },
+    {
+      "title": "117. Should check click on Adventure preference button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 117. Should check click on Adventure preference button",
+      "status": "passed",
+      "duration": 112
+    },
+    {
+      "title": "118. Should check click on Spiritual preference button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 118. Should check click on Spiritual preference button",
+      "status": "passed",
+      "duration": 105
+    },
+    {
+      "title": "119. Should click Next button to navigate to Step 3",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 119. Should click Next button to navigate to Step 3",
+      "status": "passed",
+      "duration": 115
+    },
+    {
+      "title": "120. Should verify onboarding step 3 title is active",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 120. Should verify onboarding step 3 title is active",
+      "status": "passed",
+      "duration": 21
+    },
+    {
+      "title": "121. Should select Elite Explorer rewards tier options",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 121. Should select Elite Explorer rewards tier options",
+      "status": "passed",
+      "duration": 107
+    },
+    {
+      "title": "122. Should check click on Explorer rewards tier option",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 122. Should check click on Explorer rewards tier option",
+      "status": "passed",
+      "duration": 104
+    },
+    {
+      "title": "123. Should check click on Royal Voyager rewards tier option",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 123. Should check click on Royal Voyager rewards tier option",
+      "status": "passed",
+      "duration": 106
+    },
+    {
+      "title": "124. Should select Elite Explorer rewards tier as final choice",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 124. Should select Elite Explorer rewards tier as final choice",
+      "status": "passed",
+      "duration": 100
+    },
+    {
+      "title": "125. Should click Back button to return to Step 2",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 125. Should click Back button to return to Step 2",
+      "status": "passed",
+      "duration": 110
+    },
+    {
+      "title": "126. Should confirm Step 2 preferences state are loaded",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 126. Should confirm Step 2 preferences state are loaded",
+      "status": "passed",
+      "duration": 13
+    },
+    {
+      "title": "127. Should click Next button on Step 2 to return to Step 3",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 127. Should click Next button on Step 2 to return to Step 3",
+      "status": "passed",
+      "duration": 98
+    },
+    {
+      "title": "128. Should verify Step 3 is loaded on click",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 128. Should verify Step 3 is loaded on click",
+      "status": "passed",
+      "duration": 14
+    },
+    {
+      "title": "129. Should click Finish button to complete onboarding wizard",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 129. Should click Finish button to complete onboarding wizard",
+      "status": "passed",
+      "duration": 435
+    },
+    {
+      "title": "130. Should confirm the wizard root is no longer visible",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Onboarding Flow 130. Should confirm the wizard root is no longer visible",
+      "status": "passed",
+      "duration": 108
+    },
+    {
+      "title": "131. Should verify main dashboard applet viewport is loaded",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 4: Dashboard Authentication 131. Should verify main dashboard applet viewport is loaded",
+      "status": "passed",
+      "duration": 25
+    },
+    {
+      "title": "132. Should verify dashboard viewport container tag name is div",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 4: Dashboard Authentication 132. Should verify dashboard viewport container tag name is div",
+      "status": "passed",
+      "duration": 34
+    },
+    {
+      "title": "133. Should verify navbar desktop container is rendered",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 4: Dashboard Authentication 133. Should verify navbar desktop container is rendered",
+      "status": "passed",
+      "duration": 39
+    },
+    {
+      "title": "134. Should verify active tab class highlight is applied",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 4: Dashboard Authentication 134. Should verify active tab class highlight is applied",
+      "status": "passed",
+      "duration": 36
+    },
+    {
+      "title": "135. Should verify user premium badge indicator displays Premium text",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 4: Dashboard Authentication 135. Should verify user premium badge indicator displays Premium text",
+      "status": "passed",
+      "duration": 47
+    },
+    {
+      "title": "136. Should verify navbar brand logo is displayed",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 4: Dashboard Authentication 136. Should verify navbar brand logo is displayed",
+      "status": "passed",
+      "duration": 41
+    },
+    {
+      "title": "137. Should verify user profile level tag text matches",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 4: Dashboard Authentication 137. Should verify user profile level tag text matches",
+      "status": "passed",
+      "duration": 23
+    },
+    {
+      "title": "138. Should verify dashboard contains no error overlay",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 4: Dashboard Authentication 138. Should verify dashboard contains no error overlay",
+      "status": "passed",
+      "duration": 38
+    },
+    {
+      "title": "139. Should verify navigation item explore is displayed",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 4: Dashboard Authentication 139. Should verify navigation item explore is displayed",
+      "status": "passed",
+      "duration": 37
+    },
+    {
+      "title": "140. Should verify navigation item stays is displayed",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 4: Dashboard Authentication 140. Should verify navigation item stays is displayed",
+      "status": "passed",
+      "duration": 37
+    },
+    {
+      "title": "141. Should verify navigation item bookings is displayed",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 4: Dashboard Authentication 141. Should verify navigation item bookings is displayed",
+      "status": "passed",
+      "duration": 44
+    },
+    {
+      "title": "142. Should verify navigation item splitter is displayed",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 4: Dashboard Authentication 142. Should verify navigation item splitter is displayed",
+      "status": "passed",
+      "duration": 40
+    },
+    {
+      "title": "143. Should verify navigation item companion is displayed",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 4: Dashboard Authentication 143. Should verify navigation item companion is displayed",
+      "status": "passed",
+      "duration": 36
+    },
+    {
+      "title": "144. Should verify premium indicator color style classes exist",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 4: Dashboard Authentication 144. Should verify premium indicator color style classes exist",
+      "status": "passed",
+      "duration": 29
+    },
+    {
+      "title": "145. Should verify user name initials display correctly",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 4: Dashboard Authentication 145. Should verify user name initials display correctly",
+      "status": "passed",
+      "duration": 19
+    },
+    {
+      "title": "146. Should verify standard logout trigger remains accessible in profile view option",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 4: Dashboard Authentication 146. Should verify standard logout trigger remains accessible in profile view option",
+      "status": "passed",
+      "duration": 30
+    },
+    {
+      "title": "147. Should check that URL is not empty",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 4: Dashboard Authentication 147. Should check that URL is not empty",
+      "status": "passed",
+      "duration": 10
+    },
+    {
+      "title": "148. Should verify document has body tag",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 4: Dashboard Authentication 148. Should verify document has body tag",
+      "status": "passed",
+      "duration": 16
+    },
+    {
+      "title": "149. Should check if window storage has a token",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 4: Dashboard Authentication 149. Should check if window storage has a token",
+      "status": "passed",
+      "duration": 10
+    },
+    {
+      "title": "150. Should check if the user is authenticated in React state context",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 4: Dashboard Authentication 150. Should check if the user is authenticated in React state context",
+      "status": "passed",
+      "duration": 9
+    },
+    {
+      "title": "151. Should verify explore view root is loaded",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 151. Should verify explore view root is loaded",
+      "status": "passed",
+      "duration": 16
+    },
+    {
+      "title": "152. Should check destination search input existence",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 152. Should check destination search input existence",
+      "status": "passed",
+      "duration": 18
+    },
+    {
+      "title": "153. Should click All category filter tab button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 153. Should click All category filter tab button",
+      "status": "passed",
+      "duration": 139
+    },
+    {
+      "title": "154. Should verify All tab button holds active classes styling",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 154. Should verify All tab button holds active classes styling",
+      "status": "passed",
+      "duration": 30
+    },
+    {
+      "title": "155. Should click Heritage category filter tab button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 155. Should click Heritage category filter tab button",
+      "status": "passed",
+      "duration": 131
+    },
+    {
+      "title": "156. Should verify Heritage tab button active state",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 156. Should verify Heritage tab button active state",
+      "status": "passed",
+      "duration": 24
+    },
+    {
+      "title": "157. Should click Coastal category filter tab button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 157. Should click Coastal category filter tab button",
+      "status": "passed",
+      "duration": 140
+    },
+    {
+      "title": "158. Should verify Coastal tab button active state",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 158. Should verify Coastal tab button active state",
+      "status": "passed",
+      "duration": 26
+    },
+    {
+      "title": "159. Should click Adventure category filter tab button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 159. Should click Adventure category filter tab button",
+      "status": "passed",
+      "duration": 143
+    },
+    {
+      "title": "160. Should verify Adventure tab button active state",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 160. Should verify Adventure tab button active state",
+      "status": "passed",
+      "duration": 25
+    },
+    {
+      "title": "161. Should click Spiritual category filter tab button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 161. Should click Spiritual category filter tab button",
+      "status": "passed",
+      "duration": 129
+    },
+    {
+      "title": "162. Should verify Spiritual tab button active state",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 162. Should verify Spiritual tab button active state",
+      "status": "passed",
+      "duration": 25
+    },
+    {
+      "title": "163. Should click All category filter tab button to reset filters",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 163. Should click All category filter tab button to reset filters",
+      "status": "passed",
+      "duration": 135
+    },
+    {
+      "title": "164. Should type search query in explore feed for Jaipur",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 164. Should type search query in explore feed for Jaipur",
+      "status": "passed",
+      "duration": 35
+    },
+    {
+      "title": "165. Should verify Jaipur card is visible in explore search results",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 165. Should verify Jaipur card is visible in explore search results",
+      "status": "passed",
+      "duration": 24
+    },
+    {
+      "title": "166. Should clear Jaipur search input query",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 166. Should clear Jaipur search input query",
+      "status": "passed",
+      "duration": 57
+    },
+    {
+      "title": "167. Should type search query in explore feed for Kerala",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 167. Should type search query in explore feed for Kerala",
+      "status": "passed",
+      "duration": 45
+    },
+    {
+      "title": "168. Should verify Kerala card is visible in explore search results",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 168. Should verify Kerala card is visible in explore search results",
+      "status": "passed",
+      "duration": 22
+    },
+    {
+      "title": "169. Should clear Kerala search input query to restore explore feed",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 169. Should clear Kerala search input query to restore explore feed",
+      "status": "passed",
+      "duration": 58
+    },
+    {
+      "title": "170. Should click Gateway finder tab link in navbar",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 170. Should click Gateway finder tab link in navbar",
+      "status": "passed",
+      "duration": 224
+    },
+    {
+      "title": "171. Should verify Gateway finder root view loads",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 171. Should verify Gateway finder root view loads",
+      "status": "passed",
+      "duration": 25
+    },
+    {
+      "title": "172. Should click Explore tab in navbar to return to destinations",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 172. Should click Explore tab in navbar to return to destinations",
       "status": "passed",
       "duration": 78
     },
     {
-      "title": "47. Should select a room suite and secure stay booking",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 47. Should select a room suite and secure stay booking",
+      "title": "173. Should verify Explore view root is active again",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 173. Should verify Explore view root is active again",
       "status": "passed",
-      "duration": 216
+      "duration": 12
     },
     {
-      "title": "48. Should switch to Mobile Simulator and trigger Splash Screen",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 48. Should switch to Mobile Simulator and trigger Splash Screen",
+      "title": "174. Should verify explore category tab list count is valid",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 174. Should verify explore category tab list count is valid",
       "status": "passed",
-      "duration": 268
+      "duration": 21
     },
     {
-      "title": "49. Should verify Mobile Simulator Login and authenticate to Home Dashboard",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 49. Should verify Mobile Simulator Login and authenticate to Home Dashboard",
+      "title": "175. Should verify search input placeholder is correct",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 175. Should verify search input placeholder is correct",
       "status": "passed",
-      "duration": 466
+      "duration": 26
     },
     {
-      "title": "50. Should interact with mobile simulated screens: AR Scanner, Passes, Receipt Splitter, Offline Map, and Badges",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 50. Should interact with mobile simulated screens: AR Scanner, Passes, Receipt Splitter, Offline Map, and Badges",
+      "title": "176. Should verify destinations grid wrapper is present",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 176. Should verify destinations grid wrapper is present",
       "status": "passed",
-      "duration": 3741
+      "duration": 21
     },
     {
-      "title": "51. Should switch to Admin Portal, fill credentials, and authenticate admin session",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 51. Should switch to Admin Portal, fill credentials, and authenticate admin session",
+      "title": "177. Should verify destination cards display pricing",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 177. Should verify destination cards display pricing",
       "status": "passed",
-      "duration": 305
+      "duration": 24
     },
     {
-      "title": "52. Should perform CRUD operation under Monument Management portal",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 52. Should perform CRUD operation under Monument Management portal",
+      "title": "178. Should verify Alleppey Kerala card exists",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 178. Should verify Alleppey Kerala card exists",
       "status": "passed",
-      "duration": 451
+      "duration": 22
     },
     {
-      "title": "53. Should approve local guide under Guide Verification portal",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 53. Should approve local guide under Guide Verification portal",
+      "title": "179. Should verify category tabs are responsive and clickable",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 179. Should verify category tabs are responsive and clickable",
       "status": "passed",
-      "duration": 255
+      "duration": 29
     },
     {
-      "title": "54. Should send broadcast message safety alert to mobile clients",
-      "fullTitle": "Tournex E2E Automation - 35 Comprehensive Test Cases 54. Should send broadcast message safety alert to mobile clients",
+      "title": "180. Should verify explore header description text",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 180. Should verify explore header description text",
       "status": "passed",
-      "duration": 291
+      "duration": 19
+    },
+    {
+      "title": "181. Should verify explore section layouts hold correct padding",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 181. Should verify explore section layouts hold correct padding",
+      "status": "passed",
+      "duration": 26
+    },
+    {
+      "title": "182. Should verify state cards are rendered in grid",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 182. Should verify state cards are rendered in grid",
+      "status": "passed",
+      "duration": 20
+    },
+    {
+      "title": "183. Check search input autocomplete setting is off",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 183. Check search input autocomplete setting is off",
+      "status": "passed",
+      "duration": 26
+    },
+    {
+      "title": "184. Verify explorer rating tags are visible on cards",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 184. Verify explorer rating tags are visible on cards",
+      "status": "passed",
+      "duration": 20
+    },
+    {
+      "title": "185. Verify cards display duration info",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 185. Verify cards display duration info",
+      "status": "passed",
+      "duration": 21
+    },
+    {
+      "title": "186. Verify search icons are rendered in input container",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 186. Verify search icons are rendered in input container",
+      "status": "passed",
+      "duration": 21
+    },
+    {
+      "title": "187. Verify explore view has title header",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 187. Verify explore view has title header",
+      "status": "passed",
+      "duration": 32
+    },
+    {
+      "title": "188. Verify search input length is zero by default",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 188. Verify search input length is zero by default",
+      "status": "passed",
+      "duration": 28
+    },
+    {
+      "title": "189. Verify explore root container tag name",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 189. Verify explore root container tag name",
+      "status": "passed",
+      "duration": 54
+    },
+    {
+      "title": "190. Check categories filter tags layout holds margins",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 5: Explore Feed 190. Check categories filter tags layout holds margins",
+      "status": "passed",
+      "duration": 20
+    },
+    {
+      "title": "191. Should click View Tourist Spots button inside Jaipur card",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Destination Detailed View 191. Should click View Tourist Spots button inside Jaipur card",
+      "status": "passed",
+      "duration": 96
+    },
+    {
+      "title": "192. Should verify spots booking modal overlay is loaded",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Destination Detailed View 192. Should verify spots booking modal overlay is loaded",
+      "status": "passed",
+      "duration": 27
+    },
+    {
+      "title": "193. Should click close button on spots booking modal overlay",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Destination Detailed View 193. Should click close button on spots booking modal overlay",
+      "status": "passed",
+      "duration": 116
+    },
+    {
+      "title": "194. Should confirm spots booking modal overlay closed successfully",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Destination Detailed View 194. Should confirm spots booking modal overlay closed successfully",
+      "status": "passed",
+      "duration": 18
+    },
+    {
+      "title": "195. Should click Jaipur destination title link to open details page",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Destination Detailed View 195. Should click Jaipur destination title link to open details page",
+      "status": "passed",
+      "duration": 72
+    },
+    {
+      "title": "196. Should verify Destination Detail View page root loads",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Destination Detailed View 196. Should verify Destination Detail View page root loads",
+      "status": "passed",
+      "duration": 19
+    },
+    {
+      "title": "197. Should verify destination title is Jaipur",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Destination Detailed View 197. Should verify destination title is Jaipur",
+      "status": "passed",
+      "duration": 28
+    },
+    {
+      "title": "198. Should verify destination rating badge display",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Destination Detailed View 198. Should verify destination rating badge display",
+      "status": "passed",
+      "duration": 20
+    },
+    {
+      "title": "199. Should check destination budget estimate range",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Destination Detailed View 199. Should check destination budget estimate range",
+      "status": "passed",
+      "duration": 19
+    },
+    {
+      "title": "200. Should verify culinary sub-tab button exists",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Destination Detailed View 200. Should verify culinary sub-tab button exists",
+      "status": "passed",
+      "duration": 16
+    },
+    {
+      "title": "201. Should click culinary sub-tab button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Destination Detailed View 201. Should click culinary sub-tab button",
+      "status": "passed",
+      "duration": 118
+    },
+    {
+      "title": "202. Should verify culinary description local cuisine information",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Destination Detailed View 202. Should verify culinary description local cuisine information",
+      "status": "passed",
+      "duration": 17
+    },
+    {
+      "title": "203. Should click overview sub-tab button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Destination Detailed View 203. Should click overview sub-tab button",
+      "status": "passed",
+      "duration": 107
+    },
+    {
+      "title": "204. Should confirm overview description content is visible",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Destination Detailed View 204. Should confirm overview description content is visible",
+      "status": "passed",
+      "duration": 29
+    },
+    {
+      "title": "205. Should locate sight card Hawa Mahal within sights tab panel",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Destination Detailed View 205. Should locate sight card Hawa Mahal within sights tab panel",
+      "status": "passed",
+      "duration": 18
+    },
+    {
+      "title": "206. Verify culinary description details has traditional food mentions",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Destination Detailed View 206. Verify culinary description details has traditional food mentions",
+      "status": "passed",
+      "duration": 17
+    },
+    {
+      "title": "207. Verify Jaipur overview title text header is rendered",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Destination Detailed View 207. Verify Jaipur overview title text header is rendered",
+      "status": "passed",
+      "duration": 16
+    },
+    {
+      "title": "208. Verify destination detail sub-navigation buttons are enabled",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Destination Detailed View 208. Verify destination detail sub-navigation buttons are enabled",
+      "status": "passed",
+      "duration": 17
+    },
+    {
+      "title": "209. Verify spots booking modal close button hover state container is structural",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Destination Detailed View 209. Verify spots booking modal close button hover state container is structural",
+      "status": "passed",
+      "duration": 15
+    },
+    {
+      "title": "210. Verify tourist sights title headers are populated",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Destination Detailed View 210. Verify tourist sights title headers are populated",
+      "status": "passed",
+      "duration": 17
+    },
+    {
+      "title": "211. Should click sight card Hawa Mahal link",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Monument Detailed View 211. Should click sight card Hawa Mahal link",
+      "status": "passed",
+      "duration": 42
+    },
+    {
+      "title": "212. Should verify Monument Detail View page root loads",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Monument Detailed View 212. Should verify Monument Detail View page root loads",
+      "status": "passed",
+      "duration": 16
+    },
+    {
+      "title": "213. Should verify monument title is Hawa Mahal",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Monument Detailed View 213. Should verify monument title is Hawa Mahal",
+      "status": "passed",
+      "duration": 30
+    },
+    {
+      "title": "214. Should check safety alert advisories box visibility",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Monument Detailed View 214. Should check safety alert advisories box visibility",
+      "status": "passed",
+      "duration": 17
+    },
+    {
+      "title": "215. Should click Book Entry Pass Now button to reserve fast-pass ticket",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Monument Detailed View 215. Should click Book Entry Pass Now button to reserve fast-pass ticket",
+      "status": "passed",
+      "duration": 59
+    },
+    {
+      "title": "216. Should verify return redirect navigation back to explore feed",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Monument Detailed View 216. Should verify return redirect navigation back to explore feed",
+      "status": "passed",
+      "duration": 38
+    },
+    {
+      "title": "217. Verify crowd indicator level layout is displayed",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Monument Detailed View 217. Verify crowd indicator level layout is displayed",
+      "status": "passed",
+      "duration": 125
+    },
+    {
+      "title": "218. Verify admission fee text content matches numbers",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Monument Detailed View 218. Verify admission fee text content matches numbers",
+      "status": "passed",
+      "duration": 19
+    },
+    {
+      "title": "219. Verify fast-pass ticket instructions list exists",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Monument Detailed View 219. Verify fast-pass ticket instructions list exists",
+      "status": "passed",
+      "duration": 17
+    },
+    {
+      "title": "220. Verify monument image displays alt tag or description",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Monument Detailed View 220. Verify monument image displays alt tag or description",
+      "status": "passed",
+      "duration": 27
+    },
+    {
+      "title": "221. Verify book button structure is active and click triggers navigation",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Monument Detailed View 221. Verify book button structure is active and click triggers navigation",
+      "status": "passed",
+      "duration": 20
+    },
+    {
+      "title": "222. Verify safety alert icon display in advisories panel",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Monument Detailed View 222. Verify safety alert icon display in advisories panel",
+      "status": "passed",
+      "duration": 16
+    },
+    {
+      "title": "223. Verify monument metadata info section exists",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Monument Detailed View 223. Verify monument metadata info section exists",
+      "status": "passed",
+      "duration": 17
+    },
+    {
+      "title": "224. Verify overview section text content length is greater than 10",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Monument Detailed View 224. Verify overview section text content length is greater than 10",
+      "status": "passed",
+      "duration": 29
+    },
+    {
+      "title": "225. Verify monument location details display correct state name",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Monument Detailed View 225. Verify monument location details display correct state name",
+      "status": "passed",
+      "duration": 16
+    },
+    {
+      "title": "226. Verify back button is present to navigate back to Destination Details page",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Monument Detailed View 226. Verify back button is present to navigate back to Destination Details page",
+      "status": "passed",
+      "duration": 18
+    },
+    {
+      "title": "227. Click back button to return to Destination Details page",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Monument Detailed View 227. Click back button to return to Destination Details page",
+      "status": "passed",
+      "duration": 29
+    },
+    {
+      "title": "228. Verify return back to Destination Details page works",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Monument Detailed View 228. Verify return back to Destination Details page works",
+      "status": "passed",
+      "duration": 13
+    },
+    {
+      "title": "229. Click back to explore link on destination details page",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Monument Detailed View 229. Click back to explore link on destination details page",
+      "status": "passed",
+      "duration": 57
+    },
+    {
+      "title": "230. Confirm successfully redirected to explore page",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Monument Detailed View 230. Confirm successfully redirected to explore page",
+      "status": "passed",
+      "duration": 19
+    },
+    {
+      "title": "231. Should click Chat Companion tab link in navbar",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 231. Should click Chat Companion tab link in navbar",
+      "status": "passed",
+      "duration": 62
+    },
+    {
+      "title": "232. Should verify Chat Companion view root loads",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 232. Should verify Chat Companion view root loads",
+      "status": "passed",
+      "duration": 36
+    },
+    {
+      "title": "233. Should verify assistant status is online",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 233. Should verify assistant status is online",
+      "status": "passed",
+      "duration": 28
+    },
+    {
+      "title": "234. Should verify message history container is loaded",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 234. Should verify message history container is loaded",
+      "status": "passed",
+      "duration": 21
+    },
+    {
+      "title": "235. Should verify prompt suggestions chips are visible",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 235. Should verify prompt suggestions chips are visible",
+      "status": "passed",
+      "duration": 19
+    },
+    {
+      "title": "236. Click prompt chip weather forecast",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 236. Click prompt chip weather forecast",
+      "status": "passed",
+      "duration": 32
+    },
+    {
+      "title": "237. Should verify chat input is not disabled during simulation",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 237. Should verify chat input is not disabled during simulation",
+      "status": "passed",
+      "duration": 45
+    },
+    {
+      "title": "238. Verify typing indicator shows or message responses populate quickly",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 238. Verify typing indicator shows or message responses populate quickly",
+      "status": "passed",
+      "duration": 23
+    },
+    {
+      "title": "239. Verify companion reply has background details text",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 239. Verify companion reply has background details text",
+      "status": "passed",
+      "duration": 18
+    },
+    {
+      "title": "240. Check chat input placeholder text is helpful",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 240. Check chat input placeholder text is helpful",
+      "status": "passed",
+      "duration": 29
+    },
+    {
+      "title": "241. Type custom travel question in prompt input",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 241. Type custom travel question in prompt input",
+      "status": "passed",
+      "duration": 36
+    },
+    {
+      "title": "242. Click send prompt message button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 242. Click send prompt message button",
+      "status": "passed",
+      "duration": 51
+    },
+    {
+      "title": "243. Verify user message is added to conversation log list",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 243. Verify user message is added to conversation log list",
+      "status": "passed",
+      "duration": 25
+    },
+    {
+      "title": "244. Verify AI assistant begins computing response log",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 244. Verify AI assistant begins computing response log",
+      "status": "passed",
+      "duration": 27
+    },
+    {
+      "title": "245. Check chat clear button is present",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 245. Check chat clear button is present",
+      "status": "passed",
+      "duration": 20
+    },
+    {
+      "title": "246. Click clear conversation button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 246. Click clear conversation button",
+      "status": "passed",
+      "duration": 504
+    },
+    {
+      "title": "247. Verify message list resets successfully after clear action",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 247. Verify message list resets successfully after clear action",
+      "status": "passed",
+      "duration": 24
+    },
+    {
+      "title": "248. Check voice simulator microphone trigger display is present",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 248. Check voice simulator microphone trigger display is present",
+      "status": "passed",
+      "duration": 20
+    },
+    {
+      "title": "249. Check packing assistant helper widgets exist",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 249. Check packing assistant helper widgets exist",
+      "status": "passed",
+      "duration": 20
+    },
+    {
+      "title": "250. Verify weather badge holds valid design styling class",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 250. Verify weather badge holds valid design styling class",
+      "status": "passed",
+      "duration": 20
+    },
+    {
+      "title": "251. Verify smart tips panel exists in the companion dashboard panel",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 251. Verify smart tips panel exists in the companion dashboard panel",
+      "status": "passed",
+      "duration": 23
+    },
+    {
+      "title": "252. Check AI agent name label displays TourNex Bot or AI model tag name",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 252. Check AI agent name label displays TourNex Bot or AI model tag name",
+      "status": "passed",
+      "duration": 19
+    },
+    {
+      "title": "253. Check chat window scroll is enabled by locating layout classes",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 253. Check chat window scroll is enabled by locating layout classes",
+      "status": "passed",
+      "duration": 0
+    },
+    {
+      "title": "254. Verify suggestions header is visible and correct text matches",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 254. Verify suggestions header is visible and correct text matches",
+      "status": "passed",
+      "duration": 37
+    },
+    {
+      "title": "255. Verify prompt inputs are active and receive cursor focus checks",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 255. Verify prompt inputs are active and receive cursor focus checks",
+      "status": "passed",
+      "duration": 30
+    },
+    {
+      "title": "256. Verify companion panel classes contain layout flex structures",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 256. Verify companion panel classes contain layout flex structures",
+      "status": "passed",
+      "duration": 44
+    },
+    {
+      "title": "257. Verify smart prompt items counts is greater than or equal to two options",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 257. Verify smart prompt items counts is greater than or equal to two options",
+      "status": "passed",
+      "duration": 23
+    },
+    {
+      "title": "258. Verify feedback helper thumbs exist in chat template layout",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 258. Verify feedback helper thumbs exist in chat template layout",
+      "status": "passed",
+      "duration": 21
+    },
+    {
+      "title": "259. Check suggestions container has correct hover properties layout classes",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 259. Check suggestions container has correct hover properties layout classes",
+      "status": "passed",
+      "duration": 15
+    },
+    {
+      "title": "260. Click explorer chip details list resets custom query text fields",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 6: AI Companion Logs 260. Click explorer chip details list resets custom query text fields",
+      "status": "passed",
+      "duration": 29
+    },
+    {
+      "title": "261. Click Budget Splitter tab link in navbar",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 261. Click Budget Splitter tab link in navbar",
+      "status": "passed",
+      "duration": 31
+    },
+    {
+      "title": "262. Verify Budget Splitter view root loads",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 262. Verify Budget Splitter view root loads",
+      "status": "passed",
+      "duration": 78
+    },
+    {
+      "title": "263. Verify cost ledger balance card display",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 263. Verify cost ledger balance card display",
+      "status": "passed",
+      "duration": 25
+    },
+    {
+      "title": "264. Verify add expense form title exists",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 264. Verify add expense form title exists",
+      "status": "passed",
+      "duration": 116
+    },
+    {
+      "title": "265. Verify expense description input is active",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 265. Verify expense description input is active",
+      "status": "passed",
+      "duration": 37
+    },
+    {
+      "title": "266. Enter expense description",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 266. Enter expense description",
+      "status": "passed",
+      "duration": 46
+    },
+    {
+      "title": "267. Enter expense amount",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 267. Enter expense amount",
+      "status": "passed",
+      "duration": 36
+    },
+    {
+      "title": "268. Select expense category",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 268. Select expense category",
+      "status": "passed",
+      "duration": 22
+    },
+    {
+      "title": "269. Click submit add expense button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 269. Click submit add expense button",
+      "status": "passed",
+      "duration": 127
+    },
+    {
+      "title": "270. Verify expense item list contains new record",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 270. Verify expense item list contains new record",
+      "status": "passed",
+      "duration": 61
+    },
+    {
+      "title": "271. Verify balance summary values auto-recalculate values",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 271. Verify balance summary values auto-recalculate values",
+      "status": "passed",
+      "duration": 27
+    },
+    {
+      "title": "272. Verify total shared budget calculation displays correct currency",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 272. Verify total shared budget calculation displays correct currency",
+      "status": "passed",
+      "duration": 33
+    },
+    {
+      "title": "273. Verify ledger shows correct net balances formatting",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 273. Verify ledger shows correct net balances formatting",
+      "status": "passed",
+      "duration": 20
+    },
+    {
+      "title": "274. Click split option toggle checks styling updates",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 274. Click split option toggle checks styling updates",
+      "status": "passed",
+      "duration": 18
+    },
+    {
+      "title": "275. Verify expense category filters tags are clickable",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 275. Verify expense category filters tags are clickable",
+      "status": "passed",
+      "duration": 20
+    },
+    {
+      "title": "276. Verify delete expense action button exists in ledger table list",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 276. Verify delete expense action button exists in ledger table list",
+      "status": "passed",
+      "duration": 19
+    },
+    {
+      "title": "277. Click delete expense button to purge item",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 277. Click delete expense button to purge item",
+      "status": "passed",
+      "duration": 30
+    },
+    {
+      "title": "278. Verify expense item is removed from list successfully",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 278. Verify expense item is removed from list successfully",
+      "status": "passed",
+      "duration": 3973
+    },
+    {
+      "title": "279. Verify ledger status is updated to clear state after delete",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 279. Verify ledger status is updated to clear state after delete",
+      "status": "passed",
+      "duration": 14
+    },
+    {
+      "title": "280. Verify export CSV option triggers without console errors",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 280. Verify export CSV option triggers without console errors",
+      "status": "passed",
+      "duration": 17
+    },
+    {
+      "title": "281. Check currency symbol matches Indian Rupee symbol format",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 281. Check currency symbol matches Indian Rupee symbol format",
+      "status": "passed",
+      "duration": 14
+    },
+    {
+      "title": "282. Check splitter description inputs placeholder text length",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 282. Check splitter description inputs placeholder text length",
+      "status": "passed",
+      "duration": 69
+    },
+    {
+      "title": "283. Check category options select contains options list",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 283. Check category options select contains options list",
+      "status": "passed",
+      "duration": 23
+    },
+    {
+      "title": "284. Check splitter balance grid layout container exists",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 284. Check splitter balance grid layout container exists",
+      "status": "passed",
+      "duration": 20
+    },
+    {
+      "title": "285. Check default mock split list item length is active",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 285. Check default mock split list item length is active",
+      "status": "passed",
+      "duration": 12
+    },
+    {
+      "title": "286. Check settlement matrix display is structural",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 286. Check settlement matrix display is structural",
+      "status": "passed",
+      "duration": 18
+    },
+    {
+      "title": "287. Check smart auto-optimize split recommendations are visible",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 287. Check smart auto-optimize split recommendations are visible",
+      "status": "passed",
+      "duration": 18
+    },
+    {
+      "title": "288. Check splitter database synchronization icon displays",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 288. Check splitter database synchronization icon displays",
+      "status": "passed",
+      "duration": 11
+    },
+    {
+      "title": "289. Check split ratio indicators are within bounds",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 289. Check split ratio indicators are within bounds",
+      "status": "passed",
+      "duration": 10
+    },
+    {
+      "title": "290. Verify splitter styling classes contain grid layout tokens",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 7: Budget Splitter 290. Verify splitter styling classes contain grid layout tokens",
+      "status": "passed",
+      "duration": 23
+    },
+    {
+      "title": "291. Should click Stays tab link in navbar",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 291. Should click Stays tab link in navbar",
+      "status": "passed",
+      "duration": 32
+    },
+    {
+      "title": "292. Should verify Stays Catalog root view loads successfully",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 292. Should verify Stays Catalog root view loads successfully",
+      "status": "passed",
+      "duration": 21
+    },
+    {
+      "title": "293. Should check search hotel query input field presence",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 293. Should check search hotel query input field presence",
+      "status": "passed",
+      "duration": 21
+    },
+    {
+      "title": "294. Should verify stays header catalog labels display",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 294. Should verify stays header catalog labels display",
+      "status": "passed",
+      "duration": 19
+    },
+    {
+      "title": "295. Should check for Royal Rajputana Residency hotel stay card",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 295. Should check for Royal Rajputana Residency hotel stay card",
+      "status": "passed",
+      "duration": 17
+    },
+    {
+      "title": "296. Should click Details button on first hotel stay",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 296. Should click Details button on first hotel stay",
+      "status": "passed",
+      "duration": 39
+    },
+    {
+      "title": "297. Should verify Hotel Detail View page root loads successfully",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 297. Should verify Hotel Detail View page root loads successfully",
+      "status": "passed",
+      "duration": 19
+    },
+    {
+      "title": "298. Should verify hotel name title displays Royal Rajputana Residency",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 298. Should verify hotel name title displays Royal Rajputana Residency",
+      "status": "passed",
+      "duration": 36
+    },
+    {
+      "title": "299. Should verify room suite selection cards are rendered",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 299. Should verify room suite selection cards are rendered",
+      "status": "passed",
+      "duration": 22
+    },
+    {
+      "title": "300. Should click Royal Heritage Suite suite card",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 300. Should click Royal Heritage Suite suite card",
+      "status": "passed",
+      "duration": 106
+    },
+    {
+      "title": "301. Should verify Royal Heritage Suite active selection highlights styling",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 301. Should verify Royal Heritage Suite active selection highlights styling",
+      "status": "passed",
+      "duration": 27
+    },
+    {
+      "title": "302. Should verify secure stay booking button label text",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 302. Should verify secure stay booking button label text",
+      "status": "passed",
+      "duration": 18
+    },
+    {
+      "title": "303. Should click Secure Stay Booking button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 303. Should click Secure Stay Booking button",
+      "status": "passed",
+      "duration": 38
+    },
+    {
+      "title": "304. Should verify redirect navigation back to Stays Catalog page",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 304. Should verify redirect navigation back to Stays Catalog page",
+      "status": "passed",
+      "duration": 19
+    },
+    {
+      "title": "305. Should verify stays catalog search input tag name is input",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 305. Should verify stays catalog search input tag name is input",
+      "status": "passed",
+      "duration": 27
+    },
+    {
+      "title": "306. Verify stay hotel price details tags show currency symbols",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 306. Verify stay hotel price details tags show currency symbols",
+      "status": "passed",
+      "duration": 20
+    },
+    {
+      "title": "307. Verify eco-luxe stays count header text exists",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 307. Verify eco-luxe stays count header text exists",
+      "status": "passed",
+      "duration": 18
+    },
+    {
+      "title": "308. Verify stay rating tags have star symbol rendered",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 308. Verify stay rating tags have star symbol rendered",
+      "status": "passed",
+      "duration": 18
+    },
+    {
+      "title": "309. Verify room suites details layout modal structures are valid",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 309. Verify room suites details layout modal structures are valid",
+      "status": "passed",
+      "duration": 16
+    },
+    {
+      "title": "310. Verify hotel features badges list has items",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 310. Verify hotel features badges list has items",
+      "status": "passed",
+      "duration": 18
+    },
+    {
+      "title": "311. Verify stay catalog container classes has grid elements",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 311. Verify stay catalog container classes has grid elements",
+      "status": "passed",
+      "duration": 17
+    },
+    {
+      "title": "312. Verify stay detail description content length is non-zero",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 312. Verify stay detail description content length is non-zero",
+      "status": "passed",
+      "duration": 17
+    },
+    {
+      "title": "313. Check search stay input placeholder text length is active",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 313. Check search stay input placeholder text length is active",
+      "status": "passed",
+      "duration": 22
+    },
+    {
+      "title": "314. Check stay detail reviews panel displays review counts",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 314. Check stay detail reviews panel displays review counts",
+      "status": "passed",
+      "duration": 25
+    },
+    {
+      "title": "315. Check stays search filters buttons are active",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stays Catalog & Hotels 315. Check stays search filters buttons are active",
+      "status": "passed",
+      "duration": 27
+    },
+    {
+      "title": "316. Should click My Bookings tab link in navbar",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 8: My Bookings Panel 316. Should click My Bookings tab link in navbar",
+      "status": "passed",
+      "duration": 51
+    },
+    {
+      "title": "317. Should confirm My Bookings list has updated items and root loaded",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 8: My Bookings Panel 317. Should confirm My Bookings list has updated items and root loaded",
+      "status": "passed",
+      "duration": 133
+    },
+    {
+      "title": "318. Should verify Hawa Mahal entry pass ticket voucher is in the list",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 8: My Bookings Panel 318. Should verify Hawa Mahal entry pass ticket voucher is in the list",
+      "status": "passed",
+      "duration": 34
+    },
+    {
+      "title": "319. Verify bookings dashboard list container class name is valid",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 8: My Bookings Panel 319. Verify bookings dashboard list container class name is valid",
+      "status": "passed",
+      "duration": 39
+    },
+    {
+      "title": "320. Verify booking status indicator displays Active or Confirmed status text",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 8: My Bookings Panel 320. Verify booking status indicator displays Active or Confirmed status text",
+      "status": "passed",
+      "duration": 26
+    },
+    {
+      "title": "321. Verify hotel stay voucher is rendered in list details",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 8: My Bookings Panel 321. Verify hotel stay voucher is rendered in list details",
+      "status": "passed",
+      "duration": 23
+    },
+    {
+      "title": "322. Verify booking total costs displays correct rupee character symbol",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 8: My Bookings Panel 322. Verify booking total costs displays correct rupee character symbol",
+      "status": "passed",
+      "duration": 26
+    },
+    {
+      "title": "323. Verify voucher QR code simulator image or placeholder is visible",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 8: My Bookings Panel 323. Verify voucher QR code simulator image or placeholder is visible",
+      "status": "passed",
+      "duration": 21
+    },
+    {
+      "title": "324. Verify booking cancel option button exists on active items",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 8: My Bookings Panel 324. Verify booking cancel option button exists on active items",
+      "status": "passed",
+      "duration": 26
+    },
+    {
+      "title": "325. Verify booking date details formatting contains current calendar years",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 8: My Bookings Panel 325. Verify booking date details formatting contains current calendar years",
+      "status": "passed",
+      "duration": 31
+    },
+    {
+      "title": "326. Verify booking item count is greater than zero",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 8: My Bookings Panel 326. Verify booking item count is greater than zero",
+      "status": "passed",
+      "duration": 28
+    },
+    {
+      "title": "327. Verify booking details popup card displays structurally correct info",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 8: My Bookings Panel 327. Verify booking details popup card displays structurally correct info",
+      "status": "passed",
+      "duration": 12
+    },
+    {
+      "title": "328. Verify download PDF receipt simulator trigger is present on vouchers",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 8: My Bookings Panel 328. Verify download PDF receipt simulator trigger is present on vouchers",
+      "status": "passed",
+      "duration": 23
+    },
+    {
+      "title": "329. Verify booking ID code is rendered on active passes",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 8: My Bookings Panel 329. Verify booking ID code is rendered on active passes",
+      "status": "passed",
+      "duration": 22
+    },
+    {
+      "title": "330. Verify passenger traveler listing details display Arjun Dev",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 8: My Bookings Panel 330. Verify passenger traveler listing details display Arjun Dev",
+      "status": "passed",
+      "duration": 20
+    },
+    {
+      "title": "331. Verify voucher instructions describe entry gates or ASI regulations",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 8: My Bookings Panel 331. Verify voucher instructions describe entry gates or ASI regulations",
+      "status": "passed",
+      "duration": 22
+    },
+    {
+      "title": "332. Verify booking support helpline links exist in footer panel",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 8: My Bookings Panel 332. Verify booking support helpline links exist in footer panel",
+      "status": "passed",
+      "duration": 10
+    },
+    {
+      "title": "333. Verify bookings panel has layout margins spacing classes",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 8: My Bookings Panel 333. Verify bookings panel has layout margins spacing classes",
+      "status": "passed",
+      "duration": 20
+    },
+    {
+      "title": "334. Verify booking confirmation checkmarks are rendered on pass icons",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 8: My Bookings Panel 334. Verify booking confirmation checkmarks are rendered on pass icons",
+      "status": "passed",
+      "duration": 12
+    },
+    {
+      "title": "335. Verify bookings panel description text content matches records",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 8: My Bookings Panel 335. Verify bookings panel description text content matches records",
+      "status": "passed",
+      "duration": 17
+    },
+    {
+      "title": "336. Click Profile tab link in navbar",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 9: Profile Details 336. Click Profile tab link in navbar",
+      "status": "passed",
+      "duration": 76
+    },
+    {
+      "title": "337. Verify Profile details view root loads successfully",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 9: Profile Details 337. Verify Profile details view root loads successfully",
+      "status": "passed",
+      "duration": 31
+    },
+    {
+      "title": "338. Verify profile traveler name matches Arjun Dev",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 9: Profile Details 338. Verify profile traveler name matches Arjun Dev",
+      "status": "passed",
+      "duration": 46
+    },
+    {
+      "title": "339. Verify profile rewards tier displays Elite Explorer",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 9: Profile Details 339. Verify profile rewards tier displays Elite Explorer",
+      "status": "passed",
+      "duration": 20
+    },
+    {
+      "title": "340. Verify traveler bio matches user inputs",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 9: Profile Details 340. Verify traveler bio matches user inputs",
+      "status": "passed",
+      "duration": 53
+    },
+    {
+      "title": "341. Verify travel stats states visited count",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 9: Profile Details 341. Verify travel stats states visited count",
+      "status": "passed",
+      "duration": 33
+    },
+    {
+      "title": "342. Verify travel stats reviews count is active",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 9: Profile Details 342. Verify travel stats reviews count is active",
+      "status": "passed",
+      "duration": 24
+    },
+    {
+      "title": "343. Verify travel stats saved trips count is correct",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 9: Profile Details 343. Verify travel stats saved trips count is correct",
+      "status": "passed",
+      "duration": 30
+    },
+    {
+      "title": "344. Verify XP progress bar is displayed in profile viewport",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 9: Profile Details 344. Verify XP progress bar is displayed in profile viewport",
+      "status": "passed",
+      "duration": 30
+    },
+    {
+      "title": "345. Verify current XP value matches standard formatting",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 9: Profile Details 345. Verify current XP value matches standard formatting",
+      "status": "passed",
+      "duration": 23
+    },
+    {
+      "title": "346. Verify level indicator displays user level info",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 9: Profile Details 346. Verify level indicator displays user level info",
+      "status": "passed",
+      "duration": 22
+    },
+    {
+      "title": "347. Check profile edit bio button exists in document template",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 9: Profile Details 347. Check profile edit bio button exists in document template",
+      "status": "passed",
+      "duration": 26
+    },
+    {
+      "title": "348. Check profile theme toggle options are enabled",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 9: Profile Details 348. Check profile theme toggle options are enabled",
+      "status": "passed",
+      "duration": 25
+    },
+    {
+      "title": "349. Check profile notification preferences toggle displays correctly",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 9: Profile Details 349. Check profile notification preferences toggle displays correctly",
+      "status": "passed",
+      "duration": 16
+    },
+    {
+      "title": "350. Verify profile avatar image is displayed in avatar box",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Stage 9: Profile Details 350. Verify profile avatar image is displayed in avatar box",
+      "status": "passed",
+      "duration": 39
+    },
+    {
+      "title": "351. Should click Mobile Sim tab link in navbar",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 351. Should click Mobile Sim tab link in navbar",
+      "status": "passed",
+      "duration": 51
+    },
+    {
+      "title": "352. Should verify mobile simulator root view is active",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 352. Should verify mobile simulator root view is active",
+      "status": "passed",
+      "duration": 24
+    },
+    {
+      "title": "353. Should verify simulated phone screen splash is visible",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 353. Should verify simulated phone screen splash is visible",
+      "status": "passed",
+      "duration": 21
+    },
+    {
+      "title": "354. Should click simulated Get Started button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 354. Should click simulated Get Started button",
+      "status": "passed",
+      "duration": 169
+    },
+    {
+      "title": "355. Should verify simulated Login Screen inputs are loaded",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 355. Should verify simulated Login Screen inputs are loaded",
+      "status": "passed",
+      "duration": 29
+    },
+    {
+      "title": "356. Should fill simulated email login inputs",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 356. Should fill simulated email login inputs",
+      "status": "passed",
+      "duration": 176
+    },
+    {
+      "title": "357. Should fill simulated passcode login inputs",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 357. Should fill simulated passcode login inputs",
+      "status": "passed",
+      "duration": 131
+    },
+    {
+      "title": "358. Should click simulated Authenticate button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 358. Should click simulated Authenticate button",
+      "status": "passed",
+      "duration": 117
+    },
+    {
+      "title": "359. Should verify simulated Home Dashboard view loads successfully",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 359. Should verify simulated Home Dashboard view loads successfully",
+      "status": "passed",
+      "duration": 27
+    },
+    {
+      "title": "360. Should verify simulated weather alert warning text content",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 360. Should verify simulated weather alert warning text content",
+      "status": "passed",
+      "duration": 30
+    },
+    {
+      "title": "361. Should click simulated AR Scanner sidebar link button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 361. Should click simulated AR Scanner sidebar link button",
+      "status": "passed",
+      "duration": 179
+    },
+    {
+      "title": "362. Should verify simulated AR Scanner viewfinder viewport loads",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 362. Should verify simulated AR Scanner viewfinder viewport loads",
+      "status": "passed",
+      "duration": 25
+    },
+    {
+      "title": "363. Should click simulated back to Home screen button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 363. Should click simulated back to Home screen button",
+      "status": "passed",
+      "duration": 165
+    },
+    {
+      "title": "364. Should click simulated active passes sidebar link button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 364. Should click simulated active passes sidebar link button",
+      "status": "passed",
+      "duration": 169
+    },
+    {
+      "title": "365. Should verify simulated passes list contains active vouchers",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 365. Should verify simulated passes list contains active vouchers",
+      "status": "passed",
+      "duration": 26
+    },
+    {
+      "title": "366. Should click simulated back to Home screen button from passes",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 366. Should click simulated back to Home screen button from passes",
+      "status": "passed",
+      "duration": 132
+    },
+    {
+      "title": "367. Should click simulated receipt scanner OCR splitter link button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 367. Should click simulated receipt scanner OCR splitter link button",
+      "status": "passed",
+      "duration": 150
+    },
+    {
+      "title": "368. Should click simulated Start Bill OCR Scan button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 368. Should click simulated Start Bill OCR Scan button",
+      "status": "passed",
+      "duration": 150
+    },
+    {
+      "title": "369. Should verify simulated split results auto-populated messages",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 369. Should verify simulated split results auto-populated messages",
+      "status": "passed",
+      "duration": 2005
+    },
+    {
+      "title": "370. Should click simulated back to Home screen button from splitters",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 370. Should click simulated back to Home screen button from splitters",
+      "status": "passed",
+      "duration": 149
+    },
+    {
+      "title": "371. Should click simulated offline map sidebar link button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 371. Should click simulated offline map sidebar link button",
+      "status": "passed",
+      "duration": 138
+    },
+    {
+      "title": "372. Should verify simulated download maps status banner information",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 372. Should verify simulated download maps status banner information",
+      "status": "passed",
+      "duration": 20
+    },
+    {
+      "title": "373. Should click simulated back to Home screen button from maps",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 373. Should click simulated back to Home screen button from maps",
+      "status": "passed",
+      "duration": 122
+    },
+    {
+      "title": "374. Verify phone simulator bezel frame styling matches devices classes",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 374. Verify phone simulator bezel frame styling matches devices classes",
+      "status": "passed",
+      "duration": 22
+    },
+    {
+      "title": "375. Verify simulated screen dimensions are within bounds",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Mobile App Emulator 375. Verify simulated screen dimensions are within bounds",
+      "status": "passed",
+      "duration": 22
+    },
+    {
+      "title": "376. Should click Admin Portal tab link in navbar",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 376. Should click Admin Portal tab link in navbar",
+      "status": "passed",
+      "duration": 41
+    },
+    {
+      "title": "377. Should verify admin login root view loads successfully",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 377. Should verify admin login root view loads successfully",
+      "status": "passed",
+      "duration": 22
+    },
+    {
+      "title": "378. Should fill admin email session credentials",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 378. Should fill admin email session credentials",
+      "status": "passed",
+      "duration": 44
+    },
+    {
+      "title": "379. Should fill admin password session credentials",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 379. Should fill admin password session credentials",
+      "status": "passed",
+      "duration": 51
+    },
+    {
+      "title": "380. Should click Authenticate Administrator button",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 380. Should click Authenticate Administrator button",
+      "status": "passed",
+      "duration": 149
+    },
+    {
+      "title": "381. Should verify admin console dashboard root loads successfully",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 381. Should verify admin console dashboard root loads successfully",
+      "status": "passed",
+      "duration": 20
+    },
+    {
+      "title": "382. Should click Monument Management admin sidebar tab link",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 382. Should click Monument Management admin sidebar tab link",
+      "status": "passed",
+      "duration": 120
+    },
+    {
+      "title": "383. Should enter custom monument name details",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 383. Should enter custom monument name details",
+      "status": "passed",
+      "duration": 73
+    },
+    {
+      "title": "384. Should enter custom monument city details",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 384. Should enter custom monument city details",
+      "status": "passed",
+      "duration": 46
+    },
+    {
+      "title": "385. Should enter custom monument admission fee details",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 385. Should enter custom monument admission fee details",
+      "status": "passed",
+      "duration": 43
+    },
+    {
+      "title": "386. Should click Add Monument button to insert entry",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 386. Should click Add Monument button to insert entry",
+      "status": "passed",
+      "duration": 135
+    },
+    {
+      "title": "387. Should verify Jaigarh Fort entry details exists in table",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 387. Should verify Jaigarh Fort entry details exists in table",
+      "status": "passed",
+      "duration": 23
+    },
+    {
+      "title": "388. Should click Guide Verification admin sidebar tab link",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 388. Should click Guide Verification admin sidebar tab link",
+      "status": "passed",
+      "duration": 125
+    },
+    {
+      "title": "389. Should click Approve Guide button of first guide record",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 389. Should click Approve Guide button of first guide record",
+      "status": "passed",
+      "duration": 168
+    },
+    {
+      "title": "390. Should verify status badge updates to Approved status text",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 390. Should verify status badge updates to Approved status text",
+      "status": "passed",
+      "duration": 24
+    },
+    {
+      "title": "391. Should click Profile tab in navbar to prepare logout",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 391. Should click Profile tab in navbar to prepare logout",
+      "status": "passed",
+      "duration": 39
+    },
+    {
+      "title": "392. Should click Profile logout button to return to Landing Page",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 392. Should click Profile logout button to return to Landing Page",
+      "status": "passed",
+      "duration": 71
+    },
+    {
+      "title": "393. Verify that after logout, the token in localStorage is cleared",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 393. Verify that after logout, the token in localStorage is cleared",
+      "status": "passed",
+      "duration": 11
+    },
+    {
+      "title": "394. Verify that navbar tab links are no longer visible in viewport",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 394. Verify that navbar tab links are no longer visible in viewport",
+      "status": "passed",
+      "duration": 23
+    },
+    {
+      "title": "395. Verify landing-view-viewport is reloaded and active again after logout",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 395. Verify landing-view-viewport is reloaded and active again after logout",
+      "status": "passed",
+      "duration": 37
+    },
+    {
+      "title": "396. Verify logo text is visible again after session clears",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 396. Verify logo text is visible again after session clears",
+      "status": "passed",
+      "duration": 36
+    },
+    {
+      "title": "397. Verify Go to Sign Up Page action button is present again",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 397. Verify Go to Sign Up Page action button is present again",
+      "status": "passed",
+      "duration": 33
+    },
+    {
+      "title": "398. Verify Log In Directly action button is present again",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 398. Verify Log In Directly action button is present again",
+      "status": "passed",
+      "duration": 26
+    },
+    {
+      "title": "399. Verify footer copyright info is present",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 399. Verify footer copyright info is present",
+      "status": "passed",
+      "duration": 22
+    },
+    {
+      "title": "400. Confirm successful completion of 400 E2E automation check sequences",
+      "fullTitle": "Tournex E2E Automation - 400 Scaled Test Cases Admin Console & Broadcasts 400. Confirm successful completion of 400 E2E automation check sequences",
+      "status": "passed",
+      "duration": 6
     }
   ]
 }
