@@ -183,6 +183,22 @@ if (process.env.MOCK_DB === 'true' || process.env.CI === 'true') {
   return;
 }
 
+const appletConfigPath = path.join(__dirname, '../../web/firebase-applet-config.json');
+if (fs.existsSync(appletConfigPath)) {
+  try {
+    const appletConfig = JSON.parse(fs.readFileSync(appletConfigPath, 'utf8'));
+    if (appletConfig && appletConfig.projectId && appletConfig.projectId.trim() !== "" && !appletConfig.projectId.startsWith("YOUR_")) {
+      process.env.FIREBASE_PROJECT_ID = appletConfig.projectId;
+      if (appletConfig.apiKey) {
+        process.env.FIREBASE_API_KEY = appletConfig.apiKey;
+      }
+      console.log("Using dynamic Firebase project from applet config:", process.env.FIREBASE_PROJECT_ID);
+    }
+  } catch (err) {
+    console.error("Error reading/parsing firebase-applet-config.json:", err.message);
+  }
+}
+
 let firebaseApp;
 
 const serviceAccountPath = process.env.FIREBASE_SERVICE_ACCOUNT_KEY || './config/firebase-service-account.json';
@@ -191,13 +207,17 @@ const resolvedPath = path.resolve(serviceAccountPath);
 if (fs.existsSync(resolvedPath)) {
   try {
     const serviceAccount = require(resolvedPath);
-    // Double check if the service account has actual key data before initializing with cert
-    if (serviceAccount && serviceAccount.private_key) {
+    const activeProjectId = process.env.FIREBASE_PROJECT_ID || 'tournex-74d9f';
+    // Double check if the service account has actual key data and matches the active project ID before initializing with cert
+    if (serviceAccount && serviceAccount.private_key && serviceAccount.project_id === activeProjectId) {
       firebaseApp = admin.initializeApp({
         credential: admin.credential.cert(serviceAccount)
       });
       console.log('Firebase Admin SDK initialized successfully using Service Account certificate.');
     } else {
+      if (serviceAccount && serviceAccount.project_id !== activeProjectId) {
+        throw new Error(`Service account project_id (${serviceAccount.project_id}) does not match active project ID (${activeProjectId})`);
+      }
       throw new Error('Placeholder key detected: missing private_key');
     }
   } catch (error) {

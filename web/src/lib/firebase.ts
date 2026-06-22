@@ -2,8 +2,9 @@ import { initializeApp } from "firebase/app";
 import { getAuth, GoogleAuthProvider } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
+import appletConfig from "../../firebase-applet-config.json";
 
-const firebaseConfig = {
+const defaultFirebaseConfig = {
   apiKey: "AIzaSyDy-n3gelM61tw5sjied_sHQa-xVDPGlx8",
   authDomain: "tournex-74d9f.firebaseapp.com",
   projectId: "tournex-74d9f",
@@ -12,6 +13,21 @@ const firebaseConfig = {
   appId: "1:731444686163:web:c0ebec591639015d0d45a6",
   measurementId: "G-52KWF6E5L6"
 };
+
+// Check if appletConfig has a valid sandbox projectId
+const isAppletConfigValid = 
+  appletConfig && 
+  appletConfig.projectId && 
+  appletConfig.projectId.trim() !== "" && 
+  !appletConfig.projectId.startsWith("YOUR_");
+
+const firebaseConfig = isAppletConfigValid ? appletConfig : defaultFirebaseConfig;
+
+if (isAppletConfigValid) {
+  console.log("Firebase initialized with dynamic sandbox project:", firebaseConfig.projectId);
+} else {
+  console.log("Firebase initialized with default project:", firebaseConfig.projectId);
+}
 
 const app = initializeApp(firebaseConfig);
 

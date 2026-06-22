@@ -127,10 +127,7 @@ jobs:
           disable-animations: true
           emulator-boot-timeout: 900
           emulator-options: -no-window -gpu swiftshader -no-audio -no-boot-anim -camera-back none -camera-front none
-          script: |
-            cd mobile/appium-tests
-            npm install
-            npm test
+          script: cd mobile/appium-tests && npm install && npm test
 
       - name: Upload Appium Logs
         if: always()
