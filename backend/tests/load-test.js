@@ -1,15 +1,16 @@
 /**
  * TourNex Backend Load Test — OPTIMIZED
  * ======================================
- * 400 iterations: 40 VUs × 10 iters (shared-iterations = fastest possible)
- * Zero sleep — pure throughput, completes in < 90 seconds.
+ * 400 iterations: 40 VUs x 10 iters (shared-iterations = fastest)
+ * handleSummary() exports JSON — replaces deprecated --summary-export flag.
  */
 
 import http from 'k6/http';
 import { check, group } from 'k6';
 import { Counter, Rate, Trend } from 'k6/metrics';
+import { textSummary } from 'https://jslib.k6.io/k6-summary/0.0.2/index.js';
 
-// ─── Custom Metrics ────────────────────────────────────────────────────────
+// ─── Custom Metrics ───────────────────────────────────────────────────────────
 const successfulChecks = new Counter('successful_checks');
 const failedChecks     = new Counter('failed_checks');
 const authSuccessRate  = new Rate('auth_success_rate');
@@ -21,11 +22,11 @@ const bookingsDuration = new Trend('bookings_duration_ms', true);
 const expensesDuration = new Trend('expenses_duration_ms', true);
 const messagesDuration = new Trend('messages_duration_ms', true);
 
-// ─── Options: 40 VUs × 10 iters = 400 total, no sleep ────────────────────
+// ─── Options: 40 VUs x 10 iters = 400 total, no sleep ───────────────────────
 export const options = {
   scenarios: {
     tournex_load_400: {
-      executor:    'shared-iterations',  // fastest: VUs pick up next iter immediately
+      executor:    'shared-iterations',
       vus:         40,
       iterations:  400,
       maxDuration: '3m',
@@ -43,22 +44,23 @@ export const options = {
 const BASE_URL = 'http://localhost:5000/api';
 const JSON_HDR = { 'Content-Type': 'application/json' };
 
-function chk(tag, res, assertions) {
+function chk(res, assertions) {
   const ok = check(res, assertions);
   ok ? successfulChecks.add(1) : failedChecks.add(1);
   apiErrorRate.add(!ok);
   return ok;
 }
 
-// ─── Setup: pre-register shared test user ─────────────────────────────────
+// ─── Setup: register shared test user ────────────────────────────────────────
 export function setup() {
-  http.post(`${BASE_URL}/auth/register`,
+  http.post(
+    `${BASE_URL}/auth/register`,
     JSON.stringify({ name: 'k6 Bot', email: 'k6.load@tournex.com', password: 'k6pass123' }),
     { headers: JSON_HDR }
   );
 }
 
-// ─── Main (no sleep — pure throughput) ────────────────────────────────────
+// ─── Default (no sleep — pure throughput) ────────────────────────────────────
 export default function () {
   // 1. Login
   let token = null;
@@ -69,9 +71,9 @@ export default function () {
       { headers: JSON_HDR }
     );
     loginDuration.add(res.timings.duration);
-    const ok = chk('login', res, {
-      'login 200':    (r) => r.status === 200,
-      'login token':  (r) => { try { return !!JSON.parse(r.body).data.token; } catch(_) { return false; } },
+    const ok = chk(res, {
+      'login 200':   (r) => r.status === 200,
+      'login token': (r) => { try { return !!JSON.parse(r.body).data.token; } catch(_) { return false; } },
     });
     authSuccessRate.add(ok);
     if (ok) { try { token = JSON.parse(res.body).data.token; } catch(_) {} }
@@ -85,18 +87,16 @@ export default function () {
   group('Auth — Profile', () => {
     const res = http.get(`${BASE_URL}/auth/profile`, auth);
     profileDuration.add(res.timings.duration);
-    chk('profile', res, {
-      'profile 200': (r) => r.status === 200,
-    });
+    chk(res, { 'profile 200': (r) => r.status === 200 });
   });
 
-  // 3. Tours list
+  // 3. Tours
   group('Tours — List', () => {
     const res = http.get(`${BASE_URL}/tours`, auth);
     toursDuration.add(res.timings.duration);
-    chk('tours', res, {
-      'tours 200':         (r) => r.status === 200,
-      'tours has body':    (r) => r.body.length > 0,
+    chk(res, {
+      'tours 200':      (r) => r.status === 200,
+      'tours has body': (r) => r.body.length > 0,
     });
   });
 
@@ -108,11 +108,11 @@ export default function () {
       auth
     );
     bookingsDuration.add(post.timings.duration);
-    chk('booking_create', post, { 'booking not 500': (r) => r.status !== 500 });
+    chk(post, { 'booking not 500': (r) => r.status !== 500 });
 
     const list = http.get(`${BASE_URL}/bookings/my-bookings`, auth);
     bookingsDuration.add(list.timings.duration);
-    chk('booking_list', list, { 'booking list 200': (r) => r.status === 200 });
+    chk(list, { 'booking list 200': (r) => r.status === 200 });
   });
 
   // 5. Expenses
@@ -123,11 +123,11 @@ export default function () {
       auth
     );
     expensesDuration.add(post.timings.duration);
-    chk('expense_create', post, { 'expense not 500': (r) => r.status !== 500 });
+    chk(post, { 'expense not 500': (r) => r.status !== 500 });
 
     const list = http.get(`${BASE_URL}/expenses`, auth);
     expensesDuration.add(list.timings.duration);
-    chk('expense_list', list, { 'expense list 200': (r) => r.status === 200 });
+    chk(list, { 'expense list 200': (r) => r.status === 200 });
   });
 
   // 6. Messages
@@ -138,16 +138,26 @@ export default function () {
       auth
     );
     messagesDuration.add(post.timings.duration);
-    chk('msg_send', post, { 'msg not 500': (r) => r.status !== 500 });
+    chk(post, { 'msg not 500': (r) => r.status !== 500 });
 
     const list = http.get(`${BASE_URL}/messages`, auth);
     messagesDuration.add(list.timings.duration);
-    chk('msg_list', list, { 'msg list 200': (r) => r.status === 200 });
+    chk(list, { 'msg list 200': (r) => r.status === 200 });
   });
 
   // 7. Health
   group('Health Check', () => {
     const res = http.get('http://localhost:5000/api/test');
-    chk('health', res, { 'health 200': (r) => r.status === 200 });
+    chk(res, { 'health 200': (r) => r.status === 200 });
   });
+}
+
+// ─── handleSummary: modern replacement for --summary-export ──────────────────
+// Writes JSON to backend/reports/k6-summary.json (path relative to k6 CWD)
+// and prints the standard text table to stdout.
+export function handleSummary(data) {
+  return {
+    'backend/reports/k6-summary.json': JSON.stringify(data, null, 2),
+    stdout: textSummary(data, { indent: ' ', enableColors: true }),
+  };
 }

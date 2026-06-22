@@ -72,10 +72,7 @@ jobs:
       # ── 8. Run k6 — 400 iterations ───────────────────────────────────────────
       - name: Run k6 Load Test — 400 Iterations
         run: |
-          k6 run \
-            --summary-export=backend/reports/k6-summary.json \
-            --out json=backend/reports/k6-raw-lines.json \
-            backend/tests/load-test.js
+          k6 run backend/tests/load-test.js
         continue-on-error: true   # generate Excel even if thresholds fail
 
       # ── 9. Generate Excel Report ─────────────────────────────────────────────
