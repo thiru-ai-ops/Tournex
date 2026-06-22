@@ -4,22 +4,16 @@ on:
   push:
     branches: [ main ]
     paths:
-      - 'backend/package.json'
-      - 'backend/package-lock.json'
-      - 'web/package.json'
-      - 'web/package-lock.json'
-      - 'mobile/package.json'
-      - 'mobile/package-lock.json'
+      - 'backend/**'
+      - 'web/**'
+      - 'mobile/**'
       - '.github/workflows/security-scan.yml'
   pull_request:
     branches: [ main ]
     paths:
-      - 'backend/package.json'
-      - 'backend/package-lock.json'
-      - 'web/package.json'
-      - 'web/package-lock.json'
-      - 'mobile/package.json'
-      - 'mobile/package-lock.json'
+      - 'backend/**'
+      - 'web/**'
+      - 'mobile/**'
       - '.github/workflows/security-scan.yml'
   workflow_dispatch:
 
