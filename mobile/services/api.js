@@ -45,8 +45,20 @@ export const api = {
   },
   register: (userData) => request('POST', '/auth/register', userData),
   getProfile: () => request('GET', '/users/profile'),
+  updateProfile: (profileData) => request('PUT', '/users/profile', profileData),
+  
   getExpenses: () => request('GET', '/expenses'),
+  addExpense: (expense) => request('POST', '/expenses', expense),
+  deleteExpense: (id) => request('DELETE', `/expenses/${id}`),
+  clearExpenses: () => request('DELETE', '/expenses/all/clear'),
+
   getBookings: () => request('GET', '/bookings/my-bookings'),
+  addBooking: (booking) => request('POST', '/bookings', booking),
+
+  getMessages: () => request('GET', '/messages'),
+  addMessage: (message) => request('POST', '/messages', message),
+  clearMessages: () => request('DELETE', '/messages/all/clear'),
+  
   logout: () => {
     setAuthToken(null);
   }
