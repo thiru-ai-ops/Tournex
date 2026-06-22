@@ -30,6 +30,20 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Install Reporter Dependencies
+        working-directory: web/selenium-tests
+        run: npm ci || npm install
+
+      - name: Generate Vulnerability Excel Report
+        run: node web/selenium-tests/vulnerability-reporter.js
+
+      - name: Upload Vulnerability Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tournex-vulnerability-report
+          path: web/selenium-tests/mochawesome-report/Vulnerability_Audit_Report.xlsx
+
       - name: Audit Backend Dependencies
         working-directory: backend
         run: |
