@@ -16,14 +16,14 @@ on:
 jobs:
   load-test:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 10       # hard cap — whole job must finish in 10 min
 
     steps:
-      # ── 1. Checkout ────────────────────────────────────────────────────────
+      # ── 1. Checkout ──────────────────────────────────────────────────────
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      # ── 2. Node.js ──────────────────────────────────────────────────────────
+      # ── 2. Node.js with npm cache ─────────────────────────────────────────
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -31,18 +31,13 @@ jobs:
           cache: 'npm'
           cache-dependency-path: backend/package-lock.json
 
-      # ── 3. Backend dependencies ─────────────────────────────────────────────
+      # ── 3. Install backend + exceljs (single npm ci, uses cache) ──────────
       - name: Install Backend Dependencies
         working-directory: backend
         run: npm ci
 
-      # ── 4. Install ExcelJS for report conversion ────────────────────────────
-      - name: Install ExcelJS (report generator)
-        run: npm install --save-dev exceljs
-        working-directory: backend
-
-      # ── 5. Start backend in mock-DB mode ───────────────────────────────────
-      - name: Start Backend Express Server (mock DB)
+      # ── 4. Start backend in mock-DB mode ──────────────────────────────────
+      - name: Start Backend (mock DB)
         working-directory: backend
         env:
           PORT: 5000
@@ -50,59 +45,42 @@ jobs:
           MOCK_DB: "true"
         run: |
           npm start &
-          npx wait-on http://localhost:5000/api/test --timeout 60000
-          echo "✅ Backend is up"
+          npx wait-on http://localhost:5000/api/test --timeout 30000
+          echo "✅ Backend ready"
 
-      # ── 6. Install k6 ──────────────────────────────────────────────────────
-      - name: Install k6
+      # ── 5. Seed test user ──────────────────────────────────────────────────
+      - name: Seed k6 Test User
         run: |
-          sudo gpg -k
-          sudo gpg --no-default-keyring \
-            --keyring /usr/share/keyrings/k6-archive-keyring.gpg \
-            --keyserver hkp://keyserver.ubuntu.com:80 \
-            --recv-keys C5AD17C747E3415A3642D57D77C6C491D6AC1D69
-          echo "deb [signed-by=/usr/share/keyrings/k6-archive-keyring.gpg] https://dl.k6.io/deb stable main" \
-            | sudo tee /etc/apt/sources.list.d/k6.list
-          sudo apt-get update -q
-          sudo apt-get install -y k6
-          k6 version
-
-      # ── 7. Pre-register test user so auth checks succeed ───────────────────
-      - name: Seed test user account
-        run: |
-          curl -s -X POST http://localhost:5000/api/auth/register \
+          curl -sf -X POST http://localhost:5000/api/auth/register \
             -H "Content-Type: application/json" \
-            -d '{"name":"k6 LoadTest User","email":"k6.load@tournex.com","password":"k6pass123"}' \
-            || echo "User may already exist — continuing"
+            -d '{"name":"k6 Bot","email":"k6.load@tournex.com","password":"k6pass123"}' \
+            || true
 
-      # ── 8. Run k6 (400 iterations = 20 VUs × 20 iters) ────────────────────
+      # ── 6. k6 via Grafana action (pre-built binary, NO apt-get) ───────────
       - name: Run k6 Load Test — 400 Iterations
-        run: |
-          mkdir -p backend/reports
-          k6 run \
-            --summary-export=backend/reports/k6-summary.json \
-            --out json=backend/reports/k6-raw.json \
-            backend/tests/load-test.js
-        continue-on-error: true   # allow Excel generation even if thresholds fail
+        uses: grafana/k6-action@v0.3.1
+        with:
+          filename: backend/tests/load-test.js
+          flags: --summary-export=backend/reports/k6-summary.json
+        env:
+          K6_NO_USAGE_REPORT: "true"
+        continue-on-error: true   # still generate Excel even on threshold fail
 
-      # ── 9. Convert JSON → Excel ─────────────────────────────────────────────
-      - name: Generate Excel Load Test Report
+      # ── 7. Ensure reports dir exists ───────────────────────────────────────
+      - name: Prepare reports directory
+        run: mkdir -p backend/reports
+
+      # ── 8. Convert JSON → Excel ────────────────────────────────────────────
+      - name: Generate Excel Report
         working-directory: backend
         run: |
           node tests/k6-to-excel.js \
             reports/k6-summary.json \
             reports/TourNex-LoadTest-Report.xlsx
-          echo "📊 Excel report generated"
+          echo "📊 Excel report ready"
 
-      # ── 10. Print text summary to CI log ───────────────────────────────────
-      - name: Print k6 JSON Summary (CI log)
-        run: |
-          echo "===== k6 Load Test Summary ====="
-          cat backend/reports/k6-summary.json | python3 -m json.tool 2>/dev/null || cat backend/reports/k6-summary.json
-          echo "================================"
-
-      # ── 11. Upload Excel report as artifact ────────────────────────────────
-      - name: Upload Load Test Excel Report
+      # ── 9. Upload Excel artifact ───────────────────────────────────────────
+      - name: Upload Excel Report
         uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -110,26 +88,26 @@ jobs:
           path: backend/reports/TourNex-LoadTest-Report.xlsx
           retention-days: 30
 
-      # ── 12. Upload raw JSON (for debugging) ────────────────────────────────
-      - name: Upload k6 Raw JSON Output
+      # ── 10. Upload raw JSON (debug) ────────────────────────────────────────
+      - name: Upload k6 JSON Summary
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: k6-raw-json-output
+          name: k6-json-summary
           path: backend/reports/k6-summary.json
           retention-days: 14
 
-      # ── 13. Validate 400 test cases passed ─────────────────────────────────
-      - name: Assert 400 Test Iterations Completed
+      # ── 11. Assert 400 iterations completed ────────────────────────────────
+      - name: Assert 400 Test Cases Passed
         run: |
-          echo "Checking iteration count from k6 summary..."
-          ITERS=$(cat backend/reports/k6-summary.json \
-            | python3 -c "import sys,json; d=json.load(sys.stdin); print(int(d.get('metrics',{}).get('iterations',{}).get('values',{}).get('count',0)))" \
-            2>/dev/null || echo "0")
-          echo "Iterations completed: $ITERS"
+          ITERS=$(python3 -c "
+          import json, sys
+          d = json.load(open('backend/reports/k6-summary.json'))
+          print(int(d.get('metrics',{}).get('iterations',{}).get('values',{}).get('count',0)))
+          " 2>/dev/null || echo "0")
+          echo "✅ Iterations completed: $ITERS"
           if [ "$ITERS" -lt 400 ]; then
-            echo "❌ FAIL: Only $ITERS of 400 iterations completed"
+            echo "❌ FAIL: Only $ITERS of 400 completed"
             exit 1
-          else
-            echo "✅ PASS: All $ITERS iterations completed"
           fi
+          echo "✅ PASS: All 400 test cases completed"
