@@ -95,3 +95,10 @@ jobs:
         with:
           name: appium-logs
           path: appium.log
+
+      - name: Upload Appium Test Report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tournex-mobile-report
+          path: mobile/appium-tests/mochawesome-report/
