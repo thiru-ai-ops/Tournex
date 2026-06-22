@@ -75,9 +75,17 @@ jobs:
         working-directory: mobile/android
         run: chmod +x gradlew
 
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+
       - name: Build Android Debug APK
         working-directory: mobile/android
-        run: ./gradlew assembleDebug
+        run: |
+          echo "org.gradle.caching=true" >> gradle.properties
+          echo "org.gradle.parallel=true" >> gradle.properties
+          echo "org.gradle.configureondemand=true" >> gradle.properties
+          echo "org.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m" >> gradle.properties
+          ./gradlew assembleDebug
 
       - name: Install Appium and Drivers
         run: |
