@@ -1,4 +1,4 @@
-name: Selenium E2E Automation Testing
+name: Selenium E2E Automation Testing & Vulnerability Audit
 
 on:
   push:
@@ -6,17 +6,50 @@ on:
     paths:
       - 'web/**'
       - 'backend/**'
-      - '.github/workflows/selenium-login.yml'
+      - 'mobile/**'
+      - '.github/workflows/**'
   pull_request:
     branches: [ main ]
     paths:
       - 'web/**'
       - 'backend/**'
-      - '.github/workflows/selenium-login.yml'
+      - 'mobile/**'
+      - '.github/workflows/**'
+  workflow_dispatch:
 
 jobs:
+  vulnerability-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Audit Backend Dependencies
+        working-directory: backend
+        run: |
+          echo "Auditing backend dependencies..."
+          npm audit --audit-level=high
+
+      - name: Audit Web Frontend Dependencies
+        working-directory: web
+        run: |
+          echo "Auditing web dependencies..."
+          npm audit --audit-level=high
+
+      - name: Audit Mobile App Dependencies
+        working-directory: mobile
+        run: |
+          echo "Auditing mobile dependencies..."
+          npm audit --audit-level=high
+
   e2e-test:
     runs-on: ubuntu-latest
+    needs: vulnerability-audit
 
     steps:
       - name: Checkout Repository
