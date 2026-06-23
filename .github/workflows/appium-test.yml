@@ -116,9 +116,7 @@ jobs:
           disable-animations: true
           emulator-boot-timeout: 900
           emulator-options: -no-window -gpu swiftshader -no-audio -no-boot-anim -camera-back none -camera-front none
-          script: |
-            cd mobile/appium-java-tests
-            mvn clean test
+          script: cd mobile/appium-java-tests && mvn clean test
 
       - name: Generate Workflow Summary and Quality Gate
         if: always()
