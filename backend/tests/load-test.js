@@ -55,7 +55,7 @@ function chk(res, assertions) {
 export function setup() {
   http.post(
     `${BASE_URL}/auth/register`,
-    JSON.stringify({ name: 'k6 Bot', email: 'k6.load@tournex.com', password: 'k6pass123' }),
+    JSON.stringify({ name: 'k6 Bot', email: 'test.user@tournex.com', password: 'k6pass123' }),
     { headers: JSON_HDR }
   );
 }
@@ -67,7 +67,7 @@ export default function () {
   group('Auth — Login', () => {
     const res = http.post(
       `${BASE_URL}/auth/login`,
-      JSON.stringify({ email: 'k6.load@tournex.com', password: 'k6pass123' }),
+      JSON.stringify({ email: 'test.user@tournex.com', password: 'k6pass123' }),
       { headers: JSON_HDR }
     );
     loginDuration.add(res.timings.duration);
@@ -104,7 +104,7 @@ export default function () {
   group('Bookings — Create + List', () => {
     const post = http.post(
       `${BASE_URL}/bookings`,
-      JSON.stringify({ tourId: 'mock-1', tourName: 'k6 Tour', dates: 'Jul 20-27', price: 9999, status: 'UPCOMING' }),
+      JSON.stringify({ tourId: 'mock-1', tourName: 'k6 Tour', dates: 'Jul 20-27', price: 9999, status: 'UPCOMING', bookingId: 'BK-' + __ITER + '-' + Math.floor(Math.random() * 1000000) }),
       auth
     );
     bookingsDuration.add(post.timings.duration);
@@ -119,7 +119,7 @@ export default function () {
   group('Expenses — Create + List', () => {
     const post = http.post(
       `${BASE_URL}/expenses`,
-      JSON.stringify({ description: `Expense-${__ITER}`, amount: 1500, paidBy: 'Arjun', splitWith: ['Arjun','Priya'], category: 'Food' }),
+      JSON.stringify({ description: `Expense-${__ITER}`, amount: 1500, paidBy: 'Arjun', splitWith: ['Arjun','Priya'], category: 'Food', date: new Date().toISOString().split('T')[0] }),
       auth
     );
     expensesDuration.add(post.timings.duration);
@@ -134,7 +134,7 @@ export default function () {
   group('Messages — Send + List', () => {
     const post = http.post(
       `${BASE_URL}/messages`,
-      JSON.stringify({ text: `Hello from iter ${__ITER}` }),
+      JSON.stringify({ text: `Hello from iter ${__ITER}`, sender: 'user', time: '12:00 PM' }),
       auth
     );
     messagesDuration.add(post.timings.duration);
