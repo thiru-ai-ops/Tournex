@@ -49,9 +49,8 @@ public class ExcelReporter {
 
         // Headers
         String[] headers = {
-            "Test Case ID", "Test Name", "Module", "Execution Time", 
-            "Status (Pass/Fail)", "Error Message", "Device Name", 
-            "Build Number", "Execution Date"
+            "Test Case ID", "Module", "Test Name", "Status", "Execution Time", 
+            "Device", "Build Number", "Execution Date", "Error Message"
         };
         Row headerRow = sheet.createRow(0);
         
@@ -89,11 +88,10 @@ public class ExcelReporter {
         for (TestResult res : results) {
             Row row = sheet.createRow(rowNum++);
             row.createCell(0).setCellValue(res.id);
-            row.createCell(1).setCellValue(res.name);
-            row.createCell(2).setCellValue(res.module);
-            row.createCell(3).setCellValue(res.time);
+            row.createCell(1).setCellValue(res.module);
+            row.createCell(2).setCellValue(res.name);
             
-            Cell statusCell = row.createCell(4);
+            Cell statusCell = row.createCell(3);
             statusCell.setCellValue(res.status);
             if ("Pass".equalsIgnoreCase(res.status) || "PASSED".equalsIgnoreCase(res.status)) {
                 statusCell.setCellStyle(passStyle);
@@ -101,10 +99,11 @@ public class ExcelReporter {
                 statusCell.setCellStyle(failStyle);
             }
             
-            row.createCell(5).setCellValue(res.error);
-            row.createCell(6).setCellValue(res.device);
-            row.createCell(7).setCellValue(res.build);
-            row.createCell(8).setCellValue(res.date);
+            row.createCell(4).setCellValue(res.time);
+            row.createCell(5).setCellValue(res.device);
+            row.createCell(6).setCellValue(res.build);
+            row.createCell(7).setCellValue(res.date);
+            row.createCell(8).setCellValue(res.error);
         }
 
         // Auto-size columns
