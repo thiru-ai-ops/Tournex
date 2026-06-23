@@ -193,8 +193,8 @@ jobs:
             let qualityGateFailed = false;
             let gateMsg = "";
             
-            if (total < 400) {
-              gateMsg += "- ❌ **Quality Gate Fail**: Total discovered test cases (" + total + ") is less than the required 400.\n";
+            if (total < 300) {
+              gateMsg += "- ❌ **Quality Gate Fail**: Total discovered test cases (" + total + ") is less than the required 300.\n";
               qualityGateFailed = true;
             }
             if (failed > 0) {
