@@ -1,6 +1,25 @@
 #!/bin/bash
 set -e
 
+# Determine directory of script
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd "$SCRIPT_DIR"
+
+if [ "$MOCK_DRIVER" = "true" ]; then
+  echo "=== Running Appium Tests in Mock Mode (No Simulator) ==="
+  mvn clean test
+  
+  echo "=== Copy TestNG Reports ==="
+  mkdir -p test-output
+  if [ -f target/surefire-reports/index.html ]; then
+    cp target/surefire-reports/index.html test-output/index.html
+    echo "✅ TestNG HTML report copied to test-output/index.html"
+  else
+    echo "⚠️ Warning: target/surefire-reports/index.html not found!"
+  fi
+  exit 0
+fi
+
 echo "=== Check adb devices ==="
 adb devices
 
@@ -33,10 +52,6 @@ adb logcat -v time > /tmp/emulator.log &
 
 echo "=== Appium Driver Validation ==="
 appium driver list --installed
-
-# Determine directory of script
-SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-cd "$SCRIPT_DIR"
 
 echo "=== Run Appium Tests ==="
 mvn clean test

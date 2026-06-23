@@ -6,6 +6,8 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebElement;
+import org.mockito.Mockito;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
@@ -28,6 +30,13 @@ public class BaseTest {
 
     @BeforeClass
     public void setupClass() {
+        String mockDriverEnv = System.getenv("MOCK_DRIVER");
+        if (mockDriverEnv != null && mockDriverEnv.equalsIgnoreCase("true")) {
+            TestLogger.info("MOCK_DRIVER=true detected. Setting up mock AndroidDriver session...");
+            setupMockDriver();
+            return;
+        }
+
         try {
             TestLogger.info("Initializing Appium driver session...");
             
@@ -53,6 +62,41 @@ public class BaseTest {
             TestLogger.info("Appium driver session initialized successfully!");
         } catch (Exception e) {
             TestLogger.error("Failed to initialize Appium driver session", e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    private void setupMockDriver() {
+        try {
+            AndroidDriver mockDriver = Mockito.mock(AndroidDriver.class);
+            WebElement mockElement = Mockito.mock(WebElement.class);
+            
+            Mockito.when(mockDriver.findElement(Mockito.any(org.openqa.selenium.By.class)))
+                    .thenReturn(mockElement);
+            
+            java.util.List<WebElement> elementList = new java.util.ArrayList<>();
+            elementList.add(mockElement);
+            Mockito.when(mockDriver.findElements(Mockito.any(org.openqa.selenium.By.class)))
+                    .thenReturn(elementList);
+            
+            Mockito.when(mockElement.isDisplayed()).thenReturn(true);
+            Mockito.when(mockElement.isEnabled()).thenReturn(true);
+            Mockito.when(mockElement.getText()).thenReturn("Mock Element Text");
+            
+            AndroidDriver.TargetLocator mockSwitch = Mockito.mock(AndroidDriver.TargetLocator.class);
+            Mockito.when(mockDriver.switchTo()).thenReturn(mockSwitch);
+            
+            org.openqa.selenium.WebDriver.Timeouts mockTimeouts = Mockito.mock(org.openqa.selenium.WebDriver.Timeouts.class);
+            org.openqa.selenium.WebDriver.Options mockOptions = Mockito.mock(org.openqa.selenium.WebDriver.Options.class);
+            Mockito.when(mockDriver.manage()).thenReturn(mockOptions);
+            Mockito.when(mockOptions.timeouts()).thenReturn(mockTimeouts);
+            Mockito.when(mockTimeouts.implicitlyWait(Mockito.any(java.time.Duration.class)))
+                    .thenReturn(mockTimeouts);
+            
+            driver = mockDriver;
+            TestLogger.info("Mock AndroidDriver session initialized successfully!");
+        } catch (Exception e) {
+            TestLogger.error("Failed to initialize Mock AndroidDriver", e);
             throw new RuntimeException(e);
         }
     }
