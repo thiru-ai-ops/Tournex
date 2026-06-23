@@ -52,7 +52,7 @@ public class ProfileTests extends BaseTest {
         Assert.assertTrue(dashboard.isDashboardLoaded(), "Dashboard screen should render.");
     }
 
-    @Test(dataProvider = "ProfileData", parallel = true, priority = 6, description = "Run parallel validation for profile settings")
+    @Test(dataProvider = "ProfileData", priority = 6, description = "Run parallel validation for profile settings")
     public void testProfileDataValidation(int checkId, String module, String desc) {
         Assert.assertNotNull(getDriver(), "Appium driver session is not active for check: " + desc);
     }

@@ -66,7 +66,7 @@ public class AuthenticationTests extends BaseTest {
         Assert.assertTrue(dashboard.isDashboardLoaded(), "Dashboard failed to load after email login.");
     }
 
-    @Test(dataProvider = "AuthenticationData", parallel = true, priority = 6, description = "Run parallel validation for authentication inputs")
+    @Test(dataProvider = "AuthenticationData", priority = 6, description = "Run parallel validation for authentication inputs")
     public void testAuthDataValidation(int checkId, String module, String desc) {
         Assert.assertNotNull(getDriver(), "Appium driver session is not active for check: " + desc);
     }

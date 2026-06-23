@@ -104,7 +104,7 @@ public class PerformanceTests extends BaseTest {
         profile.clickLogout();
     }
 
-    @Test(dataProvider = "PerformanceData", parallel = true, priority = 6, description = "Run parallel validation for performance metrics configuration")
+    @Test(dataProvider = "PerformanceData", priority = 6, description = "Run parallel validation for performance metrics configuration")
     public void testPerfDataValidation(int checkId, String module, String desc) {
         Assert.assertNotNull(getDriver(), "Appium driver session is not active for check: " + desc);
     }

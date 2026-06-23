@@ -41,7 +41,7 @@ public class RegressionTests extends BaseTest {
         Assert.assertNotNull(getDriver(), "Appium driver session is active.");
     }
 
-    @Test(dataProvider = "RegressionData", parallel = true, priority = 6, description = "Run parallel validation for regression items")
+    @Test(dataProvider = "RegressionData", priority = 6, description = "Run parallel validation for regression items")
     public void testRegressionDataValidation(int checkId, String module, String desc) {
         Assert.assertNotNull(getDriver(), "Appium driver session is not active for check: " + desc);
     }

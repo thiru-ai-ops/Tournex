@@ -55,7 +55,7 @@ public class SettingsTests extends BaseTest {
         Assert.assertTrue(dashboard.isDashboardLoaded(), "Dashboard screen should be loaded.");
     }
 
-    @Test(dataProvider = "SettingsData", parallel = true, priority = 6, description = "Run parallel validation for system settings")
+    @Test(dataProvider = "SettingsData", priority = 6, description = "Run parallel validation for system settings")
     public void testSettingsDataValidation(int checkId, String module, String desc) {
         Assert.assertNotNull(getDriver(), "Appium driver session is not active for check: " + desc);
     }

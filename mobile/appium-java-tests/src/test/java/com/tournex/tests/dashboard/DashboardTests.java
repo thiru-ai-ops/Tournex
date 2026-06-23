@@ -52,7 +52,7 @@ public class DashboardTests extends BaseTest {
         dashboard.navigateToHomeTab();
     }
 
-    @Test(dataProvider = "DashboardData", parallel = true, priority = 6, description = "Run parallel validation for dashboard widgets")
+    @Test(dataProvider = "DashboardData", priority = 6, description = "Run parallel validation for dashboard widgets")
     public void testDashboardDataValidation(int checkId, String module, String desc) {
         Assert.assertNotNull(getDriver(), "Appium driver session is not active for check: " + desc);
     }

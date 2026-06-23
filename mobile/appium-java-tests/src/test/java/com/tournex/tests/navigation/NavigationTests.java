@@ -55,7 +55,7 @@ public class NavigationTests extends BaseTest {
         Assert.assertTrue(dashboard.isDashboardLoaded(), "Dashboard screen should reload on home tab click.");
     }
 
-    @Test(dataProvider = "NavigationData", parallel = true, priority = 6, description = "Run parallel validation for navigation flows")
+    @Test(dataProvider = "NavigationData", priority = 6, description = "Run parallel validation for navigation flows")
     public void testNavigationDataValidation(int checkId, String module, String desc) {
         Assert.assertNotNull(getDriver(), "Appium driver session is not active for check: " + desc);
     }

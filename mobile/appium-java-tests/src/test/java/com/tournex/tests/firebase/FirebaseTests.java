@@ -41,7 +41,7 @@ public class FirebaseTests extends BaseTest {
         Assert.assertNotNull(getDriver(), "Appium driver session is active.");
     }
 
-    @Test(dataProvider = "FirebaseData", parallel = true, priority = 6, description = "Run parallel validation for Firebase integration")
+    @Test(dataProvider = "FirebaseData", priority = 6, description = "Run parallel validation for Firebase integration")
     public void testFirebaseDataValidation(int checkId, String module, String desc) {
         Assert.assertNotNull(getDriver(), "Appium driver session is not active for check: " + desc);
     }

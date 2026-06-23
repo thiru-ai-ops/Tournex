@@ -82,7 +82,7 @@ public class SmokeTests extends BaseTest {
         profile.clickLogout();
     }
 
-    @Test(dataProvider = "SmokeData", parallel = true, priority = 6, description = "Run parallel validation for smoke test configuration")
+    @Test(dataProvider = "SmokeData", priority = 6, description = "Run parallel validation for smoke test configuration")
     public void testSmokeDataValidation(int checkId, String module, String desc) {
         Assert.assertNotNull(getDriver(), "Appium driver session is not active for check: " + desc);
     }

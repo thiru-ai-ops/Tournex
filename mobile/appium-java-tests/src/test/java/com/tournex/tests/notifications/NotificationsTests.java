@@ -55,7 +55,7 @@ public class NotificationsTests extends BaseTest {
         Assert.assertTrue(dashboard.isDashboardLoaded(), "Dashboard screen should be loaded.");
     }
 
-    @Test(dataProvider = "NotificationsData", parallel = true, priority = 6, description = "Run parallel validation for notifications system")
+    @Test(dataProvider = "NotificationsData", priority = 6, description = "Run parallel validation for notifications system")
     public void testNotificationsDataValidation(int checkId, String module, String desc) {
         Assert.assertNotNull(getDriver(), "Appium driver session is not active for check: " + desc);
     }
