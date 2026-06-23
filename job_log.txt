@@ -1,0 +1,1547 @@
+﻿2026-06-22T09:57:16.3871504Z Current runner version: '2.335.1'
+2026-06-22T09:57:16.3909774Z ##[group]Runner Image Provisioner
+2026-06-22T09:57:16.3911057Z Hosted Compute Agent
+2026-06-22T09:57:16.3912276Z Version: 20260611.554
+2026-06-22T09:57:16.3913295Z Commit: 5e0782fdc9014723d3be820dd114dd31555c2bd1
+2026-06-22T09:57:16.3914484Z Build Date: 2026-06-11T21:40:46Z
+2026-06-22T09:57:16.3915674Z Worker ID: {e0b80304-b774-4c6b-85cc-e51320f6a91d}
+2026-06-22T09:57:16.3916825Z Azure Region: eastus
+2026-06-22T09:57:16.3917784Z ##[endgroup]
+2026-06-22T09:57:16.3919927Z ##[group]Operating System
+2026-06-22T09:57:16.3920941Z Ubuntu
+2026-06-22T09:57:16.3922062Z 24.04.4
+2026-06-22T09:57:16.3922872Z LTS
+2026-06-22T09:57:16.3923808Z ##[endgroup]
+2026-06-22T09:57:16.3924663Z ##[group]Runner Image
+2026-06-22T09:57:16.3925724Z Image: ubuntu-24.04
+2026-06-22T09:57:16.3926642Z Version: 20260615.205.1
+2026-06-22T09:57:16.3928724Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260615.205/images/ubuntu/Ubuntu2404-Readme.md
+2026-06-22T09:57:16.3931270Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260615.205
+2026-06-22T09:57:16.3933259Z ##[endgroup]
+2026-06-22T09:57:16.3935142Z ##[group]GITHUB_TOKEN Permissions
+2026-06-22T09:57:16.3938035Z Contents: read
+2026-06-22T09:57:16.3938949Z Metadata: read
+2026-06-22T09:57:16.3939870Z Packages: read
+2026-06-22T09:57:16.3940800Z ##[endgroup]
+2026-06-22T09:57:16.3944197Z Secret source: Actions
+2026-06-22T09:57:16.3945446Z Prepare workflow directory
+2026-06-22T09:57:16.4500584Z Prepare all required actions
+2026-06-22T09:57:16.4555038Z Getting action download info
+2026-06-22T09:57:16.8745775Z Download action repository 'actions/checkout@v4' (SHA:34e114876b0b11c390a56381ad16ebd13914f8d5)
+2026-06-22T09:57:16.9786760Z Download action repository 'actions/setup-java@v4' (SHA:c1e323688fd81a25caa38c78aa6df2d33d3e20d9)
+2026-06-22T09:57:17.2389521Z Download action repository 'actions/setup-node@v4' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-06-22T09:57:17.3684672Z Download action repository 'gradle/actions@v4' (SHA:ed408507eac070d1f99cc633dbcf757c94c7933a)
+2026-06-22T09:57:18.1937329Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-06-22T09:57:18.3105848Z Download action repository 'reactivecircus/android-emulator-runner@v2' (SHA:e89f39f1abbbd05b1113a29cf4db69e7540cae5a)
+2026-06-22T09:57:18.6650178Z Complete job name: appium-test
+2026-06-22T09:57:18.7457222Z ##[group]Run echo "Disk space before cleaning:"
+2026-06-22T09:57:18.7458602Z [36;1mecho "Disk space before cleaning:"[0m
+2026-06-22T09:57:18.7459637Z [36;1mdf -h[0m
+2026-06-22T09:57:18.7460436Z [36;1msudo rm -rf /usr/share/dotnet[0m
+2026-06-22T09:57:18.7461439Z [36;1msudo rm -rf /opt/ghc[0m
+2026-06-22T09:57:18.7462572Z [36;1msudo rm -rf /usr/share/swift[0m
+2026-06-22T09:57:18.7463682Z [36;1msudo rm -rf /opt/hostedtoolcache/CodeQL[0m
+2026-06-22T09:57:18.7464842Z [36;1mecho "Disk space after cleaning:"[0m
+2026-06-22T09:57:18.7465841Z [36;1mdf -h[0m
+2026-06-22T09:57:18.7605976Z shell: /usr/bin/bash -e {0}
+2026-06-22T09:57:18.7607135Z env:
+2026-06-22T09:57:18.7607854Z   BACKEND_IP: 10.0.2.2
+2026-06-22T09:57:18.7608664Z ##[endgroup]
+2026-06-22T09:57:18.7758846Z Disk space before cleaning:
+2026-06-22T09:57:18.8030341Z Filesystem      Size  Used Avail Use% Mounted on
+2026-06-22T09:57:18.8034908Z /dev/root        72G   56G   17G  78% /
+2026-06-22T09:57:18.8036848Z tmpfs           3.9G   84K  3.9G   1% /dev/shm
+2026-06-22T09:57:18.8038805Z tmpfs           1.6G 1004K  1.6G   1% /run
+2026-06-22T09:57:18.8040877Z tmpfs           5.0M     0  5.0M   0% /run/lock
+2026-06-22T09:57:18.8043351Z efivarfs        128M   32K  128M   1% /sys/firmware/efi/efivars
+2026-06-22T09:57:18.8045414Z /dev/sda16      881M   64M  756M   8% /boot
+2026-06-22T09:57:18.8047171Z /dev/sda15      105M  6.2M   99M   6% /boot/efi
+2026-06-22T09:57:18.8049047Z tmpfs           794M   12K  794M   1% /run/user/1001
+2026-06-22T09:57:33.3987173Z Disk space after cleaning:
+2026-06-22T09:57:33.4004531Z Filesystem      Size  Used Avail Use% Mounted on
+2026-06-22T09:57:33.4005360Z /dev/root        72G   46G   27G  64% /
+2026-06-22T09:57:33.4006223Z tmpfs           3.9G   84K  3.9G   1% /dev/shm
+2026-06-22T09:57:33.4006958Z tmpfs           1.6G 1000K  1.6G   1% /run
+2026-06-22T09:57:33.4007840Z tmpfs           5.0M     0  5.0M   0% /run/lock
+2026-06-22T09:57:33.4008605Z efivarfs        128M   32K  128M   1% /sys/firmware/efi/efivars
+2026-06-22T09:57:33.4011437Z /dev/sda16      881M   64M  756M   8% /boot
+2026-06-22T09:57:33.4013949Z /dev/sda15      105M  6.2M   99M   6% /boot/efi
+2026-06-22T09:57:33.4014702Z tmpfs           794M   12K  794M   1% /run/user/1001
+2026-06-22T09:57:33.4202171Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-06-22T09:57:33.4208932Z ##[group]Run actions/checkout@v4
+2026-06-22T09:57:33.4209230Z with:
+2026-06-22T09:57:33.4209466Z   repository: thiru-ai-ops/Tournex
+2026-06-22T09:57:33.4212682Z   token: ***
+2026-06-22T09:57:33.4212931Z   ssh-strict: true
+2026-06-22T09:57:33.4213172Z   ssh-user: git
+2026-06-22T09:57:33.4213409Z   persist-credentials: true
+2026-06-22T09:57:33.4213664Z   clean: true
+2026-06-22T09:57:33.4213903Z   sparse-checkout-cone-mode: true
+2026-06-22T09:57:33.4214179Z   fetch-depth: 1
+2026-06-22T09:57:33.4214397Z   fetch-tags: false
+2026-06-22T09:57:33.4214626Z   show-progress: true
+2026-06-22T09:57:33.4214854Z   lfs: false
+2026-06-22T09:57:33.4215121Z   submodules: false
+2026-06-22T09:57:33.4215361Z   set-safe-directory: true
+2026-06-22T09:57:33.4215605Z env:
+2026-06-22T09:57:33.4215814Z   BACKEND_IP: 10.0.2.2
+2026-06-22T09:57:33.4216047Z ##[endgroup]
+2026-06-22T09:57:33.5267416Z Syncing repository: thiru-ai-ops/Tournex
+2026-06-22T09:57:33.5269398Z ##[group]Getting Git version info
+2026-06-22T09:57:33.5270034Z Working directory is '/home/runner/work/Tournex/Tournex'
+2026-06-22T09:57:33.5270887Z [command]/usr/bin/git version
+2026-06-22T09:57:33.5341621Z git version 2.54.0
+2026-06-22T09:57:33.5364717Z ##[endgroup]
+2026-06-22T09:57:33.5382426Z Temporarily overriding HOME='/home/runner/work/_temp/b426629a-8093-40e9-9203-263cbc471839' before making global git config changes
+2026-06-22T09:57:33.5383664Z Adding repository directory to the temporary git global config as a safe directory
+2026-06-22T09:57:33.5402649Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Tournex/Tournex
+2026-06-22T09:57:33.5443458Z Deleting the contents of '/home/runner/work/Tournex/Tournex'
+2026-06-22T09:57:33.5448168Z ##[group]Initializing the repository
+2026-06-22T09:57:33.5455431Z [command]/usr/bin/git init /home/runner/work/Tournex/Tournex
+2026-06-22T09:57:33.5536950Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-06-22T09:57:33.5540603Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-06-22T09:57:33.5542226Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-06-22T09:57:33.5543206Z hint: call:
+2026-06-22T09:57:33.5543727Z hint:
+2026-06-22T09:57:33.5544397Z hint: 	git config --global init.defaultBranch <name>
+2026-06-22T09:57:33.5545119Z hint:
+2026-06-22T09:57:33.5545857Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-06-22T09:57:33.5547170Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-06-22T09:57:33.5548103Z hint:
+2026-06-22T09:57:33.5549088Z hint: 	git branch -m <name>
+2026-06-22T09:57:33.5549780Z hint:
+2026-06-22T09:57:33.5550582Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-06-22T09:57:33.5552004Z Initialized empty Git repository in /home/runner/work/Tournex/Tournex/.git/
+2026-06-22T09:57:33.5554262Z [command]/usr/bin/git remote add origin https://github.com/thiru-ai-ops/Tournex
+2026-06-22T09:57:33.5595828Z ##[endgroup]
+2026-06-22T09:57:33.5596749Z ##[group]Disabling automatic garbage collection
+2026-06-22T09:57:33.5599870Z [command]/usr/bin/git config --local gc.auto 0
+2026-06-22T09:57:33.5637680Z ##[endgroup]
+2026-06-22T09:57:33.5638648Z ##[group]Setting up auth
+2026-06-22T09:57:33.5646976Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-06-22T09:57:33.5684127Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-06-22T09:57:33.6017077Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-06-22T09:57:33.6055087Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-06-22T09:57:33.6314549Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-06-22T09:57:33.6352463Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-06-22T09:57:33.6616525Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-06-22T09:57:33.6662970Z ##[endgroup]
+2026-06-22T09:57:33.6664075Z ##[group]Fetching the repository
+2026-06-22T09:57:33.6668418Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +456ec8c2b6feb7c7f655220b6da05650a13f79dc:refs/remotes/origin/main
+2026-06-22T09:57:34.0036977Z From https://github.com/thiru-ai-ops/Tournex
+2026-06-22T09:57:34.0039460Z  * [new ref]         456ec8c2b6feb7c7f655220b6da05650a13f79dc -> origin/main
+2026-06-22T09:57:34.0087817Z ##[endgroup]
+2026-06-22T09:57:34.0090712Z ##[group]Determining the checkout info
+2026-06-22T09:57:34.0093328Z ##[endgroup]
+2026-06-22T09:57:34.0094392Z [command]/usr/bin/git sparse-checkout disable
+2026-06-22T09:57:34.0177373Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-06-22T09:57:34.0214097Z ##[group]Checking out the ref
+2026-06-22T09:57:34.0223075Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-06-22T09:57:34.0497108Z Switched to a new branch 'main'
+2026-06-22T09:57:34.0498908Z branch 'main' set up to track 'origin/main'.
+2026-06-22T09:57:34.0515116Z ##[endgroup]
+2026-06-22T09:57:34.0592995Z [command]/usr/bin/git log -1 --format=%H
+2026-06-22T09:57:34.0621092Z 456ec8c2b6feb7c7f655220b6da05650a13f79dc
+2026-06-22T09:57:34.0981037Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-06-22T09:57:34.0985023Z ##[group]Run actions/setup-java@v4
+2026-06-22T09:57:34.0985663Z with:
+2026-06-22T09:57:34.0986095Z   java-version: 17
+2026-06-22T09:57:34.0986544Z   distribution: temurin
+2026-06-22T09:57:34.0987005Z   java-package: jdk
+2026-06-22T09:57:34.0987551Z   check-latest: false
+2026-06-22T09:57:34.0987999Z   server-id: github
+2026-06-22T09:57:34.0988452Z   server-username: GITHUB_ACTOR
+2026-06-22T09:57:34.0988969Z   server-password: GITHUB_TOKEN
+2026-06-22T09:57:34.0989582Z   overwrite-settings: true
+2026-06-22T09:57:34.0990063Z   job-status: success
+2026-06-22T09:57:34.0995954Z   token: ***
+2026-06-22T09:57:34.0996355Z env:
+2026-06-22T09:57:34.0996780Z   BACKEND_IP: 10.0.2.2
+2026-06-22T09:57:34.1056341Z ##[endgroup]
+2026-06-22T09:57:34.3385339Z ##[group]Installed distributions
+2026-06-22T09:57:34.3486631Z Resolved Java 17.0.19+10 from tool-cache
+2026-06-22T09:57:34.3487518Z Setting Java 17.0.19+10 as the default
+2026-06-22T09:57:34.3502942Z (node:2069) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-06-22T09:57:34.3504968Z Creating toolchains.xml for JDK version 17 from temurin
+2026-06-22T09:57:34.3506160Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-06-22T09:57:34.3580427Z Writing to /home/runner/.m2/toolchains.xml
+2026-06-22T09:57:34.3581060Z 
+2026-06-22T09:57:34.3581491Z Java configuration:
+2026-06-22T09:57:34.3582395Z   Distribution: temurin
+2026-06-22T09:57:34.3583038Z   Version: 17.0.19+10
+2026-06-22T09:57:34.3583766Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T09:57:34.3584473Z 
+2026-06-22T09:57:34.3585269Z ##[endgroup]
+2026-06-22T09:57:34.3605588Z Creating settings.xml with server-id: github
+2026-06-22T09:57:34.3606635Z Writing to /home/runner/.m2/settings.xml
+2026-06-22T09:57:34.3762279Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-06-22T09:57:34.3764234Z ##[group]Run actions/setup-node@v4
+2026-06-22T09:57:34.3764611Z with:
+2026-06-22T09:57:34.3764896Z   node-version: 20
+2026-06-22T09:57:34.3765204Z   cache: npm
+2026-06-22T09:57:34.3765679Z   cache-dependency-path: backend/package-lock.json
+mobile/package-lock.json
+
+2026-06-22T09:57:34.3766286Z   always-auth: false
+2026-06-22T09:57:34.3766626Z   check-latest: false
+2026-06-22T09:57:34.3770306Z   token: ***
+2026-06-22T09:57:34.3770536Z env:
+2026-06-22T09:57:34.3770751Z   BACKEND_IP: 10.0.2.2
+2026-06-22T09:57:34.3771117Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T09:57:34.3771927Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T09:57:34.3772349Z ##[endgroup]
+2026-06-22T09:57:34.5307923Z Attempting to download 20...
+2026-06-22T09:57:34.5416552Z (node:2081) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-06-22T09:57:34.5418051Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-06-22T09:57:34.9501341Z Acquiring 20.20.2 - x64 from https://github.com/actions/node-versions/releases/download/20.20.2-23521894959/node-20.20.2-linux-x64.tar.gz
+2026-06-22T09:57:35.3277793Z Extracting ...
+2026-06-22T09:57:35.3503402Z [command]/usr/bin/tar xz --strip 1 --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/845d6118-d4cc-4fd3-85de-32a8b06e56e4 -f /home/runner/work/_temp/272ebb6f-6e86-43e7-820e-6feb8971ee98
+2026-06-22T09:57:36.5478161Z Adding to the cache ...
+2026-06-22T09:57:38.7105004Z ##[group]Environment details
+2026-06-22T09:57:38.9797588Z node: v20.20.2
+2026-06-22T09:57:38.9798350Z npm: 10.8.2
+2026-06-22T09:57:38.9799060Z yarn: 1.22.22
+2026-06-22T09:57:38.9799958Z ##[endgroup]
+2026-06-22T09:57:38.9821481Z [command]/opt/hostedtoolcache/node/20.20.2/x64/bin/npm config get cache
+2026-06-22T09:57:39.0951106Z /home/runner/.npm
+2026-06-22T09:57:39.1792825Z npm cache is not found
+2026-06-22T09:57:39.1968324Z ##[group]Run npm ci
+2026-06-22T09:57:39.1968600Z [36;1mnpm ci[0m
+2026-06-22T09:57:39.2002398Z shell: /usr/bin/bash -e {0}
+2026-06-22T09:57:39.2002669Z env:
+2026-06-22T09:57:39.2002886Z   BACKEND_IP: 10.0.2.2
+2026-06-22T09:57:39.2003239Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T09:57:39.2003757Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T09:57:39.2004147Z ##[endgroup]
+2026-06-22T09:57:41.3208863Z npm warn deprecated rimraf@2.7.1: Rimraf versions prior to v4 are no longer supported
+2026-06-22T09:57:41.5297361Z npm warn deprecated lodash.isequal@4.5.0: This package is deprecated. Use require('node:util').isDeepStrictEqual instead.
+2026-06-22T09:57:41.5742904Z npm warn deprecated inflight@1.0.6: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
+2026-06-22T09:57:41.8109720Z npm warn deprecated glob@7.2.3: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
+2026-06-22T09:57:42.3519091Z npm warn deprecated fstream@1.0.12: This package is no longer supported.
+2026-06-22T09:57:43.1775551Z npm warn deprecated uuid@8.3.2: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+2026-06-22T09:57:43.1870708Z npm warn deprecated uuid@9.0.1: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+2026-06-22T09:57:43.1944315Z npm warn deprecated uuid@9.0.1: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+2026-06-22T09:57:43.1962373Z npm warn deprecated uuid@9.0.1: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+2026-06-22T09:57:43.2047157Z npm warn deprecated uuid@10.0.0: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+2026-06-22T09:57:44.3832639Z 
+2026-06-22T09:57:44.3833544Z added 352 packages, and audited 353 packages in 5s
+2026-06-22T09:57:44.3833934Z 
+2026-06-22T09:57:44.3834172Z 47 packages are looking for funding
+2026-06-22T09:57:44.3834633Z   run `npm fund` for details
+2026-06-22T09:57:44.3993486Z 
+2026-06-22T09:57:44.4003196Z 9 moderate severity vulnerabilities
+2026-06-22T09:57:44.4022771Z 
+2026-06-22T09:57:44.4039335Z To address issues that do not require attention, run:
+2026-06-22T09:57:44.4040186Z   npm audit fix
+2026-06-22T09:57:44.4040522Z 
+2026-06-22T09:57:44.4041067Z To address all issues (including breaking changes), run:
+2026-06-22T09:57:44.4042037Z   npm audit fix --force
+2026-06-22T09:57:44.4042447Z 
+2026-06-22T09:57:44.4042794Z Run `npm audit` for details.
+2026-06-22T09:57:44.4282650Z ##[group]Run npm start &
+2026-06-22T09:57:44.4282966Z [36;1mnpm start &[0m
+2026-06-22T09:57:44.4283338Z [36;1mnpx wait-on http://localhost:5000/api/test --timeout 60000[0m
+2026-06-22T09:57:44.4322161Z shell: /usr/bin/bash -e {0}
+2026-06-22T09:57:44.4322433Z env:
+2026-06-22T09:57:44.4322644Z   BACKEND_IP: 10.0.2.2
+2026-06-22T09:57:44.4322996Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T09:57:44.4323496Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T09:57:44.4323900Z   PORT: 5000
+2026-06-22T09:57:44.4324120Z   NODE_ENV: development
+2026-06-22T09:57:44.4324351Z   MOCK_DB: true
+2026-06-22T09:57:44.4324565Z ##[endgroup]
+2026-06-22T09:57:44.6061042Z 
+2026-06-22T09:57:44.6092913Z > tournex-backend@1.0.0 start
+2026-06-22T09:57:44.6116952Z > node server.js
+2026-06-22T09:57:44.6117244Z 
+2026-06-22T09:57:44.8965763Z --- RUNNING IN MOCK/EMULATED FIREBASE MODE FOR CI/TESTS ---
+2026-06-22T09:57:44.9072792Z Server running in development mode on port 5000
+2026-06-22T09:57:45.2492042Z npm warn exec The following package was not found and will be installed: wait-on@9.0.10
+2026-06-22T09:57:48.5283615Z [0mHEAD /api/test [32m200[0m 2.211 ms - 112[0m
+2026-06-22T09:57:53.5613744Z ##[group]Run npm install
+2026-06-22T09:57:53.5614215Z [36;1mnpm install[0m
+2026-06-22T09:57:53.5662930Z shell: /usr/bin/bash -e {0}
+2026-06-22T09:57:53.5663350Z env:
+2026-06-22T09:57:53.5663668Z   BACKEND_IP: 10.0.2.2
+2026-06-22T09:57:53.5664223Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T09:57:53.5665304Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T09:57:53.5665944Z ##[endgroup]
+2026-06-22T09:57:57.9104020Z npm warn deprecated uuid@7.0.3: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
+2026-06-22T09:57:58.3223261Z npm warn deprecated @react-navigation/routers@6.1.9: This version is no longer supported
+2026-06-22T09:57:59.0933632Z npm warn deprecated @react-navigation/bottom-tabs@6.6.1: This version is no longer supported
+2026-06-22T09:57:59.4770385Z npm warn deprecated @react-navigation/native@6.1.18: This version is no longer supported
+2026-06-22T09:57:59.5563786Z npm warn deprecated @react-navigation/elements@1.3.31: This version is no longer supported
+2026-06-22T09:58:00.7296429Z npm warn deprecated @react-navigation/core@6.4.17: This version is no longer supported
+2026-06-22T09:58:05.2177849Z 
+2026-06-22T09:58:05.2178866Z > tournex-mobile@1.0.0 postinstall
+2026-06-22T09:58:05.2179964Z > node patch-tar.js
+2026-06-22T09:58:05.2180473Z 
+2026-06-22T09:58:05.2613860Z Scanning for tar installations in /home/runner/work/Tournex/Tournex/mobile/node_modules...
+2026-06-22T09:58:05.4937660Z tar patching process completed.
+2026-06-22T09:58:05.5096232Z 
+2026-06-22T09:58:05.5097521Z added 485 packages, and audited 486 packages in 12s
+2026-06-22T09:58:05.5098352Z 
+2026-06-22T09:58:05.5098842Z 43 packages are looking for funding
+2026-06-22T09:58:05.5099527Z   run `npm fund` for details
+2026-06-22T09:58:05.5768817Z 
+2026-06-22T09:58:05.5769905Z 10 moderate severity vulnerabilities
+2026-06-22T09:58:05.5770672Z 
+2026-06-22T09:58:05.5771407Z To address issues that do not require attention, run:
+2026-06-22T09:58:05.5772483Z   npm audit fix
+2026-06-22T09:58:05.5772912Z 
+2026-06-22T09:58:05.5773493Z To address all issues (including breaking changes), run:
+2026-06-22T09:58:05.5774310Z   npm audit fix --force
+2026-06-22T09:58:05.5774745Z 
+2026-06-22T09:58:05.5775167Z Run `npm audit` for details.
+2026-06-22T09:58:05.6116192Z ##[group]Run # --clean wipes old android/ folder and regenerates for installed SDK 56.
+2026-06-22T09:58:05.6117247Z [36;1m# --clean wipes old android/ folder and regenerates for installed SDK 56.[0m
+2026-06-22T09:58:05.6118084Z [36;1m# --no-install skips npm install since we already ran it above.[0m
+2026-06-22T09:58:05.6118973Z [36;1m# This generates a settings.gradle WITHOUT the removed autolinking.gradle reference.[0m
+2026-06-22T09:58:05.6119863Z [36;1mnpx expo prebuild --platform android --clean --no-install[0m
+2026-06-22T09:58:05.6164472Z shell: /usr/bin/bash -e {0}
+2026-06-22T09:58:05.6164761Z env:
+2026-06-22T09:58:05.6164990Z   BACKEND_IP: 10.0.2.2
+2026-06-22T09:58:05.6165360Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T09:58:05.6165884Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T09:58:05.6166306Z   EXPO_NO_TELEMETRY: 1
+2026-06-22T09:58:05.6166545Z ##[endgroup]
+2026-06-22T09:58:06.1439058Z - Clearing android
+2026-06-22T09:58:06.1504073Z ✔ Cleared android code
+2026-06-22T09:58:06.1594098Z - Creating native directory (./android)
+2026-06-22T09:58:06.6459328Z ✔ Created native directory
+2026-06-22T09:58:06.6465973Z - Updating package.json
+2026-06-22T09:58:06.6622005Z ✔ Updated package.json | no changes
+2026-06-22T09:58:06.6623071Z - Running prebuild
+2026-06-22T09:58:06.8308079Z ✔ Finished prebuild
+2026-06-22T09:58:06.8537920Z ##[group]Run chmod +x gradlew
+2026-06-22T09:58:06.8538402Z [36;1mchmod +x gradlew[0m
+2026-06-22T09:58:06.8577444Z shell: /usr/bin/bash -e {0}
+2026-06-22T09:58:06.8577733Z env:
+2026-06-22T09:58:06.8577958Z   BACKEND_IP: 10.0.2.2
+2026-06-22T09:58:06.8578322Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T09:58:06.8578849Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T09:58:06.8579474Z ##[endgroup]
+2026-06-22T09:58:06.8809600Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-06-22T09:58:06.8810863Z ##[group]Run gradle/actions/setup-gradle@v4
+2026-06-22T09:58:06.8811164Z with:
+2026-06-22T09:58:06.8811397Z   cache-disabled: false
+2026-06-22T09:58:06.8811806Z   cache-read-only: false
+2026-06-22T09:58:06.8812055Z   cache-write-only: false
+2026-06-22T09:58:06.8812321Z   cache-overwrite-existing: false
+2026-06-22T09:58:06.8812603Z   cache-cleanup: on-success
+2026-06-22T09:58:06.8812913Z   gradle-home-cache-includes: caches
+notifications
+
+2026-06-22T09:58:06.8813248Z   add-job-summary: always
+2026-06-22T09:58:06.8813525Z   add-job-summary-as-pr-comment: never
+2026-06-22T09:58:06.8813824Z   dependency-graph: disabled
+2026-06-22T09:58:06.8814206Z   dependency-graph-report-dir: dependency-graph-reports
+2026-06-22T09:58:06.8814582Z   dependency-graph-continue-on-failure: true
+2026-06-22T09:58:06.8814900Z   build-scan-publish: false
+2026-06-22T09:58:06.8815164Z   validate-wrappers: true
+2026-06-22T09:58:06.8815440Z   allow-snapshot-wrappers: false
+2026-06-22T09:58:06.8815739Z   gradle-home-cache-strict-match: false
+2026-06-22T09:58:06.8816034Z   workflow-job-context: null
+2026-06-22T09:58:06.8818802Z   github-token: ***
+2026-06-22T09:58:06.8819030Z env:
+2026-06-22T09:58:06.8819234Z   BACKEND_IP: 10.0.2.2
+2026-06-22T09:58:06.8819583Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T09:58:06.8820085Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T09:58:06.8820469Z ##[endgroup]
+2026-06-22T09:58:07.3065496Z Merged default JDK locations into /home/runner/.m2/toolchains.xml
+2026-06-22T09:58:07.3066839Z Preparing cache for cleanup.
+2026-06-22T09:58:07.3074027Z ##[group]Restore Gradle state from cache
+2026-06-22T09:58:07.4779072Z Cache hit for restore-key: gradle-home-v1|Linux-X64|appium-test[bbf0570734129f0a2c0854bd4d5c10e8]-681e119027961ed1833e37f1283447e119b837a5
+2026-06-22T09:58:07.6571926Z Received 1085367 of 1085367 (100.0%), 8.8 MBs/sec
+2026-06-22T09:58:07.6575317Z Cache Size: ~1 MB (1085367 B)
+2026-06-22T09:58:07.6606700Z [command]/usr/bin/tar -xf /home/runner/work/_temp/4a35ccf9-4e07-4798-a920-bf1ea8ffc5d9/cache.tzst -P -C /home/runner/work/Tournex/Tournex --use-compress-program unzstd
+2026-06-22T09:58:07.7884871Z Cache restored successfully
+2026-06-22T09:58:07.7890657Z Restored cache entry with key gradle-home-v1|Linux-X64|appium-test[bbf0570734129f0a2c0854bd4d5c10e8]-456ec8c2b6feb7c7f655220b6da05650a13f79dc to /home/runner/.gradle/caches,/home/runner/.gradle/notifications,/home/runner/.gradle/.setup-gradle in 480ms
+2026-06-22T09:58:07.8785173Z Cache hit for: gradle-transforms-v1-f93beea41efe8d3579c7d3905b55bc19
+2026-06-22T09:58:07.8789419Z Cache hit for: gradle-groovy-dsl-v1-b069a68460b008589fba17ba5f37c37b
+2026-06-22T09:58:07.8896983Z Cache hit for: gradle-dependencies-v1-c8032e5af37b0e5494c43ca22dd23809
+2026-06-22T09:58:07.8979008Z Cache hit for: gradle-kotlin-dsl-v1-5f3b6a24caaee80646af05b2d14d7940
+2026-06-22T09:58:07.8997410Z Cache hit for: gradle-wrapper-zips-v1-8c0de4c6bda6041d6e054bf825a89c98
+2026-06-22T09:58:07.9035406Z Cache hit for: gradle-generated-gradle-jars-v1-cb4b032a7d08b9bf1e84e9eacaebcc29
+2026-06-22T09:58:07.9216144Z Cache hit for: gradle-wrapper-zips-v1-3600859674b461a36bd4c8379d91f6cb
+2026-06-22T09:58:08.2096877Z Cache hit for: gradle-instrumented-jars-v1-b443314858ac01bc67ced9cb0df00e0c
+2026-06-22T09:58:08.4029662Z Received 260245 of 260245 (100.0%), 0.6 MBs/sec
+2026-06-22T09:58:08.4096581Z Cache Size: ~0 MB (260245 B)
+2026-06-22T09:58:08.5392500Z Received 211067 of 211067 (100.0%), 0.5 MBs/sec
+2026-06-22T09:58:08.5393721Z Cache Size: ~0 MB (211067 B)
+2026-06-22T09:58:08.6753980Z Received 147171 of 147171 (100.0%), 0.5 MBs/sec
+2026-06-22T09:58:08.6773599Z Cache Size: ~0 MB (147171 B)
+2026-06-22T09:58:08.8634535Z [command]/usr/bin/tar -xf /home/runner/work/_temp/3f97b285-6e09-4d47-b37a-9b591be59288/cache.tzst -P -C /home/runner/work/Tournex/Tournex --use-compress-program unzstd
+2026-06-22T09:58:08.9433113Z Received 25165824 of 193482768 (13.0%), 23.6 MBs/sec
+2026-06-22T09:58:08.9893375Z Cache restored successfully
+2026-06-22T09:58:08.9898810Z Received 16777216 of 366639753 (4.6%), 15.9 MBs/sec
+2026-06-22T09:58:08.9952185Z Restored cache entry with key gradle-groovy-dsl-v1-b069a68460b008589fba17ba5f37c37b to /home/runner/.gradle/caches/*/groovy-dsl/*/ in 1203ms
+2026-06-22T09:58:09.0353195Z Received 8388608 of 136308147 (6.2%), 7.8 MBs/sec
+2026-06-22T09:58:09.0354673Z Received 33604793 of 41993401 (80.0%), 31.8 MBs/sec
+2026-06-22T09:58:09.0411628Z [command]/usr/bin/tar -xf /home/runner/work/_temp/937d197b-3a83-40df-99ab-a03f1e395a2b/cache.tzst -P -C /home/runner/work/Tournex/Tournex --use-compress-program unzstd
+2026-06-22T09:58:09.2349850Z [command]/usr/bin/tar -xf /home/runner/work/_temp/be44ea51-2f43-4c35-b645-12795c243ab9/cache.tzst -P -C /home/runner/work/Tournex/Tournex --use-compress-program unzstd
+2026-06-22T09:58:09.2889806Z Cache restored successfully
+2026-06-22T09:58:09.2890787Z Received 12582912 of 187931894 (6.7%), 11.4 MBs/sec
+2026-06-22T09:58:09.2936336Z Restored cache entry with key gradle-kotlin-dsl-v1-5f3b6a24caaee80646af05b2d14d7940 to /home/runner/.gradle/caches/*/kotlin-dsl/accessors/*/,/home/runner/.gradle/caches/*/kotlin-dsl/scripts/*/ in 1501ms
+2026-06-22T09:58:09.3284387Z Cache restored successfully
+2026-06-22T09:58:09.3331497Z Restored cache entry with key gradle-instrumented-jars-v1-b443314858ac01bc67ced9cb0df00e0c to /home/runner/.gradle/caches/jars-*/*/ in 1542ms
+2026-06-22T09:58:09.3598144Z Received 41993401 of 41993401 (100.0%), 30.0 MBs/sec
+2026-06-22T09:58:09.3599649Z Cache Size: ~40 MB (41993401 B)
+2026-06-22T09:58:09.8228789Z [command]/usr/bin/tar -xf /home/runner/work/_temp/07e013ae-1582-4c58-b37d-384d02b1953e/cache.tzst -P -C /home/runner/work/Tournex/Tournex --use-compress-program unzstd
+2026-06-22T09:58:10.0065354Z Received 79691776 of 193482768 (41.2%), 36.5 MBs/sec
+2026-06-22T09:58:10.0093021Z Received 88080384 of 366639753 (24.0%), 41.5 MBs/sec
+2026-06-22T09:58:10.2222684Z Received 75497472 of 136308147 (55.4%), 32.6 MBs/sec
+2026-06-22T09:58:10.3079149Z Received 50331648 of 187931894 (26.8%), 23.2 MBs/sec
+2026-06-22T09:58:10.9240471Z Cache restored successfully
+2026-06-22T09:58:10.9696105Z Restored cache entry with key gradle-generated-gradle-jars-v1-cb4b032a7d08b9bf1e84e9eacaebcc29 to /home/runner/.gradle/caches/9.3.1/generated-gradle-jars/gradle-api-9.3.1.jar in 3178ms
+2026-06-22T09:58:11.0188480Z Received 130023424 of 193482768 (67.2%), 40.1 MBs/sec
+2026-06-22T09:58:11.0209548Z Received 125829120 of 366639753 (34.3%), 39.5 MBs/sec
+2026-06-22T09:58:11.3193285Z Received 134217728 of 136308147 (98.5%), 38.7 MBs/sec
+2026-06-22T09:58:11.3207645Z Received 104857600 of 187931894 (55.8%), 32.4 MBs/sec
+2026-06-22T09:58:11.5211985Z Received 136308147 of 136308147 (100.0%), 37.1 MBs/sec
+2026-06-22T09:58:11.5232791Z Cache Size: ~130 MB (136308147 B)
+2026-06-22T09:58:12.0263285Z Received 176705552 of 193482768 (91.3%), 41.1 MBs/sec
+2026-06-22T09:58:12.0277928Z Received 188743680 of 366639753 (51.5%), 44.5 MBs/sec
+2026-06-22T09:58:12.2238079Z Received 193482768 of 193482768 (100.0%), 42.9 MBs/sec
+2026-06-22T09:58:12.2262760Z Cache Size: ~185 MB (193482768 B)
+2026-06-22T09:58:12.3661571Z Received 150994944 of 187931894 (80.3%), 34.8 MBs/sec
+2026-06-22T09:58:12.3673787Z [command]/usr/bin/tar -xf /home/runner/work/_temp/8fef04d9-3737-4cd3-a1ec-9cfa56a4ef48/cache.tzst -P -C /home/runner/work/Tournex/Tournex --use-compress-program unzstd
+2026-06-22T09:58:12.8613565Z Received 187931894 of 187931894 (100.0%), 38.7 MBs/sec
+2026-06-22T09:58:12.8622594Z Cache Size: ~179 MB (187931894 B)
+2026-06-22T09:58:13.3803632Z Received 268435456 of 366639753 (73.2%), 47.4 MBs/sec
+2026-06-22T09:58:13.3833107Z Cache restored successfully
+2026-06-22T09:58:13.3884519Z [command]/usr/bin/tar -xf /home/runner/work/_temp/8dc21162-bfc5-4aa8-97d5-45b8347895e6/cache.tzst -P -C /home/runner/work/Tournex/Tournex --use-compress-program unzstd
+2026-06-22T09:58:13.4074649Z [command]/usr/bin/tar -xf /home/runner/work/_temp/def5a600-8502-41de-aa5a-ce728d47b457/cache.tzst -P -C /home/runner/work/Tournex/Tournex --use-compress-program unzstd
+2026-06-22T09:58:14.2550224Z Received 366639753 of 366639753 (100.0%), 55.8 MBs/sec
+2026-06-22T09:58:14.2614757Z Cache Size: ~350 MB (366639753 B)
+2026-06-22T09:58:14.2667795Z [command]/usr/bin/tar -xf /home/runner/work/_temp/75a36266-3567-4dbd-b10c-6ef07cb77d74/cache.tzst -P -C /home/runner/work/Tournex/Tournex --use-compress-program unzstd
+2026-06-22T09:58:15.5193336Z Restored cache entry with key gradle-wrapper-zips-v1-8c0de4c6bda6041d6e054bf825a89c98 to /home/runner/.gradle/wrapper/dists/gradle-9.3.1-bin/23ovyewtku6u96viwx3xl3oks in 7728ms
+2026-06-22T09:58:18.8013435Z Cache restored successfully
+2026-06-22T09:58:18.8280385Z Restored cache entry with key gradle-dependencies-v1-c8032e5af37b0e5494c43ca22dd23809 to /home/runner/.gradle/caches/modules-*/files-*/*/*/*/* in 11037ms
+2026-06-22T09:58:20.3199397Z Cache restored successfully
+2026-06-22T09:58:20.3327102Z Restored cache entry with key gradle-wrapper-zips-v1-3600859674b461a36bd4c8379d91f6cb to /home/runner/.gradle/wrapper/dists/gradle-8.8-all/6gdy1pgp427xkqcjbxw3ylt6h in 12542ms
+2026-06-22T09:58:22.7258106Z Cache restored successfully
+2026-06-22T09:58:22.7364734Z Restored cache entry with key gradle-transforms-v1-f93beea41efe8d3579c7d3905b55bc19 to /home/runner/.gradle/caches/transforms-4/*/,/home/runner/.gradle/caches/*/transforms/*/ in 14944ms
+2026-06-22T09:58:22.8007327Z ##[endgroup]
+2026-06-22T09:58:23.2831122Z ##[group]All Gradle Wrapper jars are valid
+2026-06-22T09:58:23.2836879Z ✓ Found known Gradle Wrapper JAR files:
+2026-06-22T09:58:23.2837954Z   b3a875ddc1f044746e1b1a55f645584505f4a10438c1afea9f15e92a7c42ec13 mobile/android/gradle/wrapper/gradle-wrapper.jar
+2026-06-22T09:58:23.2839748Z   b3a875ddc1f044746e1b1a55f645584505f4a10438c1afea9f15e92a7c42ec13 mobile/node_modules/@react-native/gradle-plugin/gradle/wrapper/gradle-wrapper.jar
+2026-06-22T09:58:23.2841280Z ##[endgroup]
+2026-06-22T09:58:23.3592896Z ##[group]Run echo "" >> gradle.properties
+2026-06-22T09:58:23.3593360Z [36;1mecho "" >> gradle.properties[0m
+2026-06-22T09:58:23.3593799Z [36;1mecho "org.gradle.caching=true" >> gradle.properties[0m
+2026-06-22T09:58:23.3594305Z [36;1mecho "org.gradle.parallel=true" >> gradle.properties[0m
+2026-06-22T09:58:23.3594889Z [36;1mecho "org.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m" >> gradle.properties[0m
+2026-06-22T09:58:23.3595464Z [36;1m./gradlew assembleDebug --stacktrace[0m
+2026-06-22T09:58:23.3637825Z shell: /usr/bin/bash -e {0}
+2026-06-22T09:58:23.3638188Z env:
+2026-06-22T09:58:23.3638467Z   BACKEND_IP: 10.0.2.2
+2026-06-22T09:58:23.3638911Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T09:58:23.3639511Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T09:58:23.3640035Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-06-22T09:58:23.3640481Z   GRADLE_USER_HOME: /home/runner/.gradle
+2026-06-22T09:58:23.3640862Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-06-22T09:58:23.3641237Z   GRADLE_BUILD_ACTION_CACHE_RESTORED: true
+2026-06-22T09:58:23.3641904Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-06-22T09:58:23.3642477Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-06-22T09:58:23.3642877Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-06-22T09:58:23.3643231Z ##[endgroup]
+2026-06-22T09:58:26.1313566Z Starting a Gradle Daemon (subsequent builds will be faster)
+2026-06-22T09:58:44.7333880Z > Task :expo-gradle-plugin:expo-autolinking-plugin-shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-06-22T09:58:44.7387803Z > Task :gradle-plugin:settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-06-22T09:58:44.7463540Z > Task :gradle-plugin:shared:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-06-22T09:58:44.8348744Z > Task :expo-gradle-plugin:expo-autolinking-settings-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-06-22T09:58:44.9302532Z > Task :expo-gradle-plugin:expo-autolinking-settings-plugin:pluginDescriptors
+2026-06-22T09:58:45.0344652Z > Task :expo-gradle-plugin:expo-autolinking-settings-plugin:processResources
+2026-06-22T09:58:45.0393318Z > Task :gradle-plugin:settings-plugin:pluginDescriptors
+2026-06-22T09:58:45.0398239Z > Task :gradle-plugin:settings-plugin:processResources
+2026-06-22T09:58:45.7305226Z > Task :expo-gradle-plugin:expo-autolinking-plugin-shared:processResources NO-SOURCE
+2026-06-22T09:58:45.7322249Z > Task :gradle-plugin:shared:processResources NO-SOURCE
+2026-06-22T09:58:59.0288445Z > Task :gradle-plugin:shared:compileKotlin
+2026-06-22T09:58:59.0353241Z > Task :gradle-plugin:shared:compileJava NO-SOURCE
+2026-06-22T09:58:59.0392680Z > Task :gradle-plugin:shared:classes UP-TO-DATE
+2026-06-22T09:58:59.1327813Z > Task :expo-gradle-plugin:expo-autolinking-plugin-shared:compileKotlin
+2026-06-22T09:58:59.1359260Z > Task :expo-gradle-plugin:expo-autolinking-plugin-shared:compileJava NO-SOURCE
+2026-06-22T09:58:59.1398674Z > Task :expo-gradle-plugin:expo-autolinking-plugin-shared:classes UP-TO-DATE
+2026-06-22T09:58:59.1434034Z > Task :gradle-plugin:shared:jar
+2026-06-22T09:58:59.2298136Z > Task :expo-gradle-plugin:expo-autolinking-plugin-shared:jar
+2026-06-22T09:59:03.5287192Z > Task :gradle-plugin:settings-plugin:compileKotlin
+2026-06-22T09:59:03.5306246Z > Task :gradle-plugin:settings-plugin:compileJava NO-SOURCE
+2026-06-22T09:59:03.5324719Z > Task :gradle-plugin:settings-plugin:classes
+2026-06-22T09:59:03.6343342Z > Task :gradle-plugin:settings-plugin:jar
+2026-06-22T09:59:05.3286377Z > Task :expo-gradle-plugin:expo-autolinking-settings-plugin:compileKotlin
+2026-06-22T09:59:05.3323762Z > Task :expo-gradle-plugin:expo-autolinking-settings-plugin:compileJava NO-SOURCE
+2026-06-22T09:59:05.3352988Z > Task :expo-gradle-plugin:expo-autolinking-settings-plugin:classes
+2026-06-22T09:59:05.3354458Z > Task :expo-gradle-plugin:expo-autolinking-settings-plugin:jar
+2026-06-22T09:59:08.5299860Z > Task :expo-gradle-plugin:expo-autolinking-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-06-22T09:59:08.5363645Z > Task :expo-gradle-plugin:expo-max-sdk-override-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-06-22T09:59:13.1290667Z > Task :gradle-plugin:react-native-gradle-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-06-22T09:59:13.3322345Z > Task :expo-module-gradle-plugin:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-06-22T09:59:13.3333887Z > Task :expo-module-gradle-plugin:pluginDescriptors
+2026-06-22T09:59:13.3386672Z > Task :expo-module-gradle-plugin:processResources
+2026-06-22T09:59:13.5304896Z > Task :expo-gradle-plugin:expo-max-sdk-override-plugin:compileKotlin
+2026-06-22T09:59:13.6318438Z > Task :expo-gradle-plugin:expo-autolinking-plugin:pluginDescriptors
+2026-06-22T09:59:13.6339226Z > Task :expo-gradle-plugin:expo-autolinking-plugin:processResources
+2026-06-22T09:59:13.6403583Z > Task :expo-gradle-plugin:expo-max-sdk-override-plugin:compileJava NO-SOURCE
+2026-06-22T09:59:13.6456156Z > Task :expo-gradle-plugin:expo-max-sdk-override-plugin:pluginDescriptors
+2026-06-22T09:59:13.7322653Z > Task :expo-gradle-plugin:expo-max-sdk-override-plugin:processResources
+2026-06-22T09:59:13.7343211Z > Task :expo-gradle-plugin:expo-max-sdk-override-plugin:classes
+2026-06-22T09:59:13.7423229Z > Task :expo-gradle-plugin:expo-max-sdk-override-plugin:jar
+2026-06-22T09:59:13.9353575Z > Task :expo-gradle-plugin:expo-autolinking-plugin:compileKotlin
+2026-06-22T09:59:13.9383252Z > Task :expo-gradle-plugin:expo-autolinking-plugin:compileJava NO-SOURCE
+2026-06-22T09:59:13.9433149Z > Task :expo-gradle-plugin:expo-autolinking-plugin:classes
+2026-06-22T09:59:13.9452917Z > Task :expo-gradle-plugin:expo-autolinking-plugin:jar
+2026-06-22T09:59:14.0293571Z > Task :gradle-plugin:react-native-gradle-plugin:pluginDescriptors
+2026-06-22T09:59:14.0313737Z > Task :gradle-plugin:react-native-gradle-plugin:processResources
+2026-06-22T09:59:22.2313387Z > Task :gradle-plugin:react-native-gradle-plugin:compileKotlin
+2026-06-22T09:59:22.2333354Z > Task :gradle-plugin:react-native-gradle-plugin:compileJava NO-SOURCE
+2026-06-22T09:59:22.2354739Z > Task :gradle-plugin:react-native-gradle-plugin:classes
+2026-06-22T09:59:22.3303326Z > Task :gradle-plugin:react-native-gradle-plugin:jar
+2026-06-22T09:59:24.7306056Z 
+2026-06-22T09:59:24.7333476Z > Task :expo-module-gradle-plugin:compileKotlin
+2026-06-22T09:59:24.7364929Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/expo-module-gradle-plugin/src/main/kotlin/expo/modules/plugin/android/AndroidLibraryExtension.kt:9:24 'var targetSdk: Int?' is deprecated. Will be removed from library DSL in v9.0. Use testOptions.targetSdk or/and lint.targetSdk instead.
+2026-06-22T09:59:24.9302138Z 
+2026-06-22T09:59:24.9324144Z > Task :expo-module-gradle-plugin:compileJava NO-SOURCE
+2026-06-22T09:59:24.9353277Z > Task :expo-module-gradle-plugin:classes
+2026-06-22T09:59:24.9423248Z > Task :expo-module-gradle-plugin:jar
+2026-06-22T09:59:26.0292552Z 
+2026-06-22T09:59:26.0303085Z > Configure project :
+2026-06-22T09:59:26.0328369Z [32m[ExpoRootProject][0m Using the following versions:
+2026-06-22T09:59:26.0329731Z   - buildTools:  [32m36.0.0[0m
+2026-06-22T09:59:26.0330569Z   - minSdk:      [32m24[0m
+2026-06-22T09:59:26.0331404Z   - compileSdk:  [32m36[0m
+2026-06-22T09:59:26.0332308Z   - targetSdk:   [32m36[0m
+2026-06-22T09:59:26.0333048Z   - ndk:         [32m27.1.12297006[0m
+2026-06-22T09:59:26.0333748Z   - kotlin:      [32m2.1.20[0m
+2026-06-22T09:59:26.0334491Z   - ksp:         [32m2.1.20-2.0.1[0m
+2026-06-22T09:59:50.8288695Z 
+2026-06-22T09:59:50.8342167Z > Configure project :app
+2026-06-22T09:59:50.8344082Z  ℹ️  [33mApplying gradle plugin[0m '[32mexpo-max-sdk-override-plugin[0m'
+2026-06-22T09:59:50.8372541Z   [expo-max-sdk-override-plugin] This plugin will find all permissions declared with `android:maxSdkVersion`. If there exists a declaration with the `android:maxSdkVersion` annotation and another one without, the plugin will remove the annotation from the final merged manifest. In order to see a log with the changes run a clean build of the app.
+2026-06-22T09:59:50.8393252Z Checking the license for package NDK (Side by side) 27.1.12297006 in /usr/local/lib/android/sdk/licenses
+2026-06-22T09:59:50.8413070Z License for package NDK (Side by side) 27.1.12297006 accepted.
+2026-06-22T09:59:50.8431172Z Preparing "Install NDK (Side by side) 27.1.12297006 v.27.1.12297006".
+2026-06-22T09:59:50.8464116Z "Install NDK (Side by side) 27.1.12297006 v.27.1.12297006" ready.
+2026-06-22T09:59:50.8505777Z Installing NDK (Side by side) 27.1.12297006 in /usr/local/lib/android/sdk/ndk/27.1.12297006
+2026-06-22T09:59:50.8523053Z "Install NDK (Side by side) 27.1.12297006 v.27.1.12297006" complete.
+2026-06-22T09:59:50.8573160Z "Install NDK (Side by side) 27.1.12297006 v.27.1.12297006" finished.
+2026-06-22T09:59:52.8312545Z 
+2026-06-22T09:59:52.8343115Z > Configure project :expo
+2026-06-22T09:59:52.8405432Z 
+2026-06-22T09:59:52.8444586Z Using expo modules
+2026-06-22T09:59:52.8463013Z   - [32mexpo-log-box[0m (56.0.13)
+2026-06-22T09:59:52.8484508Z   - [32mexpo-constants[0m (56.0.18)
+2026-06-22T09:59:52.8485298Z   - [32mexpo-modules-core[0m (56.0.17)
+2026-06-22T09:59:52.8486071Z   - [33m[📦][0m [32mexpo-dom-webview[0m (56.0.5)
+2026-06-22T09:59:52.8486778Z   - [33m[📦][0m [32mexpo-asset[0m (56.0.17)
+2026-06-22T09:59:52.8487475Z   - [33m[📦][0m [32mexpo-file-system[0m (56.0.8)
+2026-06-22T09:59:52.8488143Z   - [33m[📦][0m [32mexpo-font[0m (56.0.7)
+2026-06-22T09:59:52.8488852Z   - [33m[📦][0m [32mexpo-keep-awake[0m (56.0.3)
+2026-06-22T09:59:52.8489548Z   - [33m[📦][0m [32mexpo-status-bar[0m (56.0.4)
+2026-06-22T09:59:52.8489907Z 
+2026-06-22T09:59:57.7294910Z 
+2026-06-22T09:59:57.7341486Z > Task :expo:generatePackagesList
+2026-06-22T09:59:57.7379227Z > Task :expo:preBuild
+2026-06-22T09:59:57.7412954Z > Task :app:generateAutolinkingNewArchitectureFiles
+2026-06-22T09:59:57.8296557Z > Task :app:generateAutolinkingPackageList
+2026-06-22T09:59:57.8302972Z > Task :app:generateCodegenSchemaFromJavaScript SKIPPED
+2026-06-22T09:59:57.8319111Z > Task :app:generateCodegenArtifactsFromSchema SKIPPED
+2026-06-22T09:59:57.8342773Z > Task :app:generateReactNativeEntryPoint
+2026-06-22T09:59:57.8358369Z > Task :expo-log-box:preBuild UP-TO-DATE
+2026-06-22T09:59:57.8362808Z > Task :expo-modules-core:preBuild UP-TO-DATE
+2026-06-22T09:59:57.9311897Z The NODE_ENV environment variable is required but was not specified. Ensure the project is bundled with Expo CLI or NODE_ENV is set. Using only .env.local and .env
+2026-06-22T09:59:57.9313039Z 
+2026-06-22T09:59:57.9332957Z > Task :expo-constants:createExpoConfig
+2026-06-22T09:59:57.9352530Z 
+2026-06-22T09:59:57.9373113Z > Task :expo-constants:preBuild
+2026-06-22T09:59:58.2317083Z > Task :react-native-safe-area-context:generateCodegenSchemaFromJavaScript
+2026-06-22T09:59:58.5310145Z > Task :react-native-screens:generateCodegenSchemaFromJavaScript
+2026-06-22T09:59:58.8285528Z > Task :react-native-safe-area-context:generateCodegenArtifactsFromSchema
+2026-06-22T09:59:58.8293414Z > Task :react-native-safe-area-context:preBuild
+2026-06-22T09:59:58.8295030Z > Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-06-22T09:59:58.8295765Z > Task :expo:preDebugBuild
+2026-06-22T09:59:58.8296453Z > Task :react-native-screens:generateCodegenArtifactsFromSchema
+2026-06-22T09:59:58.8297149Z > Task :react-native-screens:preBuild
+2026-06-22T09:59:58.8297675Z > Task :app:preBuild
+2026-06-22T09:59:58.8298112Z > Task :app:preDebugBuild
+2026-06-22T09:59:58.9290325Z > Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+2026-06-22T09:59:58.9317019Z > Task :app:generateDebugBuildConfig
+2026-06-22T09:59:58.9332982Z > Task :expo-constants:preDebugBuild
+2026-06-22T09:59:58.9378799Z > Task :expo:writeDebugAarMetadata
+2026-06-22T09:59:58.9388918Z > Task :expo-log-box:preDebugBuild UP-TO-DATE
+2026-06-22T09:59:58.9405622Z > Task :expo-constants:writeDebugAarMetadata
+2026-06-22T09:59:58.9442865Z > Task :expo-modules-core:preDebugBuild UP-TO-DATE
+2026-06-22T09:59:59.0300691Z > Task :expo-log-box:writeDebugAarMetadata
+2026-06-22T09:59:59.0343488Z > Task :react-native-safe-area-context:preDebugBuild
+2026-06-22T09:59:59.0372833Z > Task :expo-modules-core:writeDebugAarMetadata
+2026-06-22T09:59:59.0402828Z > Task :react-native-screens:preDebugBuild
+2026-06-22T09:59:59.0426351Z > Task :react-native-safe-area-context:writeDebugAarMetadata
+2026-06-22T09:59:59.0465775Z > Task :react-native-screens:writeDebugAarMetadata
+2026-06-22T09:59:59.0492713Z > Task :expo:generateDebugResValues
+2026-06-22T09:59:59.0496187Z > Task :expo:generateDebugResources
+2026-06-22T09:59:59.0519246Z > Task :app:generateDebugResValues
+2026-06-22T09:59:59.2291035Z > Task :expo:packageDebugResources
+2026-06-22T09:59:59.2343346Z > Task :expo-constants:generateDebugResValues FROM-CACHE
+2026-06-22T09:59:59.2349010Z > Task :expo-constants:generateDebugResources FROM-CACHE
+2026-06-22T09:59:59.3323028Z > Task :expo-constants:packageDebugResources
+2026-06-22T09:59:59.3355181Z > Task :expo-log-box:generateDebugResValues FROM-CACHE
+2026-06-22T09:59:59.3413216Z > Task :expo-log-box:generateDebugResources FROM-CACHE
+2026-06-22T09:59:59.4339311Z > Task :expo-log-box:packageDebugResources
+2026-06-22T09:59:59.4383917Z > Task :expo-modules-core:generateDebugResValues FROM-CACHE
+2026-06-22T09:59:59.4422912Z > Task :expo-modules-core:generateDebugResources FROM-CACHE
+2026-06-22T09:59:59.5306976Z > Task :expo-modules-core:packageDebugResources
+2026-06-22T09:59:59.5370499Z > Task :react-native-safe-area-context:generateDebugResValues FROM-CACHE
+2026-06-22T09:59:59.5403047Z > Task :react-native-safe-area-context:generateDebugResources FROM-CACHE
+2026-06-22T09:59:59.6298602Z > Task :react-native-safe-area-context:packageDebugResources
+2026-06-22T09:59:59.6346559Z > Task :react-native-screens:generateDebugResValues FROM-CACHE
+2026-06-22T09:59:59.6388916Z > Task :react-native-screens:generateDebugResources
+2026-06-22T09:59:59.9287116Z > Task :react-native-screens:packageDebugResources
+2026-06-22T09:59:59.9332782Z > Task :expo:extractDeepLinksDebug
+2026-06-22T10:00:15.6299758Z > Task :expo:processDebugManifest
+2026-06-22T10:00:15.6313058Z > Task :expo-constants:extractDeepLinksDebug FROM-CACHE
+2026-06-22T10:00:15.7286423Z > Task :expo-constants:processDebugManifest
+2026-06-22T10:00:15.7302815Z > Task :expo-log-box:extractDeepLinksDebug FROM-CACHE
+2026-06-22T10:00:15.7322417Z > Task :expo-log-box:processDebugManifest
+2026-06-22T10:00:15.7323384Z > Task :expo-modules-core:extractDeepLinksDebug FROM-CACHE
+2026-06-22T10:00:15.8322242Z 
+2026-06-22T10:00:15.8342794Z > Task :expo-modules-core:processDebugManifest
+2026-06-22T10:00:15.8344540Z /home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/src/main/AndroidManifest.xml:8:9-11:45 Warning:
+2026-06-22T10:00:15.8363165Z 	meta-data#com.facebook.soloader.enabled@android:value was tagged at AndroidManifest.xml:8 to replace other declarations but no other declaration present
+2026-06-22T10:00:15.8381949Z 
+2026-06-22T10:00:15.8402912Z > Task :react-native-safe-area-context:extractDeepLinksDebug FROM-CACHE
+2026-06-22T10:00:15.8421862Z 
+2026-06-22T10:00:15.8422988Z > Task :react-native-safe-area-context:processDebugManifest
+2026-06-22T10:00:15.8447280Z package="com.th3rdwave.safeareacontext" found in source AndroidManifest.xml: /home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-safe-area-context/android/src/main/AndroidManifest.xml.
+2026-06-22T10:00:15.8473054Z Setting the namespace via the package attribute in the source AndroidManifest.xml is no longer supported, and the value is ignored.
+2026-06-22T10:00:15.8475840Z Recommendation: remove package="com.th3rdwave.safeareacontext" from the source AndroidManifest.xml: /home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-safe-area-context/android/src/main/AndroidManifest.xml.
+2026-06-22T10:00:15.8502270Z 
+2026-06-22T10:00:15.8519888Z > Task :react-native-screens:extractDeepLinksDebug FROM-CACHE
+2026-06-22T10:00:15.9295824Z > Task :react-native-screens:processDebugManifest
+2026-06-22T10:00:16.8303073Z > Task :expo:compileDebugLibraryResources
+2026-06-22T10:00:18.7285370Z > Task :expo:parseDebugLocalResources
+2026-06-22T10:00:18.8303348Z > Task :expo:generateDebugRFile
+2026-06-22T10:00:18.8323200Z > Task :expo-constants:compileDebugLibraryResources FROM-CACHE
+2026-06-22T10:00:18.8353314Z > Task :expo-constants:parseDebugLocalResources FROM-CACHE
+2026-06-22T10:00:18.8393085Z > Task :expo-constants:generateDebugRFile
+2026-06-22T10:00:18.8413205Z > Task :expo-log-box:compileDebugLibraryResources FROM-CACHE
+2026-06-22T10:00:18.8442832Z > Task :expo-log-box:parseDebugLocalResources FROM-CACHE
+2026-06-22T10:00:18.9293319Z > Task :expo-log-box:generateDebugRFile
+2026-06-22T10:00:20.2295686Z > Task :expo-modules-core:compileDebugLibraryResources FROM-CACHE
+2026-06-22T10:00:20.2313327Z > Task :expo-modules-core:parseDebugLocalResources FROM-CACHE
+2026-06-22T10:00:20.2333225Z > Task :expo-modules-core:generateDebugRFile
+2026-06-22T10:00:20.2354869Z > Task :react-native-safe-area-context:compileDebugLibraryResources FROM-CACHE
+2026-06-22T10:00:20.3294302Z > Task :react-native-safe-area-context:parseDebugLocalResources FROM-CACHE
+2026-06-22T10:00:20.3323131Z > Task :react-native-safe-area-context:generateDebugRFile
+2026-06-22T10:00:20.6318829Z > Task :app:checkDebugAarMetadata
+2026-06-22T10:00:20.6337356Z > Task :react-native-screens:compileDebugLibraryResources
+2026-06-22T10:00:20.8288609Z > Task :react-native-screens:parseDebugLocalResources
+2026-06-22T10:00:20.9289464Z > Task :react-native-screens:generateDebugRFile
+2026-06-22T10:00:20.9314080Z > Task :expo:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-06-22T10:00:20.9335034Z > Task :app:mapDebugSourceSetPaths
+2026-06-22T10:00:20.9347282Z > Task :expo:generateDebugBuildConfig
+2026-06-22T10:00:20.9371637Z > Task :expo-constants:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-06-22T10:00:20.9392524Z > Task :app:generateDebugResources
+2026-06-22T10:00:20.9434303Z > Task :expo-constants:generateDebugBuildConfig
+2026-06-22T10:00:20.9473126Z > Task :expo-modules-core:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-06-22T10:00:20.9474197Z > Task :expo-modules-core:generateDebugBuildConfig
+2026-06-22T10:00:31.1287651Z > Task :app:mergeDebugResources
+2026-06-22T10:00:31.1343526Z > Task :app:packageDebugResources
+2026-06-22T10:00:31.2333142Z > Task :app:parseDebugLocalResources
+2026-06-22T10:00:31.2352881Z > Task :app:createDebugCompatibleScreenManifests
+2026-06-22T10:00:31.2372584Z > Task :app:extractDeepLinksDebug
+2026-06-22T10:00:32.2352625Z 
+2026-06-22T10:00:32.2387148Z > Task :app:processDebugMainManifest
+2026-06-22T10:00:32.2498324Z /home/runner/work/Tournex/Tournex/mobile/android/app/src/debug/AndroidManifest.xml:6:5-162 Warning:
+2026-06-22T10:00:32.2533238Z 	application@android:usesCleartextTraffic was tagged at AndroidManifest.xml:6 to replace other declarations but no other declaration present
+2026-06-22T10:00:32.2563343Z /home/runner/work/Tournex/Tournex/mobile/android/app/src/debug/AndroidManifest.xml Warning:
+2026-06-22T10:00:32.2565167Z 	provider#expo.modules.filesystem.FileSystemFileProvider@android:authorities was tagged at AndroidManifest.xml:0 to replace other declarations but no other declaration present
+2026-06-22T10:00:32.4312629Z 
+2026-06-22T10:00:32.4347856Z > Task :app:expoDebugOverrideMaxSdkConflicts
+2026-06-22T10:00:32.4383327Z [33m---------- Expo Max Sdk Override Plugin ----------[0m
+2026-06-22T10:00:32.4398565Z [32m>>> No 'android:maxSdkVersion' conflicts found[0m
+2026-06-22T10:00:32.4433126Z [33m--------------------------------------------------[0m
+2026-06-22T10:00:32.8302297Z 
+2026-06-22T10:00:32.8322899Z > Task :app:processDebugManifest
+2026-06-22T10:00:32.9293131Z > Task :app:processDebugManifestForPackage
+2026-06-22T10:00:39.4298538Z > Task :app:processDebugResources
+2026-06-22T10:00:39.4345094Z > Task :expo-modules-core:javaPreCompileDebug
+2026-06-22T10:00:39.5303214Z > Task :expo-constants:javaPreCompileDebug FROM-CACHE
+2026-06-22T10:00:39.5326634Z > Task :expo-log-box:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-06-22T10:00:39.5385268Z > Task :expo-log-box:generateDebugBuildConfig
+2026-06-22T10:00:39.5422897Z > Task :expo-log-box:javaPreCompileDebug FROM-CACHE
+2026-06-22T10:00:39.5452938Z > Task :expo:javaPreCompileDebug FROM-CACHE
+2026-06-22T10:00:39.5493272Z > Task :react-native-safe-area-context:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-06-22T10:00:39.5543456Z > Task :react-native-safe-area-context:generateDebugBuildConfig
+2026-06-22T10:00:47.2292615Z 
+2026-06-22T10:00:47.2334432Z > Task :react-native-safe-area-context:compileDebugKotlin
+2026-06-22T10:00:47.2355626Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaProviderManager.kt:39:19 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+2026-06-22T10:00:47.2394571Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaView.kt:9:8 'class UIManagerModule : ReactContextBaseJavaModule, LifecycleEventListener, UIManager' is deprecated. Deprecated in Java.
+2026-06-22T10:00:47.2434576Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaView.kt:50:54 'class UIManagerModule : ReactContextBaseJavaModule, LifecycleEventListener, UIManager' is deprecated. Deprecated in Java.
+2026-06-22T10:00:47.2438433Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaView.kt:59:23 'val uiImplementation: UIImplementation!' is deprecated. Deprecated in Java.
+2026-06-22T10:00:47.2443309Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaViewShadowNode.kt:9:32 'class LayoutShadowNode : ReactShadowNodeImpl' is deprecated. This class is part of Legacy Architecture and will be removed in a future release.
+2026-06-22T10:00:47.2447849Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-safe-area-context/android/src/main/java/com/th3rdwave/safeareacontext/SafeAreaViewShadowNode.kt:110:61 'class NativeViewHierarchyOptimizer : Any' is deprecated. This class is part of Legacy Architecture and will be removed in a future release.
+2026-06-22T10:00:47.3312393Z 
+2026-06-22T10:00:47.3383227Z > Task :react-native-safe-area-context:javaPreCompileDebug FROM-CACHE
+2026-06-22T10:00:50.9292734Z > Task :expo-modules-core:compileDebugKotlin
+2026-06-22T10:01:10.2285685Z > Task :react-native-safe-area-context:compileDebugJavaWithJavac
+2026-06-22T10:01:10.3293887Z > Task :react-native-safe-area-context:bundleLibCompileToJarDebug
+2026-06-22T10:01:10.3295538Z > Task :react-native-screens:checkKotlinGradlePluginConfigurationErrors SKIPPED
+2026-06-22T10:01:10.3299211Z > Task :react-native-screens:generateDebugBuildConfig
+2026-06-22T10:01:33.9313457Z 
+2026-06-22T10:01:33.9327310Z > Task :expo-modules-core:compileDebugKotlin
+2026-06-22T10:01:33.9363787Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/apploader/AppLoaderProvider.kt:34:52 Unchecked cast of 'Class<*>!' to 'Class<out HeadlessAppLoader>'.
+2026-06-22T10:01:33.9400311Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/AppContext.kt:14:8 'class UIManagerModule : ReactContextBaseJavaModule, LifecycleEventListener, UIManager' is deprecated. Deprecated in Java.
+2026-06-22T10:01:33.9444126Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/AppContext.kt:22:8 'typealias ErrorManagerModule = JSLoggerModule' is deprecated. Use JSLoggerModule instead.
+2026-06-22T10:01:33.9478762Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/AppContext.kt:61:13 'val hostingRuntimeContext: MainRuntime' is deprecated. Use AppContext.runtimeContext instead.
+2026-06-22T10:01:33.9522162Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/AppContext.kt:271:21 'typealias ErrorManagerModule = JSLoggerModule' is deprecated. Use JSLoggerModule instead.
+2026-06-22T10:01:33.9560804Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/AppContext.kt:380:21 'val DEFAULT: Int' is deprecated. UIManagerType.DEFAULT will be deleted in the next release of React Native. Use [LEGACY] instead.
+2026-06-22T10:01:33.9594230Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/AppContext.kt:381:10 'class UIManagerModule : ReactContextBaseJavaModule, LifecycleEventListener, UIManager' is deprecated. Deprecated in Java.
+2026-06-22T10:01:33.9618709Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/defaultmodules/NativeModulesProxyModule.kt:16:5 'fun Constants(legacyConstantsProvider: () -> Map<String, Any?>): Unit' is deprecated. Use `Constant` or `Property` instead.
+2026-06-22T10:01:33.9656860Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/events/KModuleEventEmitterWrapper.kt:99:21 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+2026-06-22T10:01:33.9674785Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/events/KModuleEventEmitterWrapper.kt:108:21 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+2026-06-22T10:01:33.9693888Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/views/ViewDefinitionBuilder.kt:470:16 'val errorManager: JSLoggerModule?' is deprecated. Use AppContext.jsLogger instead.
+2026-06-22T10:01:33.9714295Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/views/ViewDefinitionBuilder.kt:470:30 'fun reportExceptionToLogBox(codedException: CodedException): Unit' is deprecated. Use appContext.jsLogger.error(...) instead.
+2026-06-22T10:01:33.9744235Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/views/ViewManagerDefinition.kt:41:16 'val errorManager: JSLoggerModule?' is deprecated. Use AppContext.jsLogger instead.
+2026-06-22T10:01:33.9764383Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/src/main/java/expo/modules/kotlin/views/ViewManagerDefinition.kt:41:30 'fun reportExceptionToLogBox(codedException: CodedException): Unit' is deprecated. Use appContext.jsLogger.error(...) instead.
+2026-06-22T10:01:38.8321598Z Note: Some input files use or override a deprecated API.
+2026-06-22T10:01:38.8322271Z 
+2026-06-22T10:01:38.8433345Z Note: Recompile with -Xlint:deprecation for details.
+2026-06-22T10:01:38.8434285Z > Task :expo-modules-core:compileDebugJavaWithJavac
+2026-06-22T10:01:40.3285756Z 
+2026-06-22T10:01:40.3304636Z > Task :react-native-screens:compileDebugKotlin
+2026-06-22T10:01:42.1299674Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/RNScreensPackage.kt:66:9 The corresponding parameter in the supertype 'BaseReactPackage' is named 'name'. This may cause problems when calling this function with named arguments.
+2026-06-22T10:01:42.1325769Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/RNScreensPackage.kt:67:9 The corresponding parameter in the supertype 'BaseReactPackage' is named 'reactContext'. This may cause problems when calling this function with named arguments.
+2026-06-22T10:01:42.1362746Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/RNScreensPackage.kt:79:17 'constructor(name: String, className: String, canOverrideExistingModule: Boolean, needsEagerInit: Boolean, hasConstants: Boolean, isCxxModule: Boolean, isTurboModule: Boolean): ReactModuleInfo' is deprecated. This constructor is deprecated and will be removed in the future. Use ReactModuleInfo(String, String, boolean, boolean, boolean, boolean)].
+2026-06-22T10:01:42.1395274Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/Screen.kt:53:77 Unchecked cast of '(CoordinatorLayout.Behavior<View!>?..CoordinatorLayout.Behavior<*>?)' to 'BottomSheetBehavior<Screen>'.
+2026-06-22T10:01:42.1414376Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/Screen.kt:58:33 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+2026-06-22T10:01:42.1434523Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/Screen.kt:515:14 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+2026-06-22T10:01:42.1460849Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenContainer.kt:250:18 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+2026-06-22T10:01:42.1474423Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenContainer.kt:260:18 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+2026-06-22T10:01:42.1495048Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenFragment.kt:225:37 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+2026-06-22T10:01:42.1514331Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenFragment.kt:242:14 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+2026-06-22T10:01:42.1534536Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenFragment.kt:258:22 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+2026-06-22T10:01:42.1561492Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenFragment.kt:327:22 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+2026-06-22T10:01:42.1591555Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenModalFragment.kt:180:22 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+2026-06-22T10:01:42.1605613Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStack.kt:106:14 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+2026-06-22T10:01:42.1628989Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackFragment.kt:169:18 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+2026-06-22T10:01:42.1654583Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackFragment.kt:226:31 'var targetElevation: Float' is deprecated. Deprecated in Java.
+2026-06-22T10:01:42.1673996Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackFragment.kt:229:13 'fun setHasOptionsMenu(p0: Boolean): Unit' is deprecated. Deprecated in Java.
+2026-06-22T10:01:42.1704402Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackFragment.kt:439:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+2026-06-22T10:01:42.1708323Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackFragment.kt:446:22 'fun onPrepareOptionsMenu(p0: Menu): Unit' is deprecated. Deprecated in Java.
+2026-06-22T10:01:42.1734254Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackFragment.kt:449:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+2026-06-22T10:01:42.1754024Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackFragment.kt:454:22 'fun onCreateOptionsMenu(p0: Menu, p1: MenuInflater): Unit' is deprecated. Deprecated in Java.
+2026-06-22T10:01:42.1781960Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackHeaderConfig.kt:181:14 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+2026-06-22T10:01:42.1794517Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenStackHeaderConfig.kt:191:14 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+2026-06-22T10:01:42.1814211Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenWindowTraits.kt:48:42 'fun replaceSystemWindowInsets(p0: Int, p1: Int, p2: Int, p3: Int): @NonNull() WindowInsetsCompat' is deprecated. Deprecated in Java.
+2026-06-22T10:01:42.1833748Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenWindowTraits.kt:49:39 'val systemWindowInsetLeft: Int' is deprecated. Deprecated in Java.
+2026-06-22T10:01:42.1863293Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenWindowTraits.kt:51:39 'val systemWindowInsetRight: Int' is deprecated. Deprecated in Java.
+2026-06-22T10:01:42.1867552Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreenWindowTraits.kt:52:39 'val systemWindowInsetBottom: Int' is deprecated. Deprecated in Java.
+2026-06-22T10:01:42.1895753Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/ScreensModule.kt:100:14 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+2026-06-22T10:01:42.1911431Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/SearchBarView.kt:137:29 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+2026-06-22T10:01:42.1944378Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/bottomsheet/BottomSheetDialogRootView.kt:7:8 'object ReactFeatureFlags : Any' is deprecated. Use com.facebook.react.internal.featureflags.ReactNativeFeatureFlags instead.
+2026-06-22T10:01:42.1951111Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/bottomsheet/BottomSheetDialogRootView.kt:25:13 'object ReactFeatureFlags : Any' is deprecated. Use com.facebook.react.internal.featureflags.ReactNativeFeatureFlags instead.
+2026-06-22T10:01:42.1974578Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/bottomsheet/BottomSheetDialogRootView.kt:32:9 The corresponding parameter in the supertype 'ReactViewGroup' is named 'left'. This may cause problems when calling this function with named arguments.
+2026-06-22T10:01:42.1994651Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/bottomsheet/BottomSheetDialogRootView.kt:33:9 The corresponding parameter in the supertype 'ReactViewGroup' is named 'top'. This may cause problems when calling this function with named arguments.
+2026-06-22T10:01:42.2020389Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/bottomsheet/BottomSheetDialogRootView.kt:34:9 The corresponding parameter in the supertype 'ReactViewGroup' is named 'right'. This may cause problems when calling this function with named arguments.
+2026-06-22T10:01:42.2045509Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/bottomsheet/BottomSheetDialogRootView.kt:35:9 The corresponding parameter in the supertype 'ReactViewGroup' is named 'bottom'. This may cause problems when calling this function with named arguments.
+2026-06-22T10:01:42.2064883Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/bottomsheet/BottomSheetDialogRootView.kt:71:9 The corresponding parameter in the supertype 'RootView' is named 'childView'. This may cause problems when calling this function with named arguments.
+2026-06-22T10:01:42.2086420Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/bottomsheet/BottomSheetDialogRootView.kt:72:9 The corresponding parameter in the supertype 'RootView' is named 'ev'. This may cause problems when calling this function with named arguments.
+2026-06-22T10:01:42.2184911Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/bottomsheet/BottomSheetDialogRootView.kt:79:46 The corresponding parameter in the supertype 'RootView' is named 'ev'. This may cause problems when calling this function with named arguments.
+2026-06-22T10:01:42.2204858Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/bottomsheet/BottomSheetDialogRootView.kt:83:9 The corresponding parameter in the supertype 'RootView' is named 'childView'. This may cause problems when calling this function with named arguments.
+2026-06-22T10:01:42.2225027Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/bottomsheet/BottomSheetDialogRootView.kt:84:9 The corresponding parameter in the supertype 'RootView' is named 'ev'. This may cause problems when calling this function with named arguments.
+2026-06-22T10:01:42.2255328Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/bottomsheet/BottomSheetDialogRootView.kt:95:34 The corresponding parameter in the supertype 'RootView' is named 't'. This may cause problems when calling this function with named arguments.
+2026-06-22T10:01:42.2260081Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/bottomsheet/DimmingView.kt:64:9 The corresponding parameter in the supertype 'ReactCompoundView' is named 'touchX'. This may cause problems when calling this function with named arguments.
+2026-06-22T10:01:42.2285055Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/bottomsheet/DimmingView.kt:65:9 The corresponding parameter in the supertype 'ReactCompoundView' is named 'touchY'. This may cause problems when calling this function with named arguments.
+2026-06-22T10:01:42.2315271Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/bottomsheet/DimmingView.kt:69:9 The corresponding parameter in the supertype 'ReactCompoundViewGroup' is named 'touchX'. This may cause problems when calling this function with named arguments.
+2026-06-22T10:01:42.2319982Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/bottomsheet/DimmingView.kt:70:9 The corresponding parameter in the supertype 'ReactCompoundViewGroup' is named 'touchY'. This may cause problems when calling this function with named arguments.
+2026-06-22T10:01:42.2344566Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/gamma/common/event/BaseEventEmitter.kt:12:38 'fun getEventDispatcherForReactTag(context: ReactContext, reactTag: Int): EventDispatcher?' is deprecated. reactTag is no longer needed.
+2026-06-22T10:01:42.2364472Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/gamma/tabs/host/TabsHostViewManager.kt:44:9 The corresponding parameter in the supertype 'TabsHostViewManager' is named 'view'. This may cause problems when calling this function with named arguments.
+2026-06-22T10:01:42.2394087Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/react-native-screens/android/src/main/java/com/swmansion/rnscreens/safearea/SafeAreaView.kt:143:45 'fun consumeDisplayCutout(): @NonNull() WindowInsetsCompat' is deprecated. Deprecated in Java.
+2026-06-22T10:01:42.4285761Z 
+2026-06-22T10:01:42.4333118Z > Task :expo-modules-core:bundleLibCompileToJarDebug
+2026-06-22T10:01:44.6294011Z 
+2026-06-22T10:01:44.6322985Z > Task :expo-constants:compileDebugKotlin
+2026-06-22T10:01:44.6349034Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo/node_modules/expo-constants/android/src/main/java/expo/modules/constants/ConstantsModule.kt:13:5 'fun Constants(legacyConstantsProvider: () -> Map<String, Any?>): Unit' is deprecated. Use `Constant` or `Property` instead.
+2026-06-22T10:01:45.3332258Z 
+2026-06-22T10:01:45.3344699Z > Task :expo-log-box:compileDebugKotlin
+2026-06-22T10:01:45.5316558Z > Task :expo-constants:compileDebugJavaWithJavac
+2026-06-22T10:01:45.5372616Z > Task :expo-constants:bundleLibCompileToJarDebug
+2026-06-22T10:01:45.5413616Z > Task :react-native-screens:javaPreCompileDebug FROM-CACHE
+2026-06-22T10:01:47.8285531Z > Task :expo-log-box:compileDebugJavaWithJavac
+2026-06-22T10:01:47.8304984Z > Task :expo-log-box:bundleLibCompileToJarDebug
+2026-06-22T10:01:48.7285100Z > Task :react-native-screens:compileDebugJavaWithJavac
+2026-06-22T10:01:48.8294621Z > Task :react-native-screens:bundleLibCompileToJarDebug
+2026-06-22T10:01:48.8302688Z > Task :app:javaPreCompileDebug FROM-CACHE
+2026-06-22T10:01:48.9289084Z > Task :app:mergeDebugShaders
+2026-06-22T10:01:48.9312242Z > Task :app:compileDebugShaders NO-SOURCE
+2026-06-22T10:01:48.9332328Z > Task :app:generateDebugAssets UP-TO-DATE
+2026-06-22T10:01:48.9333187Z > Task :expo-constants:mergeDebugShaders
+2026-06-22T10:01:48.9372520Z > Task :expo-constants:compileDebugShaders NO-SOURCE
+2026-06-22T10:01:48.9392614Z > Task :expo-constants:generateDebugAssets UP-TO-DATE
+2026-06-22T10:01:49.0306829Z > Task :expo-constants:mergeDebugAssets
+2026-06-22T10:01:49.0353064Z > Task :expo-log-box:mergeDebugShaders
+2026-06-22T10:01:49.0364133Z > Task :expo-log-box:compileDebugShaders NO-SOURCE
+2026-06-22T10:01:49.0402760Z > Task :expo-log-box:generateDebugAssets UP-TO-DATE
+2026-06-22T10:01:49.0432865Z > Task :expo-log-box:mergeDebugAssets
+2026-06-22T10:01:49.0463027Z > Task :expo-modules-core:mergeDebugShaders
+2026-06-22T10:01:49.0465780Z > Task :expo-modules-core:compileDebugShaders NO-SOURCE
+2026-06-22T10:01:49.0519578Z > Task :expo-modules-core:generateDebugAssets UP-TO-DATE
+2026-06-22T10:01:49.0564128Z > Task :expo-modules-core:mergeDebugAssets
+2026-06-22T10:01:49.0580925Z > Task :react-native-safe-area-context:mergeDebugShaders
+2026-06-22T10:01:49.0602865Z > Task :react-native-safe-area-context:compileDebugShaders NO-SOURCE
+2026-06-22T10:01:49.0620481Z > Task :react-native-safe-area-context:generateDebugAssets UP-TO-DATE
+2026-06-22T10:01:49.1286273Z > Task :react-native-safe-area-context:mergeDebugAssets
+2026-06-22T10:01:49.1302610Z > Task :react-native-screens:mergeDebugShaders
+2026-06-22T10:01:49.1304280Z > Task :react-native-screens:compileDebugShaders NO-SOURCE
+2026-06-22T10:01:49.1333625Z > Task :react-native-screens:generateDebugAssets UP-TO-DATE
+2026-06-22T10:01:49.1363056Z > Task :react-native-screens:mergeDebugAssets
+2026-06-22T10:01:49.1395984Z > Task :react-native-safe-area-context:bundleLibRuntimeToJarDebug
+2026-06-22T10:01:54.2318505Z > Task :expo:mergeDebugShaders
+2026-06-22T10:01:54.2359310Z > Task :expo:compileDebugShaders NO-SOURCE
+2026-06-22T10:01:54.2371574Z > Task :expo:generateDebugAssets UP-TO-DATE
+2026-06-22T10:01:54.2393825Z 
+2026-06-22T10:01:54.2432395Z > Task :expo:compileDebugKotlin
+2026-06-22T10:01:54.2473995Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo/android/src/main/java/expo/modules/ExpoModulesPackage.kt:34:16 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+2026-06-22T10:01:54.2493714Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo/android/src/main/java/expo/modules/ReactActivityDelegateWrapper.kt:22:8 'class ReactInstanceManager : Any' is deprecated. Deprecated in Java.
+2026-06-22T10:01:54.2513363Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo/android/src/main/java/expo/modules/ReactActivityDelegateWrapper.kt:102:16 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+2026-06-22T10:01:54.2537267Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo/android/src/main/java/expo/modules/ReactActivityDelegateWrapper.kt:102:43 'class ReactInstanceManager : Any' is deprecated. Deprecated in Java.
+2026-06-22T10:01:54.2596836Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo/android/src/main/java/expo/modules/ReactActivityDelegateWrapper.kt:103:21 'val reactInstanceManager: ReactInstanceManager' is deprecated. Deprecated in Java.
+2026-06-22T10:01:54.2614230Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo/android/src/main/java/expo/modules/fetch/ExpoFetchModule.kt:32:39 'constructor(reactContext: ReactContext): ForwardingCookieHandler' is deprecated. Use the default constructor.
+2026-06-22T10:01:54.2645810Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo/android/src/main/java/expo/modules/fetch/NativeResponse.kt:42:16 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+2026-06-22T10:01:54.2683722Z w: file:///home/runner/work/Tournex/Tournex/mobile/node_modules/expo/android/src/main/java/expo/modules/fetch/NativeResponse.kt:44:11 'fun deallocate(): Unit' is deprecated. Use sharedObjectDidRelease() instead.
+2026-06-22T10:01:54.3302144Z 
+2026-06-22T10:01:54.3328554Z > Task :expo:mergeDebugAssets
+2026-06-22T10:01:54.8293050Z > Task :app:mergeDebugAssets
+2026-06-22T10:01:54.9312941Z > Task :app:compressDebugAssets
+2026-06-22T10:01:55.0301441Z > Task :react-native-screens:bundleLibRuntimeToJarDebug
+2026-06-22T10:01:57.1284667Z > Task :expo:compileDebugJavaWithJavac
+2026-06-22T10:01:57.1310934Z > Task :expo:bundleLibCompileToJarDebug
+2026-06-22T10:02:00.6299275Z > Task :app:compileDebugKotlin
+2026-06-22T10:02:01.4343165Z > Task :app:compileDebugJavaWithJavac
+2026-06-22T10:02:01.4362720Z > Task :expo:bundleLibRuntimeToJarDebug
+2026-06-22T10:02:04.1333077Z > Task :expo-log-box:bundleLibRuntimeToJarDebug
+2026-06-22T10:02:04.6293373Z > Task :expo-constants:bundleLibRuntimeToJarDebug
+2026-06-22T10:02:05.2987633Z > Task :expo-modules-core:bundleLibRuntimeToJarDebug
+2026-06-22T10:02:05.2988560Z > Task :app:desugarDebugFileDependencies
+2026-06-22T10:02:06.3327895Z > Task :app:dexBuilderDebug
+2026-06-22T10:02:06.3362420Z > Task :app:processDebugJavaRes
+2026-06-22T10:02:06.3406170Z > Task :expo:processDebugJavaRes
+2026-06-22T10:02:06.3422307Z > Task :expo-constants:processDebugJavaRes
+2026-06-22T10:02:06.3442326Z > Task :expo-log-box:processDebugJavaRes
+2026-06-22T10:02:06.4284943Z > Task :expo-modules-core:processDebugJavaRes
+2026-06-22T10:02:06.4292625Z > Task :react-native-safe-area-context:processDebugJavaRes
+2026-06-22T10:02:06.4312565Z > Task :react-native-screens:processDebugJavaRes
+2026-06-22T10:02:10.0322973Z > Task :app:mergeDebugJavaResource
+2026-06-22T10:02:12.7293740Z > Task :app:checkDebugDuplicateClasses
+2026-06-22T10:02:42.7294712Z > Task :app:mergeExtDexDebug
+2026-06-22T10:02:51.3284679Z > Task :react-native-safe-area-context:bundleLibRuntimeToDirDebug
+2026-06-22T10:03:26.2285448Z > Task :react-native-screens:bundleLibRuntimeToDirDebug
+2026-06-22T10:03:34.5303483Z > Task :app:mergeDebugGlobalSynthetics
+2026-06-22T10:03:34.7304536Z > Task :expo:bundleLibRuntimeToDirDebug
+2026-06-22T10:03:35.5292392Z > Task :expo-log-box:bundleLibRuntimeToDirDebug
+2026-06-22T10:03:37.3354288Z > Task :expo-modules-core:bundleLibRuntimeToDirDebug
+2026-06-22T10:03:37.3355088Z > Task :expo-constants:bundleLibRuntimeToDirDebug
+2026-06-22T10:03:37.3355767Z > Task :app:mergeProjectDexDebug
+2026-06-22T10:03:39.2302270Z 
+2026-06-22T10:03:39.2322698Z > Task :app:configureCMakeDebug[arm64-v8a]
+2026-06-22T10:03:39.2325186Z Checking the license for package CMake 3.22.1 in /usr/local/lib/android/sdk/licenses
+2026-06-22T10:03:39.2326172Z License for package CMake 3.22.1 accepted.
+2026-06-22T10:03:39.2326941Z Preparing "Install CMake 3.22.1 v.3.22.1".
+2026-06-22T10:03:39.9292985Z "Install CMake 3.22.1 v.3.22.1" ready.
+2026-06-22T10:03:39.9312545Z Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
+2026-06-22T10:03:39.9372497Z "Install CMake 3.22.1 v.3.22.1" complete.
+2026-06-22T10:03:40.0303048Z "Install CMake 3.22.1 v.3.22.1" finished.
+2026-06-22T10:03:49.3297405Z 
+2026-06-22T10:03:49.3353169Z > Task :expo:mergeDebugJniLibFolders
+2026-06-22T10:03:49.3364462Z > Task :expo:mergeDebugNativeLibs NO-SOURCE
+2026-06-22T10:03:49.3432873Z > Task :expo:copyDebugJniLibsProjectOnly
+2026-06-22T10:03:49.3433770Z > Task :expo-constants:mergeDebugJniLibFolders
+2026-06-22T10:03:49.3492736Z > Task :expo-constants:mergeDebugNativeLibs NO-SOURCE
+2026-06-22T10:03:49.3547907Z > Task :expo-constants:copyDebugJniLibsProjectOnly
+2026-06-22T10:03:49.3613041Z > Task :expo-log-box:mergeDebugJniLibFolders
+2026-06-22T10:03:49.3643340Z > Task :expo-log-box:mergeDebugNativeLibs NO-SOURCE
+2026-06-22T10:03:49.3703023Z > Task :expo-log-box:copyDebugJniLibsProjectOnly
+2026-06-22T10:03:52.3313533Z > Task :expo-modules-core:configureCMakeDebug[arm64-v8a]
+2026-06-22T10:04:13.8293162Z > Task :app:buildCMakeDebug[arm64-v8a]
+2026-06-22T10:04:22.3293381Z > Task :expo-modules-core:buildCMakeDebug[arm64-v8a]
+2026-06-22T10:05:04.4285890Z C/C++: ninja: Entering directory `/home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/.cxx/Debug/3b1x5z31/arm64-v8a'
+2026-06-22T10:05:04.4356114Z C/C++: /home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/src/main/cpp/fabric/ExpoComponentDescriptorFactory.cpp:17:5: warning: 'RawPropsParser' is deprecated [-Wdeprecated-declarations]
+2026-06-22T10:05:04.4403044Z C/C++:    17 |     react::RawPropsParser(/*useRawPropsJsiValue=*/true)
+2026-06-22T10:05:04.4452886Z C/C++:       |     ^
+2026-06-22T10:05:04.4534618Z C/C++: /home/runner/.gradle/caches/9.3.1/transforms/6f9e22f0c697aaa3166c5b27816d5e7c/transformed/react-android-0.85.3-debug/prefab/modules/reactnative/include/react/renderer/core/RawPropsParser.h:31:5: note: 'RawPropsParser' has been explicitly marked deprecated here
+2026-06-22T10:05:04.4593064Z C/C++:    31 |   [[deprecated]] explicit RawPropsParser(bool /* ignored */) : RawPropsParser() {}
+2026-06-22T10:05:04.4632656Z C/C++:       |     ^
+2026-06-22T10:05:04.4702932Z C/C++: 1 warning generated.
+2026-06-22T10:05:19.3292373Z 
+2026-06-22T10:05:19.3333107Z > Task :expo-modules-core:configureCMakeDebug[armeabi-v7a]
+2026-06-22T10:05:49.3313181Z > Task :expo-modules-core:buildCMakeDebug[armeabi-v7a]
+2026-06-22T10:06:27.6303892Z C/C++: ninja: Entering directory `/home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/.cxx/Debug/3b1x5z31/armeabi-v7a'
+2026-06-22T10:06:27.6324151Z C/C++: /home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/src/main/cpp/fabric/ExpoComponentDescriptorFactory.cpp:17:5: warning: 'RawPropsParser' is deprecated [-Wdeprecated-declarations]
+2026-06-22T10:06:27.6383033Z C/C++:    17 |     react::RawPropsParser(/*useRawPropsJsiValue=*/true)
+2026-06-22T10:06:27.6482473Z C/C++:       |     ^
+2026-06-22T10:06:27.6544261Z C/C++: /home/runner/.gradle/caches/9.3.1/transforms/6f9e22f0c697aaa3166c5b27816d5e7c/transformed/react-android-0.85.3-debug/prefab/modules/reactnative/include/react/renderer/core/RawPropsParser.h:31:5: note: 'RawPropsParser' has been explicitly marked deprecated here
+2026-06-22T10:06:27.6573134Z C/C++:    31 |   [[deprecated]] explicit RawPropsParser(bool /* ignored */) : RawPropsParser() {}
+2026-06-22T10:06:27.6622487Z C/C++:       |     ^
+2026-06-22T10:06:27.6709623Z C/C++: 1 warning generated.
+2026-06-22T10:06:42.3292745Z 
+2026-06-22T10:06:42.3323187Z > Task :expo-modules-core:configureCMakeDebug[x86]
+2026-06-22T10:07:07.8284401Z > Task :app:mergeLibDexDebug
+2026-06-22T10:07:10.2303419Z > Task :app:configureCMakeDebug[armeabi-v7a]
+2026-06-22T10:07:12.3303399Z > Task :expo-modules-core:buildCMakeDebug[x86]
+2026-06-22T10:07:40.1284507Z > Task :app:buildCMakeDebug[armeabi-v7a]
+2026-06-22T10:07:48.2294214Z 
+2026-06-22T10:07:48.2362872Z > Task :expo-modules-core:buildCMakeDebug[x86]
+2026-06-22T10:07:48.2365029Z C/C++: ninja: Entering directory `/home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/.cxx/Debug/3b1x5z31/x86'
+2026-06-22T10:07:48.2374037Z C/C++: /home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/src/main/cpp/fabric/ExpoComponentDescriptorFactory.cpp:17:5: warning: 'RawPropsParser' is deprecated [-Wdeprecated-declarations]
+2026-06-22T10:07:48.2412920Z C/C++:    17 |     react::RawPropsParser(/*useRawPropsJsiValue=*/true)
+2026-06-22T10:07:48.2442678Z C/C++:       |     ^
+2026-06-22T10:07:48.2475101Z C/C++: /home/runner/.gradle/caches/9.3.1/transforms/6f9e22f0c697aaa3166c5b27816d5e7c/transformed/react-android-0.85.3-debug/prefab/modules/reactnative/include/react/renderer/core/RawPropsParser.h:31:5: note: 'RawPropsParser' has been explicitly marked deprecated here
+2026-06-22T10:07:48.2505544Z C/C++:    31 |   [[deprecated]] explicit RawPropsParser(bool /* ignored */) : RawPropsParser() {}
+2026-06-22T10:07:48.2532437Z C/C++:       |     ^
+2026-06-22T10:07:48.2572570Z C/C++: 1 warning generated.
+2026-06-22T10:08:03.5322559Z 
+2026-06-22T10:08:03.5363138Z > Task :expo-modules-core:configureCMakeDebug[x86_64]
+2026-06-22T10:08:33.5303230Z > Task :expo-modules-core:buildCMakeDebug[x86_64]
+2026-06-22T10:09:05.2303902Z C/C++: ninja: Entering directory `/home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/.cxx/Debug/3b1x5z31/x86_64'
+2026-06-22T10:09:05.2384152Z C/C++: /home/runner/work/Tournex/Tournex/mobile/node_modules/expo-modules-core/android/src/main/cpp/fabric/ExpoComponentDescriptorFactory.cpp:17:5: warning: 'RawPropsParser' is deprecated [-Wdeprecated-declarations]
+2026-06-22T10:09:05.2443043Z C/C++:    17 |     react::RawPropsParser(/*useRawPropsJsiValue=*/true)
+2026-06-22T10:09:05.2502590Z C/C++:       |     ^
+2026-06-22T10:09:05.2564377Z C/C++: /home/runner/.gradle/caches/9.3.1/transforms/6f9e22f0c697aaa3166c5b27816d5e7c/transformed/react-android-0.85.3-debug/prefab/modules/reactnative/include/react/renderer/core/RawPropsParser.h:31:5: note: 'RawPropsParser' has been explicitly marked deprecated here
+2026-06-22T10:09:05.2582824Z C/C++:    31 |   [[deprecated]] explicit RawPropsParser(bool /* ignored */) : RawPropsParser() {}
+2026-06-22T10:09:05.2666802Z C/C++:       |     ^
+2026-06-22T10:09:05.2702431Z C/C++: 1 warning generated.
+2026-06-22T10:09:18.4322313Z 
+2026-06-22T10:09:18.4362997Z > Task :expo-modules-core:mergeDebugJniLibFolders
+2026-06-22T10:09:19.3293171Z > Task :expo-modules-core:mergeDebugNativeLibs
+2026-06-22T10:09:19.9323146Z > Task :expo-modules-core:copyDebugJniLibsProjectOnly
+2026-06-22T10:09:19.9327786Z > Task :react-native-safe-area-context:mergeDebugJniLibFolders
+2026-06-22T10:09:19.9375735Z > Task :react-native-safe-area-context:mergeDebugNativeLibs NO-SOURCE
+2026-06-22T10:09:19.9452897Z > Task :react-native-safe-area-context:copyDebugJniLibsProjectOnly
+2026-06-22T10:09:22.0323216Z > Task :react-native-screens:configureCMakeDebug[arm64-v8a]
+2026-06-22T10:09:41.3284318Z > Task :react-native-screens:buildCMakeDebug[arm64-v8a]
+2026-06-22T10:09:43.3313553Z > Task :react-native-screens:configureCMakeDebug[armeabi-v7a]
+2026-06-22T10:09:59.5293181Z > Task :react-native-screens:buildCMakeDebug[armeabi-v7a]
+2026-06-22T10:10:01.5293183Z > Task :react-native-screens:configureCMakeDebug[x86]
+2026-06-22T10:10:19.4285419Z > Task :react-native-screens:buildCMakeDebug[x86]
+2026-06-22T10:10:20.4328327Z > Task :react-native-screens:configureCMakeDebug[x86_64]
+2026-06-22T10:10:22.1303524Z > Task :app:configureCMakeDebug[x86]
+2026-06-22T10:10:40.3333477Z > Task :react-native-screens:buildCMakeDebug[x86_64]
+2026-06-22T10:10:40.3349279Z > Task :react-native-screens:mergeDebugJniLibFolders
+2026-06-22T10:10:40.5293137Z > Task :react-native-screens:mergeDebugNativeLibs
+2026-06-22T10:10:40.6286681Z > Task :react-native-screens:copyDebugJniLibsProjectOnly
+2026-06-22T10:10:40.6343129Z > Task :expo:stripDebugDebugSymbols NO-SOURCE
+2026-06-22T10:10:40.6373689Z > Task :expo:copyDebugJniLibsProjectAndLocalJars
+2026-06-22T10:10:52.1313769Z > Task :app:buildCMakeDebug[x86]
+2026-06-22T10:10:52.8285285Z > Task :expo:extractDebugAnnotations
+2026-06-22T10:10:52.8323610Z > Task :expo:extractDeepLinksForAarDebug
+2026-06-22T10:10:52.8333083Z > Task :expo:mergeDebugGeneratedProguardFiles
+2026-06-22T10:10:52.9296861Z > Task :expo:mergeDebugConsumerProguardFiles
+2026-06-22T10:10:52.9322894Z > Task :expo:prepareDebugArtProfile
+2026-06-22T10:10:52.9342901Z > Task :expo:prepareLintJarForPublish
+2026-06-22T10:10:53.0293080Z > Task :expo:mergeDebugJavaResource
+2026-06-22T10:10:53.1310041Z > Task :expo:syncDebugLibJars
+2026-06-22T10:10:53.2296167Z > Task :expo:bundleDebugAar
+2026-06-22T10:10:53.2353085Z > Task :expo:assembleDebug
+2026-06-22T10:10:53.2413268Z > Task :expo-constants:stripDebugDebugSymbols NO-SOURCE
+2026-06-22T10:10:53.2448350Z > Task :expo-constants:copyDebugJniLibsProjectAndLocalJars
+2026-06-22T10:10:53.2503283Z > Task :expo-constants:extractDebugAnnotations
+2026-06-22T10:10:53.2546231Z > Task :expo-constants:extractDeepLinksForAarDebug FROM-CACHE
+2026-06-22T10:10:53.2593046Z > Task :expo-constants:mergeDebugGeneratedProguardFiles
+2026-06-22T10:10:53.3310558Z > Task :expo-constants:mergeDebugConsumerProguardFiles
+2026-06-22T10:10:53.3352897Z > Task :expo-constants:prepareDebugArtProfile
+2026-06-22T10:10:53.3382778Z > Task :expo-constants:prepareLintJarForPublish
+2026-06-22T10:10:53.3402909Z > Task :expo-constants:mergeDebugJavaResource
+2026-06-22T10:10:53.3443217Z > Task :expo-constants:syncDebugLibJars
+2026-06-22T10:10:53.4284916Z > Task :expo-constants:bundleDebugAar
+2026-06-22T10:10:53.4324158Z > Task :expo-constants:assembleDebug
+2026-06-22T10:10:53.4343342Z > Task :expo-log-box:stripDebugDebugSymbols NO-SOURCE
+2026-06-22T10:10:53.4379154Z > Task :expo-log-box:copyDebugJniLibsProjectAndLocalJars
+2026-06-22T10:10:53.4423062Z > Task :expo-log-box:extractDebugAnnotations
+2026-06-22T10:10:53.4462921Z > Task :expo-log-box:extractDeepLinksForAarDebug FROM-CACHE
+2026-06-22T10:10:53.5285300Z > Task :expo-log-box:mergeDebugGeneratedProguardFiles
+2026-06-22T10:10:53.5323273Z > Task :expo-log-box:mergeDebugConsumerProguardFiles
+2026-06-22T10:10:53.5362798Z > Task :expo-log-box:prepareDebugArtProfile
+2026-06-22T10:10:53.5382827Z > Task :expo-log-box:prepareLintJarForPublish
+2026-06-22T10:10:53.5422772Z > Task :expo-log-box:mergeDebugJavaResource
+2026-06-22T10:10:53.6284612Z > Task :expo-log-box:syncDebugLibJars
+2026-06-22T10:10:53.6285706Z > Task :expo-log-box:bundleDebugAar
+2026-06-22T10:10:53.6322976Z > Task :expo-log-box:assembleDebug
+2026-06-22T10:10:54.1303105Z > Task :expo-modules-core:stripDebugDebugSymbols
+2026-06-22T10:10:54.1343037Z > Task :expo-modules-core:copyDebugJniLibsProjectAndLocalJars
+2026-06-22T10:10:54.2293203Z > Task :expo-modules-core:extractDebugAnnotations
+2026-06-22T10:10:54.3303503Z > Task :expo-modules-core:extractDeepLinksForAarDebug FROM-CACHE
+2026-06-22T10:10:54.3363012Z > Task :expo-modules-core:mergeDebugGeneratedProguardFiles
+2026-06-22T10:10:54.3400504Z > Task :expo-modules-core:mergeDebugConsumerProguardFiles
+2026-06-22T10:10:54.4303182Z > Task :expo-modules-core:prepareDebugArtProfile
+2026-06-22T10:10:54.4354704Z > Task :expo-modules-core:prepareLintJarForPublish
+2026-06-22T10:10:54.4402953Z > Task :expo-modules-core:mergeDebugJavaResource
+2026-06-22T10:10:56.0284521Z > Task :expo-modules-core:syncDebugLibJars
+2026-06-22T10:10:56.8333280Z > Task :expo-modules-core:bundleDebugAar
+2026-06-22T10:10:56.8390290Z > Task :expo-modules-core:assembleDebug
+2026-06-22T10:10:56.8442831Z > Task :react-native-safe-area-context:stripDebugDebugSymbols NO-SOURCE
+2026-06-22T10:10:56.8472882Z > Task :react-native-safe-area-context:copyDebugJniLibsProjectAndLocalJars
+2026-06-22T10:10:56.8560391Z > Task :react-native-safe-area-context:extractDebugAnnotations
+2026-06-22T10:10:56.8573436Z > Task :react-native-safe-area-context:extractDeepLinksForAarDebug FROM-CACHE
+2026-06-22T10:10:56.9302767Z > Task :react-native-safe-area-context:mergeDebugGeneratedProguardFiles
+2026-06-22T10:10:56.9324919Z > Task :react-native-safe-area-context:mergeDebugConsumerProguardFiles
+2026-06-22T10:10:56.9342607Z > Task :react-native-safe-area-context:prepareDebugArtProfile
+2026-06-22T10:10:56.9355358Z > Task :react-native-safe-area-context:prepareLintJarForPublish
+2026-06-22T10:10:56.9394888Z > Task :react-native-safe-area-context:mergeDebugJavaResource
+2026-06-22T10:10:57.0314021Z > Task :react-native-safe-area-context:syncDebugLibJars
+2026-06-22T10:10:57.0322899Z > Task :react-native-safe-area-context:bundleDebugAar
+2026-06-22T10:10:57.0363379Z > Task :react-native-safe-area-context:assembleDebug
+2026-06-22T10:10:57.1285376Z > Task :react-native-screens:stripDebugDebugSymbols
+2026-06-22T10:10:57.2305195Z > Task :react-native-screens:copyDebugJniLibsProjectAndLocalJars
+2026-06-22T10:10:57.2314079Z > Task :react-native-screens:extractDebugAnnotations
+2026-06-22T10:10:57.2333675Z > Task :react-native-screens:extractDeepLinksForAarDebug FROM-CACHE
+2026-06-22T10:10:57.2383234Z > Task :react-native-screens:mergeDebugGeneratedProguardFiles
+2026-06-22T10:10:57.2402823Z > Task :react-native-screens:mergeDebugConsumerProguardFiles
+2026-06-22T10:10:57.3300025Z > Task :react-native-screens:prepareDebugArtProfile
+2026-06-22T10:10:57.3303430Z > Task :react-native-screens:prepareLintJarForPublish
+2026-06-22T10:10:57.3324911Z > Task :react-native-screens:mergeDebugJavaResource
+2026-06-22T10:10:57.8284341Z > Task :react-native-screens:syncDebugLibJars
+2026-06-22T10:10:58.1303242Z > Task :react-native-screens:bundleDebugAar
+2026-06-22T10:10:58.1304751Z > Task :react-native-screens:assembleDebug
+2026-06-22T10:12:20.0313230Z > Task :app:configureCMakeDebug[x86_64]
+2026-06-22T10:12:50.0288151Z > Task :app:buildCMakeDebug[x86_64]
+2026-06-22T10:14:00.1295412Z > Task :app:mergeDebugJniLibFolders
+2026-06-22T10:14:00.4307757Z > Task :app:validateSigningDebug
+2026-06-22T10:14:00.4335032Z > Task :app:writeDebugAppMetadata
+2026-06-22T10:14:00.4382626Z > Task :app:writeDebugSigningConfigVersions
+2026-06-22T10:14:13.1294845Z > Task :app:mergeDebugNativeLibs
+2026-06-22T10:14:15.1795189Z > Task :app:stripDebugDebugSymbols
+2026-06-22T10:14:16.9284181Z > Task :app:packageDebug
+2026-06-22T10:14:16.9285584Z > Task :app:createDebugApkListingFileRedirect
+2026-06-22T10:14:16.9286231Z > Task :app:assembleDebug
+2026-06-22T10:14:16.9287300Z gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run_7-1782122310425.json
+2026-06-22T10:14:17.0285234Z 
+2026-06-22T10:14:17.0293566Z [Incubating] Problems report is available at: file:///home/runner/work/Tournex/Tournex/mobile/android/build/reports/problems/problems-report.html
+2026-06-22T10:14:17.0306004Z 
+2026-06-22T10:14:17.0307449Z Deprecated Gradle features were used in this build, making it incompatible with Gradle 10.
+2026-06-22T10:14:17.0308547Z 
+2026-06-22T10:14:17.0323008Z You can use '--warning-mode all' to show the individual deprecation warnings and determine if they come from your own scripts or plugins.
+2026-06-22T10:14:17.0332196Z 
+2026-06-22T10:14:17.0344768Z For more on this, please refer to https://docs.gradle.org/9.3.1/userguide/command_line_interface.html#sec:command_line_warnings in the Gradle documentation.
+2026-06-22T10:14:17.0348092Z 
+2026-06-22T10:14:17.0352010Z BUILD SUCCESSFUL in 15m 53s
+2026-06-22T10:14:17.0353774Z 289 actionable tasks: 256 executed, 33 from cache
+2026-06-22T10:14:17.4065409Z ##[group]Run npm install -g appium
+2026-06-22T10:14:17.4066166Z [36;1mnpm install -g appium[0m
+2026-06-22T10:14:17.4066748Z [36;1mappium driver install uiautomator2[0m
+2026-06-22T10:14:17.4726774Z shell: /usr/bin/bash -e {0}
+2026-06-22T10:14:17.4727322Z env:
+2026-06-22T10:14:17.4727738Z   BACKEND_IP: 10.0.2.2
+2026-06-22T10:14:17.4728438Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T10:14:17.4729403Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T10:14:17.4730228Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-06-22T10:14:17.4730862Z   GRADLE_USER_HOME: /home/runner/.gradle
+2026-06-22T10:14:17.4731446Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-06-22T10:14:17.4732243Z   GRADLE_BUILD_ACTION_CACHE_RESTORED: true
+2026-06-22T10:14:17.4733110Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-06-22T10:14:17.4734078Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-06-22T10:14:17.4734721Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-06-22T10:14:17.4735271Z ##[endgroup]
+2026-06-22T10:14:30.7123672Z 
+2026-06-22T10:14:30.7153157Z added 297 packages in 13s
+2026-06-22T10:14:30.7157176Z 
+2026-06-22T10:14:30.7159370Z 65 packages are looking for funding
+2026-06-22T10:14:30.7172547Z   run `npm fund` for details
+2026-06-22T10:14:31.3837096Z - Checking if 'appium-uiautomator2-driver' is compatible
+2026-06-22T10:14:31.8423690Z ✔ Checking if 'appium-uiautomator2-driver' is compatible
+2026-06-22T10:14:31.8424885Z - Installing 'uiautomator2'
+2026-06-22T10:14:37.0318689Z ✔ Installing 'uiautomator2'
+2026-06-22T10:14:37.0323447Z - Validating 'uiautomator2'
+2026-06-22T10:14:37.0324862Z ✔ Validating 'uiautomator2'
+2026-06-22T10:14:37.0368694Z ℹ Driver uiautomator2@7.6.2 successfully installed
+2026-06-22T10:14:37.0382616Z - automationName: UiAutomator2
+2026-06-22T10:14:37.0383277Z - platformNames: ["Android"]
+2026-06-22T10:14:37.0542643Z ##[group]Run appium --log appium.log &
+2026-06-22T10:14:37.0543316Z [36;1mappium --log appium.log &[0m
+2026-06-22T10:14:37.0584736Z shell: /usr/bin/bash -e {0}
+2026-06-22T10:14:37.0585076Z env:
+2026-06-22T10:14:37.0585352Z   BACKEND_IP: 10.0.2.2
+2026-06-22T10:14:37.0585807Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T10:14:37.0586411Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T10:14:37.0586914Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-06-22T10:14:37.0587295Z   GRADLE_USER_HOME: /home/runner/.gradle
+2026-06-22T10:14:37.0587657Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-06-22T10:14:37.0588030Z   GRADLE_BUILD_ACTION_CACHE_RESTORED: true
+2026-06-22T10:14:37.0588542Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-06-22T10:14:37.0589087Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-06-22T10:14:37.0589517Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-06-22T10:14:37.0589867Z ##[endgroup]
+2026-06-22T10:14:37.7353037Z [38;5;112m[Appium][0m Welcome to Appium v3.5.2
+2026-06-22T10:14:37.7368724Z [38;5;112m[Appium][0m The autodetected Appium home path: /home/runner/.appium
+2026-06-22T10:14:37.7379216Z [38;5;112m[Appium][0m Attempting to load driver uiautomator2...
+2026-06-22T10:14:37.7398475Z [38;5;112m[Appium][0m Requiring driver at /home/runner/.appium/node_modules/appium-uiautomator2-driver/build/lib/index.js
+2026-06-22T10:14:38.1054269Z [38;5;112m[Appium][0m AndroidUiautomator2Driver has been successfully loaded in 0.367s
+2026-06-22T10:14:38.1209939Z [38;5;112m[Appium][0m Appium REST http interface listener started on http://0.0.0.0:4723
+2026-06-22T10:14:38.1217655Z [38;5;112m[Appium][0m You can provide the following URLs in your client code to connect to this server:
+2026-06-22T10:14:38.1219018Z 	http://127.0.0.1:4723/ (only accessible from the same host)
+2026-06-22T10:14:38.1220004Z 	http://10.1.0.31:4723/
+2026-06-22T10:14:38.1221979Z [38;5;112m[Appium][0m Available drivers:
+2026-06-22T10:14:38.1226678Z [38;5;112m[Appium][0m   - uiautomator2@7.6.2 (automationName 'UiAutomator2')
+2026-06-22T10:14:38.1231994Z [38;5;112m[Appium][0m No plugins have been installed. Use the "appium plugin" command to install the one(s) you want to use.
+2026-06-22T10:14:42.0707441Z ##[group]Run echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+2026-06-22T10:14:42.0708916Z [36;1mecho 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules[0m
+2026-06-22T10:14:42.0709914Z [36;1msudo udevadm control --reload-rules[0m
+2026-06-22T10:14:42.0710521Z [36;1msudo udevadm trigger --name-match=kvm[0m
+2026-06-22T10:14:42.0753546Z shell: /usr/bin/bash -e {0}
+2026-06-22T10:14:42.0754054Z env:
+2026-06-22T10:14:42.0754450Z   BACKEND_IP: 10.0.2.2
+2026-06-22T10:14:42.0755093Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T10:14:42.0755809Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T10:14:42.0756349Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-06-22T10:14:42.0756750Z   GRADLE_USER_HOME: /home/runner/.gradle
+2026-06-22T10:14:42.0757156Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-06-22T10:14:42.0757537Z   GRADLE_BUILD_ACTION_CACHE_RESTORED: true
+2026-06-22T10:14:42.0758050Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-06-22T10:14:42.0758602Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-06-22T10:14:42.0758995Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-06-22T10:14:42.0759339Z ##[endgroup]
+2026-06-22T10:14:42.0950053Z KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"
+2026-06-22T10:14:42.1748908Z ##[group]Run reactivecircus/android-emulator-runner@v2
+2026-06-22T10:14:42.1749599Z with:
+2026-06-22T10:14:42.1750010Z   api-level: 29
+2026-06-22T10:14:42.1750442Z   target: google_apis
+2026-06-22T10:14:42.1750883Z   arch: x86_64
+2026-06-22T10:14:42.1751289Z   profile: Nexus 6
+2026-06-22T10:14:42.1751943Z   disable-animations: true
+2026-06-22T10:14:42.1752448Z   emulator-boot-timeout: 900
+2026-06-22T10:14:42.1753399Z   emulator-options: -no-window -gpu swiftshader -no-audio -no-boot-anim -camera-back none -camera-front none
+2026-06-22T10:14:42.1754430Z   script: cd mobile/appium-tests
+npm install
+npm test
+
+2026-06-22T10:14:42.1755032Z   cores: 2
+2026-06-22T10:14:42.1755421Z   avd-name: test
+2026-06-22T10:14:42.1755860Z   force-avd-creation: true
+2026-06-22T10:14:42.1756339Z   emulator-port: 5554
+2026-06-22T10:14:42.1756790Z   disable-spellchecker: false
+2026-06-22T10:14:42.1757287Z   disable-linux-hw-accel: auto
+2026-06-22T10:14:42.1757789Z   enable-hw-keyboard: false
+2026-06-22T10:14:42.1758258Z   channel: stable
+2026-06-22T10:14:42.1758646Z env:
+2026-06-22T10:14:42.1759015Z   BACKEND_IP: 10.0.2.2
+2026-06-22T10:14:42.1759680Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T10:14:42.1760596Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T10:14:42.1761384Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-06-22T10:14:42.1762150Z   GRADLE_USER_HOME: /home/runner/.gradle
+2026-06-22T10:14:42.1762657Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-06-22T10:14:42.1763469Z   GRADLE_BUILD_ACTION_CACHE_RESTORED: true
+2026-06-22T10:14:42.1764323Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-06-22T10:14:42.1765263Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-06-22T10:14:42.1765882Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-06-22T10:14:42.1766421Z ##[endgroup]
+2026-06-22T10:14:42.3415157Z ##[group]Configure emulator
+2026-06-22T10:14:42.3417065Z API level: 29
+2026-06-22T10:14:42.3424165Z System image API level: 29
+2026-06-22T10:14:42.3426368Z target: google_apis
+2026-06-22T10:14:42.3428372Z CPU architecture: x86_64
+2026-06-22T10:14:42.3429336Z Hardware profile: Nexus 6
+2026-06-22T10:14:42.3430768Z Cores: 2
+2026-06-22T10:14:42.3431382Z RAM size: 
+2026-06-22T10:14:42.3431943Z Heap size: 
+2026-06-22T10:14:42.3432359Z SD card path or size: 
+2026-06-22T10:14:42.3432811Z Disk size: 
+2026-06-22T10:14:42.3433236Z AVD name: test
+2026-06-22T10:14:42.3433676Z force avd creation: true
+2026-06-22T10:14:42.3434184Z Emulator boot timeout: 900
+2026-06-22T10:14:42.3434708Z emulator port: 5554
+2026-06-22T10:14:42.3435720Z emulator options: -no-window -gpu swiftshader -no-audio -no-boot-anim -camera-back none -camera-front none
+2026-06-22T10:14:42.3436646Z disable animations: true
+2026-06-22T10:14:42.3437158Z disable spellchecker: false
+2026-06-22T10:14:42.3437748Z disable Linux hardware acceleration: false
+2026-06-22T10:14:42.3438301Z enable hardware keyboard: false
+2026-06-22T10:14:42.3438837Z Channel: 0 (stable)
+2026-06-22T10:14:42.3439263Z Script:
+2026-06-22T10:14:42.3439662Z cd mobile/appium-tests
+2026-06-22T10:14:42.3440074Z npm install
+2026-06-22T10:14:42.3440456Z npm test
+2026-06-22T10:14:42.3440917Z Pre emulator launch script:
+2026-06-22T10:14:42.3449286Z ##[endgroup]
+2026-06-22T10:14:42.3453186Z ##[group]Install Android SDK
+2026-06-22T10:14:42.3532887Z [command]/usr/bin/sh -c \yes | sdkmanager --licenses > /dev/null
+2026-06-22T10:14:44.8216652Z Warning: This version only understands SDK XML versions up to 3 but an SDK XML file of version 4 was encountered. This can happen if you use versions of Android Studio and the command-line tools that were released at different times.
+2026-06-22T10:14:47.1523083Z Installing latest build tools, platform tools, and platform.
+2026-06-22T10:14:47.1540789Z [command]/usr/bin/sh -c \sdkmanager --install 'build-tools;36.0.0' platform-tools 'platforms;android-29'> /dev/null
+2026-06-22T10:14:47.8885216Z Warning: This version only understands SDK XML versions up to 3 but an SDK XML file of version 4 was encountered. This can happen if you use versions of Android Studio and the command-line tools that were released at different times.
+2026-06-22T10:14:54.5412608Z Installing latest emulator.
+2026-06-22T10:14:54.5438708Z [command]/usr/bin/sh -c \sdkmanager --install emulator --channel=0 > /dev/null
+2026-06-22T10:14:55.2718962Z Warning: This version only understands SDK XML versions up to 3 but an SDK XML file of version 4 was encountered. This can happen if you use versions of Android Studio and the command-line tools that were released at different times.
+2026-06-22T10:15:03.8407946Z Installing system images.
+2026-06-22T10:15:03.8423280Z [command]/usr/bin/sh -c \sdkmanager --install 'system-images;android-29;google_apis;x86_64' --channel=0 > /dev/null
+2026-06-22T10:15:04.5177865Z Warning: This version only understands SDK XML versions up to 3 but an SDK XML file of version 4 was encountered. This can happen if you use versions of Android Studio and the command-line tools that were released at different times.
+2026-06-22T10:15:36.3997676Z ##[endgroup]
+2026-06-22T10:15:36.4002244Z ##[group]Create AVD
+2026-06-22T10:15:36.4005261Z Creating AVD.
+2026-06-22T10:15:36.4035065Z [command]/usr/bin/sh -c \echo no | avdmanager create avd --force -n test --package 'system-images;android-29;google_apis;x86_64' --device 'Nexus 6'
+2026-06-22T10:15:37.1893631Z Loading local repository...                                                     
+2026-06-22T10:15:37.1913791Z Warning: This version only understands SDK XML versions up to 3 but an SDK XML file of version 4 was encountered. This can happen if you use versions of Android Studio and the command-line tools that were released at different times.
+2026-06-22T10:15:37.4897283Z [=========                              ] 25% Loading local repository...       
+2026-06-22T10:15:37.4909135Z [=========                              ] 25% Fetch remote repository...        
+2026-06-22T10:15:37.4915926Z [=======================================] 100% Fetch remote repository...       
+2026-06-22T10:15:37.6115245Z Auto-selecting single ABI x86_64
+2026-06-22T10:15:38.2373954Z [command]/usr/bin/sh -c \printf 'hw.cpu.ncore=2\n' >> /home/runner/.android/avd/test.avd/config.ini
+2026-06-22T10:15:38.2394325Z ##[endgroup]
+2026-06-22T10:15:38.2397307Z ##[group]Launch Emulator
+2026-06-22T10:15:38.2398515Z Starting emulator.
+2026-06-22T10:15:38.2415696Z [command]/usr/bin/sh -c \/usr/local/lib/android/sdk/emulator/emulator -port 5554 -avd test -no-window -gpu swiftshader -no-audio -no-boot-anim -camera-back none -camera-front none &
+2026-06-22T10:15:38.3084506Z INFO         | Android emulator version 36.6.11.0 (build_id 15507667) (CL:N/A)
+2026-06-22T10:15:38.3088602Z INFO         | Graphics backend: gfxstream
+2026-06-22T10:15:38.3089862Z INFO         | Found systemPath /usr/local/lib/android/sdk/system-images/android-29/google_apis/x86_64/
+2026-06-22T10:15:39.7747441Z INFO         | Saving last run QEMU version for the AVD to 2
+2026-06-22T10:15:39.7762976Z WARNING      | Please update the emulator to one that supports the feature(s): Vulkan
+2026-06-22T10:15:39.7763792Z INFO         | Increasing RAM size to 2048MB
+2026-06-22T10:15:39.7764499Z INFO         | Guest GLES Driver: Auto (ext controls)
+2026-06-22T10:15:39.7765418Z INFO         | emuglConfig_init: vulkan_mode_selected:swiftshader gles_mode_selected:swiftshader
+2026-06-22T10:15:39.7766228Z INFO         | Checking system compatibility:
+2026-06-22T10:15:39.7766911Z INFO         |   Checking: hasSufficientDiskSpace
+2026-06-22T10:15:39.7767672Z INFO         |      Ok: Disk space requirements to run avd: `test` are met
+2026-06-22T10:15:39.7768395Z INFO         |   Checking: hasSufficientHwGpu
+2026-06-22T10:15:39.7769150Z INFO         |      Ok: Hardware GPU compatibility checks are not required
+2026-06-22T10:15:39.7769850Z INFO         |   Checking: hasSufficientSystem
+2026-06-22T10:15:39.7770717Z INFO         |      Warning: AVD 'test' will run more smoothly with 4 CPU cores (currently using 2)
+2026-06-22T10:15:39.7772480Z USER_WARNING | AVD 'test' will run more smoothly with 4 CPU cores (currently using 2).
+2026-06-22T10:15:39.7774027Z WARNING      | Feature QuickbootFileBacked is disabled due to stability issues, if you really want that, the environment variable ANDROID_EMU_FORCE_QUICKBOOT_FILE_BACKED need to set to 1
+2026-06-22T10:15:39.7775018Z WARNING      | FeatureControl is requesting a non existing feature.
+2026-06-22T10:15:39.7775591Z ERROR        | Unable to connect to adb daemon on port: 5037
+2026-06-22T10:15:39.7776380Z INFO         | Storing crashdata in: /tmp/android-runner/emu-crash-36.6.11.db, detection is enabled for process: 5358
+2026-06-22T10:15:39.7777058Z INFO         | Initializing gfxstream backend
+2026-06-22T10:15:39.7777531Z INFO         | startOpenglesRendererImpl: gpu info
+2026-06-22T10:15:39.7777911Z INFO         | 
+2026-06-22T10:15:39.7778385Z INFO         | initIcdPaths: ICD set to 'swiftshader', using Swiftshader ICD
+2026-06-22T10:15:39.7779241Z INFO         | Setting ICD filenames for the loader = /usr/local/lib/android/sdk/emulator/lib64/vulkan/vk_swiftshader_icd.json
+2026-06-22T10:15:39.7780259Z INFO         | SharedLibrary::open for [/usr/local/lib/android/sdk/emulator/qemu/linux-x86_64/lib64/vulkan/libvulkan.so]
+2026-06-22T10:15:39.7781215Z INFO         | SharedLibrary::open for [/usr/local/lib/android/sdk/emulator/qemu/linux-x86_64/lib64/vulkan/libvulkan.so.1]
+2026-06-22T10:15:39.7792800Z INFO         | SharedLibrary::open for [/usr/local/lib/android/sdk/emulator/lib64/vulkan/libvulkan.so]
+2026-06-22T10:15:39.7794081Z INFO         | Added library: /usr/local/lib/android/sdk/emulator/lib64/vulkan/libvulkan.so
+2026-06-22T10:15:39.7795486Z INFO         | Selecting Vulkan device: SwiftShader Device (Subzero), Version: 1.3.0
+2026-06-22T10:15:39.7796524Z INFO         | Using Vulkan externalMemoryMode: OpaqueFd for VkEmulation
+2026-06-22T10:15:39.7797340Z INFO         | SharedLibrary::open for [libX11]
+2026-06-22T10:15:39.7798107Z WARNING      | Could not open libX11.so, try libX11.so.6
+2026-06-22T10:15:39.7798871Z INFO         | SharedLibrary::open for [libX11.so.6]
+2026-06-22T10:15:39.7799593Z INFO         | SharedLibrary::open for [libX11-xcb]
+2026-06-22T10:15:39.7800400Z WARNING      | Could not open libX11-xcb.so, try libX11-xcb.so.1
+2026-06-22T10:15:39.7801207Z INFO         | SharedLibrary::open for [libX11-xcb.so.1]
+2026-06-22T10:15:39.7802104Z INFO         | Initializing VkEmulation features:
+2026-06-22T10:15:39.7802803Z INFO         |     glInteropSupported: false
+2026-06-22T10:15:39.7803463Z INFO         |     useDeferredCommands: true
+2026-06-22T10:15:39.7804187Z INFO         |     createResourceWithRequirements: true
+2026-06-22T10:15:39.7804897Z INFO         |     useVulkanComposition: false
+2026-06-22T10:15:39.7805598Z INFO         |     useVulkanNativeSwapchain: false
+2026-06-22T10:15:39.7806284Z INFO         |     enable guestRenderDoc: false
+2026-06-22T10:15:39.7806948Z INFO         |     ASTC LDR emulation mode: Gpu
+2026-06-22T10:15:39.7807614Z INFO         |     enable ETC2 emulation: true
+2026-06-22T10:15:39.7808283Z INFO         |     enable Ycbcr emulation: false
+2026-06-22T10:15:39.7808947Z INFO         |     guestVulkanOnly: false
+2026-06-22T10:15:39.7809617Z INFO         |     useDedicatedAllocations: false
+2026-06-22T10:15:39.7810312Z INFO         |     guestVulkanMaxApiVersion: 1.3.0
+2026-06-22T10:15:39.7811054Z INFO         |     enableProtectedMemoryEmulation: false
+2026-06-22T10:15:39.7812043Z INFO         | Graphics Adapter Vendor Google (Google Inc.)
+2026-06-22T10:15:39.7813128Z INFO         | Graphics Adapter Android Emulator OpenGL ES Translator (Google SwiftShader)
+2026-06-22T10:15:39.7814259Z INFO         | Graphics API Version OpenGL ES 3.0 (OpenGL ES 3.0 SwiftShader 4.0.0.1)
+2026-06-22T10:15:39.7819013Z INFO         | Graphics API Extensions GL_OES_EGL_sync GL_OES_EGL_image GL_OES_EGL_image_external GL_OES_depth24 GL_OES_depth32 GL_OES_element_index_uint GL_OES_texture_float GL_OES_texture_float_linear GL_OES_compressed_paletted_texture GL_OES_compressed_ETC1_RGB8_texture GL_OES_depth_texture GL_OES_texture_half_float GL_OES_texture_half_float_linear GL_OES_packed_depth_stencil GL_OES_vertex_half_float GL_OES_standard_derivatives GL_OES_texture_npot GL_OES_rgb8_rgba8 GL_EXT_color_buffer_float GL_EXT_color_buffer_half_float GL_EXT_texture_format_BGRA8888 GL_APPLE_texture_format_BGRA8888 
+2026-06-22T10:15:39.8126859Z INFO         | Graphics DevicWARNING: cannnot unmap ptr 0x7fef18801000 as it is in the protected range from 0x7fee98800000 to 0x7fef18a00000
+2026-06-22T10:15:39.8562607Z e Extensions N/A
+2026-06-22T10:15:39.8564513Z INFO         | Disabling sparse binding feature support
+2026-06-22T10:15:39.8567939Z INFO         | Userspace boot properties:
+2026-06-22T10:15:39.8568858Z INFO         |   android.bootanim=0
+2026-06-22T10:15:39.8572469Z INFO         |   android.qemud=1
+2026-06-22T10:15:39.8573562Z INFO         |   androidboot.boot_devices=pci0000:00/0000:00:03.0 pci0000:00/0000:00:06.0
+2026-06-22T10:15:39.8574700Z INFO         |   androidboot.hardware=ranchu
+2026-06-22T10:15:39.8577896Z INFO         |   androidboot.hardware.vulkan=ranchu
+2026-06-22T10:15:39.8579173Z INFO         |   androidboot.serialno=EMULATOR36X6X11X0
+2026-06-22T10:15:39.8580485Z INFO         |   androidboot.vbmeta.digest=e565d59c032d8f786b6463dbea3d0c8d823a00cdec3d0e5de905a3c535fef13b
+2026-06-22T10:15:39.8581913Z INFO         |   androidboot.vbmeta.hash_alg=sha256
+2026-06-22T10:15:39.8582788Z INFO         |   androidboot.vbmeta.size=4352
+2026-06-22T10:15:39.8583583Z INFO         |   qemu=1
+2026-06-22T10:15:39.8584268Z INFO         |   qemu.avd_name=test
+2026-06-22T10:15:39.8585379Z INFO         |   qemu.camera_hq_edge_processing=0
+2026-06-22T10:15:39.8586246Z INFO         |   qemu.dalvik.vm.heapsize=512m
+2026-06-22T10:15:39.8587030Z INFO         |   qemu.encrypt=1
+2026-06-22T10:15:39.8587704Z INFO         |   qemu.gles=1
+2026-06-22T10:15:39.8588433Z INFO         |   qemu.gltransport=pipe
+2026-06-22T10:15:39.8589315Z INFO         |   qemu.gltransport.drawFlushInterval=800
+2026-06-22T10:15:39.8590183Z INFO         |   qemu.hwcodec.avcdec=2
+2026-06-22T10:15:39.8590958Z INFO         |   qemu.hwcodec.hevcdec=2
+2026-06-22T10:15:39.8591923Z INFO         |   qemu.hwcodec.vpxdec=2
+2026-06-22T10:15:39.8592756Z INFO         |   qemu.opengles.version=196608
+2026-06-22T10:15:39.8593713Z INFO         |   qemu.settings.system.screen_off_timeout=2147483647
+2026-06-22T10:15:39.8594596Z INFO         |   qemu.skin=1440x2560
+2026-06-22T10:15:39.8595372Z INFO         |   qemu.uirenderer=skiagl
+2026-06-22T10:15:39.8596127Z INFO         |   qemu.vsync=60
+2026-06-22T10:15:39.8596804Z INFO         |   qemu.wifi=1
+2026-06-22T10:15:39.8597592Z INFO         | Monitoring duration of emulator setup.
+2026-06-22T10:15:39.8812950Z INFO         | Setting display: 0 configuration to: 1440x2560, dpi: 560x560 
+2026-06-22T10:15:39.8818163Z INFO         | setDisplayActiveConfig: id:0, 1440x2560
+2026-06-22T10:15:39.8819261Z INFO         | emulatorSetupEnvironment: Environment scene is not required
+2026-06-22T10:15:39.8879344Z INFO         | Loading snapshot 'default_boot'...
+2026-06-22T10:15:39.8880664Z WARNING      | Failed to process .ini file /home/runner/.android/emu-update-last-check.ini for reading.
+2026-06-22T10:15:39.9038566Z WARNING      | Device 'cache' does not have the requested snapshot 'default_boot'
+2026-06-22T10:15:39.9039356Z 
+2026-06-22T10:15:39.9043009Z WARNING      | Failed to load snapshot 'default_boot'
+2026-06-22T10:15:39.9044476Z USER_INFO    | The emulator is performing a cold boot without a saved state because there's no snapshot and you have configured it not to save on exit.
+2026-06-22T10:15:39.9943149Z WARNING      | Failed to process .ini file /home/runner/.android/emu-update-last-check.ini for reading.
+2026-06-22T10:15:48.2560383Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 shell getprop sys.boot_completed
+2026-06-22T10:15:48.2615864Z * daemon not running; starting now at tcp:5037
+2026-06-22T10:15:48.6015915Z * daemon started successfully
+2026-06-22T10:15:48.6052788Z adb: device offline
+2026-06-22T10:15:48.6072806Z The process '/usr/local/lib/android/sdk/platform-tools/adb' failed with exit code 1
+2026-06-22T10:15:50.6138074Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 shell getprop sys.boot_completed
+2026-06-22T10:15:51.1103469Z 
+2026-06-22T10:15:53.1223489Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 shell getprop sys.boot_completed
+2026-06-22T10:15:53.1494228Z 
+2026-06-22T10:15:55.1575185Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 shell getprop sys.boot_completed
+2026-06-22T10:15:55.1817994Z 
+2026-06-22T10:15:57.1897531Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 shell getprop sys.boot_completed
+2026-06-22T10:15:57.2289498Z 
+2026-06-22T10:15:59.2398886Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 shell getprop sys.boot_completed
+2026-06-22T10:15:59.2827242Z 
+2026-06-22T10:16:01.2925871Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 shell getprop sys.boot_completed
+2026-06-22T10:16:01.4190793Z 
+2026-06-22T10:16:03.4273871Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 shell getprop sys.boot_completed
+2026-06-22T10:16:03.4928831Z 
+2026-06-22T10:16:05.5033960Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 shell getprop sys.boot_completed
+2026-06-22T10:16:06.1562564Z 
+2026-06-22T10:16:08.1843497Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 shell getprop sys.boot_completed
+2026-06-22T10:16:08.2841587Z 
+2026-06-22T10:16:10.3003598Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 shell getprop sys.boot_completed
+2026-06-22T10:16:11.3313988Z 
+2026-06-22T10:16:13.3496911Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 shell getprop sys.boot_completed
+2026-06-22T10:16:13.4892839Z 
+2026-06-22T10:16:15.4966369Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 shell getprop sys.boot_completed
+2026-06-22T10:16:16.1402261Z 
+2026-06-22T10:16:18.1574073Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 shell getprop sys.boot_completed
+2026-06-22T10:16:18.6152491Z 
+2026-06-22T10:16:20.6253752Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 shell getprop sys.boot_completed
+2026-06-22T10:16:21.0622441Z 
+2026-06-22T10:16:23.0753993Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 shell getprop sys.boot_completed
+2026-06-22T10:16:23.8152306Z 
+2026-06-22T10:16:25.8223332Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 shell getprop sys.boot_completed
+2026-06-22T10:16:25.9993009Z 1
+2026-06-22T10:16:26.0092951Z Emulator booted.
+2026-06-22T10:16:26.0193233Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 shell input keyevent 82
+2026-06-22T10:16:28.8742988Z INFO         | Boot completed in 50480 ms
+2026-06-22T10:16:28.8792553Z INFO         | Increasing screen off timeout, logcat buffer size to 2M.
+2026-06-22T10:16:38.9449794Z Disabling animations.
+2026-06-22T10:16:38.9523498Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 shell settings put global window_animation_scale 0.0
+2026-06-22T10:16:40.0888906Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 shell settings put global transition_animation_scale 0.0
+2026-06-22T10:16:40.7504100Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 shell settings put global animator_duration_scale 0.0
+2026-06-22T10:16:41.6957467Z ##[endgroup]
+2026-06-22T10:16:41.7089174Z [command]/usr/bin/sh -c cd mobile/appium-tests
+2026-06-22T10:16:41.7212758Z [command]/usr/bin/sh -c npm install
+2026-06-22T10:16:43.4288729Z npm error code ENOENT
+2026-06-22T10:16:43.4332709Z npm error syscall open
+2026-06-22T10:16:43.4352594Z npm error path /home/runner/work/Tournex/Tournex/package.json
+2026-06-22T10:16:43.4377973Z npm error errno -2
+2026-06-22T10:16:43.4422795Z npm error enoent Could not read package.json: Error: ENOENT: no such file or directory, open '/home/runner/work/Tournex/Tournex/package.json'
+2026-06-22T10:16:43.4482864Z npm error enoent This is related to npm not being able to find a file.
+2026-06-22T10:16:43.4502131Z npm error enoent
+2026-06-22T10:16:43.4543407Z npm error A complete log of this run can be found in: /home/runner/.npm/_logs/2026-06-22T10_16_41_995Z-debug-0.log
+2026-06-22T10:16:43.4834502Z ##[error]The process '/usr/bin/sh' failed with exit code 254
+2026-06-22T10:16:43.4900056Z ##[group]Terminate Emulator
+2026-06-22T10:16:43.4952736Z [command]/usr/local/lib/android/sdk/platform-tools/adb -s emulator-5554 emu kill
+2026-06-22T10:16:43.5013450Z INFO         | Wait for emulator (pid 5358) 20 seconds to shutdown gracefully before kill;you can set environment variable ANDROID_EMULATOR_WAIT_TIME_BEFORE_KILL(in seconds) to change the default value (20 seconds)
+2026-06-22T10:16:43.5014623Z 
+2026-06-22T10:16:43.6936599Z OK: killing emulator, bye bye
+2026-06-22T10:16:43.6962642Z OK
+2026-06-22T10:16:43.6965075Z ##[endgroup]
+2026-06-22T10:16:57.8313795Z INFO         | Saving with gfxstream=1
+2026-06-22T10:16:58.0443057Z INFO         | Saving snapshot 'default_boot' using 14525 ms
+2026-06-22T10:16:58.9142201Z ERROR        | stop: Not implemented
+2026-06-22T10:16:58.9143222Z WARNING      | Emulator client has not yet been configured.. Call configure me first!
+2026-06-22T10:16:58.9734876Z INFO         | removeAll
+2026-06-22T10:16:59.7558982Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-06-22T10:16:59.7560588Z ##[group]Run actions/upload-artifact@v4
+2026-06-22T10:16:59.7560938Z with:
+2026-06-22T10:16:59.7561204Z   name: appium-logs
+2026-06-22T10:16:59.7561499Z   path: appium.log
+2026-06-22T10:16:59.7562016Z   if-no-files-found: warn
+2026-06-22T10:16:59.7562328Z   compression-level: 6
+2026-06-22T10:16:59.7562626Z   overwrite: false
+2026-06-22T10:16:59.7562914Z   include-hidden-files: false
+2026-06-22T10:16:59.7563229Z env:
+2026-06-22T10:16:59.7563491Z   BACKEND_IP: 10.0.2.2
+2026-06-22T10:16:59.7563907Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T10:16:59.7564516Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T10:16:59.7565016Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-06-22T10:16:59.7565411Z   GRADLE_USER_HOME: /home/runner/.gradle
+2026-06-22T10:16:59.7565785Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-06-22T10:16:59.7566161Z   GRADLE_BUILD_ACTION_CACHE_RESTORED: true
+2026-06-22T10:16:59.7566680Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-06-22T10:16:59.7567228Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-06-22T10:16:59.7567617Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-06-22T10:16:59.7567992Z   ANDROID_AVD_HOME: /home/runner/.android/avd
+2026-06-22T10:16:59.7568345Z ##[endgroup]
+2026-06-22T10:17:00.0009389Z (node:5577) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-06-22T10:17:00.0011052Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-06-22T10:17:00.0072156Z With the provided path, there will be 1 file uploaded
+2026-06-22T10:17:00.0079337Z Artifact name is valid!
+2026-06-22T10:17:00.0080250Z Root directory input is valid!
+2026-06-22T10:17:00.2038609Z Beginning upload of artifact content to blob storage
+2026-06-22T10:17:00.2268074Z (node:5577) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-06-22T10:17:00.2682647Z Uploaded bytes 613
+2026-06-22T10:17:00.2865728Z Finished uploading artifact content to blob storage!
+2026-06-22T10:17:00.2868482Z SHA256 digest of uploaded artifact zip is 84040cecf7979977c89d9c0ae3885cfed3b93f39c659f0586fcf5b5992d1fcc0
+2026-06-22T10:17:00.2876640Z Finalizing artifact upload
+2026-06-22T10:17:00.5070340Z Artifact appium-logs.zip successfully finalized. Artifact ID 7789392585
+2026-06-22T10:17:00.5072131Z Artifact appium-logs has been successfully uploaded! Final size is 613 bytes. Artifact ID is 7789392585
+2026-06-22T10:17:00.5078613Z Artifact download URL: https://github.com/thiru-ai-ops/Tournex/actions/runs/27944562894/artifacts/7789392585
+2026-06-22T10:17:00.5247053Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-06-22T10:17:00.5248594Z ##[group]Run actions/upload-artifact@v4
+2026-06-22T10:17:00.5249128Z with:
+2026-06-22T10:17:00.5249445Z   name: tournex-mobile-report
+2026-06-22T10:17:00.5249835Z   path: mobile/appium-tests/mochawesome-report/
+2026-06-22T10:17:00.5250235Z   if-no-files-found: warn
+2026-06-22T10:17:00.5250555Z   compression-level: 6
+2026-06-22T10:17:00.5250866Z   overwrite: false
+2026-06-22T10:17:00.5251166Z   include-hidden-files: false
+2026-06-22T10:17:00.5251496Z env:
+2026-06-22T10:17:00.5252059Z   BACKEND_IP: 10.0.2.2
+2026-06-22T10:17:00.5252489Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T10:17:00.5253330Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.19-10/x64
+2026-06-22T10:17:00.5253840Z   GRADLE_ACTION_ID: gradle/actions/setup-gradle
+2026-06-22T10:17:00.5254243Z   GRADLE_USER_HOME: /home/runner/.gradle
+2026-06-22T10:17:00.5254620Z   GRADLE_BUILD_ACTION_SETUP_COMPLETED: true
+2026-06-22T10:17:00.5255006Z   GRADLE_BUILD_ACTION_CACHE_RESTORED: true
+2026-06-22T10:17:00.5255532Z   DEVELOCITY_INJECTION_INIT_SCRIPT_NAME: gradle-actions.inject-develocity.init.gradle
+2026-06-22T10:17:00.5256094Z   DEVELOCITY_INJECTION_CUSTOM_VALUE: gradle-actions
+2026-06-22T10:17:00.5256491Z   GITHUB_DEPENDENCY_GRAPH_ENABLED: false
+2026-06-22T10:17:00.5256870Z   ANDROID_AVD_HOME: /home/runner/.android/avd
+2026-06-22T10:17:00.5257231Z ##[endgroup]
+2026-06-22T10:17:00.6987159Z (node:5590) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-06-22T10:17:00.6988903Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-06-22T10:17:00.7045366Z ##[warning]No files were found with the provided path: mobile/appium-tests/mochawesome-report/. No artifacts will be uploaded.
+2026-06-22T10:17:00.7339161Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-06-22T10:17:00.7340460Z Post job cleanup.
+2026-06-22T10:17:01.0019123Z In post-action step
+2026-06-22T10:17:01.0039735Z ##[group]Stopping Gradle daemons
+2026-06-22T10:17:01.0047604Z Stopping Gradle daemons for /home/runner/.gradle/wrapper/dists/gradle-9.3.1-bin/23ovyewtku6u96viwx3xl3oks/gradle-9.3.1
+2026-06-22T10:17:01.0065341Z [command]/home/runner/.gradle/wrapper/dists/gradle-9.3.1-bin/23ovyewtku6u96viwx3xl3oks/gradle-9.3.1/bin/gradle --stop
+2026-06-22T10:17:02.1313162Z Stopping Daemon(s)
+2026-06-22T10:17:02.1313851Z 1 Daemon stopped
+2026-06-22T10:17:02.1449616Z ##[endgroup]
+2026-06-22T10:17:02.1505860Z ##[group]Provision Gradle >= 9.3.1
+2026-06-22T10:17:05.3340257Z Gradle version 9.5.1 is available at /usr/bin/gradle and >= 9.3.1. Not installing.
+2026-06-22T10:17:05.3342160Z ##[endgroup]
+2026-06-22T10:17:05.3343871Z ##[group]Executing Gradle to clean up caches
+2026-06-22T10:17:05.3344880Z Cleaning up caches last used before 1782122287306
+2026-06-22T10:17:05.3347381Z [command]/usr/bin/gradle -g /home/runner/.gradle -I init.gradle --info --no-daemon --no-scan --build-cache -DGITHUB_DEPENDENCY_GRAPH_ENABLED=false -DGRADLE_ACTIONS_SKIP_BUILD_RESULT_CAPTURE=true noop
+2026-06-22T10:17:05.8255101Z Initialized native services in: /home/runner/.gradle/native
+2026-06-22T10:17:05.8314814Z Initialized jansi services in: /home/runner/.gradle/native
+2026-06-22T10:17:06.0653228Z The current JVM process isn't compatible with build requirement. The maximum heap size is insufficient.
+2026-06-22T10:17:06.0653997Z 
+2026-06-22T10:17:06.2656375Z To honour the JVM settings for this build a single-use Daemon process will be forked. For more on this, please refer to https://docs.gradle.org/9.5.1/userguide/gradle_daemon.html#sec:disabling_the_daemon in the Gradle documentation.
+2026-06-22T10:17:06.3726740Z Starting process 'Gradle build daemon'. Working directory: /home/runner/.gradle/daemon/9.5.1 Command: /usr/lib/jvm/temurin-17-jdk-amd64/bin/java --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.prefs/java.util.prefs=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED --add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED --add-opens=java.base/java.nio.charset=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED --add-opens=java.xml/javax.xml.namespace=ALL-UNNAMED --add-opens=java.base/java.time=ALL-UNNAMED -XX:MaxMetaspaceSize=384m -XX:+HeapDumpOnOutOfMemoryError -Xms256m -Xmx512m -Dfile.encoding=UTF-8 -Duser.country -Duser.language=en -Duser.variant -cp /usr/share/gradle-9.5.1/lib/gradle-daemon-main-9.5.1.jar -javaagent:/usr/share/gradle-9.5.1/lib/agents/gradle-instrumentation-agent-9.5.1.jar org.gradle.launcher.daemon.bootstrap.GradleDaemon 9.5.1
+2026-06-22T10:17:06.3755007Z Successfully started process 'Gradle build daemon'
+2026-06-22T10:17:09.5673340Z An attempt to start the daemon took 3.29 secs.
+2026-06-22T10:17:09.6670149Z The client will now receive all logging from the daemon (pid: 5727). The daemon log file: /home/runner/.gradle/daemon/9.5.1/daemon-5727.out.log
+2026-06-22T10:17:09.6681835Z Daemon will be stopped at the end of the build 
+2026-06-22T10:17:10.6654368Z Using 2 worker leases.
+2026-06-22T10:17:10.6666717Z Operational build model parameters: {cachingModelBuilding=false, configurationCache=false, configurationCacheDisabledReason=null, configurationCacheParallelLoad=false, configurationCacheParallelStore=false, configureOnDemand=false, invalidateCoupledProjects=false, isolatedProjects=false, modelAsProjectDependency=false, modelBuilding=false, parallelModelBuilding=false, parallelProjectConfiguration=false, parallelProjectExecution=false, resilientModelBuilding=false}
+2026-06-22T10:17:11.3656044Z Received JVM installation metadata from '/usr/lib/jvm/temurin-17-jdk-amd64': {JAVA_HOME=/usr/lib/jvm/temurin-17-jdk-amd64, JAVA_VERSION=17.0.19, JAVA_VENDOR=Eclipse Adoptium, RUNTIME_NAME=OpenJDK Runtime Environment, RUNTIME_VERSION=17.0.19+10, VM_NAME=OpenJDK 64-Bit Server VM, VM_VERSION=17.0.19+10, VM_VENDOR=Eclipse Adoptium, OS_ARCH=amd64}
+2026-06-22T10:17:11.8658663Z Watching the file system is configured to be enabled if available
+2026-06-22T10:17:11.8664400Z Now considering [/home/runner/work/_temp/dummy-cleanup-project] as hierarchies to watch
+2026-06-22T10:17:11.8665923Z File system watching is active
+2026-06-22T10:17:12.5663447Z Caching disabled for Groovy DSL script compilation (cp_init) because:
+2026-06-22T10:17:12.5664599Z   Build cache is disabled
+2026-06-22T10:17:12.5665266Z   Not worth caching.
+2026-06-22T10:17:12.6650725Z Compiling initialization script '/home/runner/work/_temp/dummy-cleanup-project/init.gradle' using SubsetScriptTransformer.
+2026-06-22T10:17:13.7680782Z Caching disabled for Groovy DSL script compilation (init) because:
+2026-06-22T10:17:13.7684050Z   Build cache is disabled
+2026-06-22T10:17:13.7684843Z   Not worth caching.
+2026-06-22T10:17:13.7686351Z Compiling initialization script '/home/runner/work/_temp/dummy-cleanup-project/init.gradle' using BuildScriptTransformer.
+2026-06-22T10:17:14.6666010Z gradle/actions: Not capturing build results
+2026-06-22T10:17:14.9671943Z Starting Build
+2026-06-22T10:17:15.0663506Z Settings evaluated using settings file '/home/runner/work/_temp/dummy-cleanup-project/settings.gradle'.
+2026-06-22T10:17:15.0683528Z Using local directory build cache for the root build (location = /home/runner/.gradle/caches/build-cache-1, remove unused entries = older than 2026-06-22 09:58:07 UTC).
+2026-06-22T10:17:15.2667827Z Projects loaded. Root project using build file '/home/runner/work/_temp/dummy-cleanup-project/build.gradle'.
+2026-06-22T10:17:15.2682960Z Included projects: [root project 'dummy-cleanup-project']
+2026-06-22T10:17:15.5672405Z 
+2026-06-22T10:17:15.5702883Z > Configure project :
+2026-06-22T10:17:15.5743207Z Evaluating root project 'dummy-cleanup-project' using build file '/home/runner/work/_temp/dummy-cleanup-project/build.gradle'.
+2026-06-22T10:17:15.5802438Z All projects evaluated.
+2026-06-22T10:17:15.5822382Z Task name matched 'noop'
+2026-06-22T10:17:15.5842407Z Selected primary task 'noop' from project :
+2026-06-22T10:17:15.5872517Z Tasks to be executed: [task ':noop']
+2026-06-22T10:17:15.5873280Z Tasks that were excluded: []
+2026-06-22T10:17:15.5874133Z Resolve mutations for :noop (Thread[included builds,5,main]) started.
+2026-06-22T10:17:15.6654228Z :noop (Thread[Execution worker,5,main]) started.
+2026-06-22T10:17:15.6694457Z 
+2026-06-22T10:17:15.6696239Z > Task :noop UP-TO-DATE
+2026-06-22T10:17:15.6712700Z Skipping task ':noop' as it has no actions.
+2026-06-22T10:17:15.6732181Z 
+2026-06-22T10:17:15.6757282Z BUILD SUCCESSFUL in 10s
+2026-06-22T10:17:15.7702144Z Consider enabling configuration cache to speed up this build: https://docs.gradle.org/9.5.1/userguide/configuration_cache_enabling.html
+2026-06-22T10:17:15.7723356Z Build cache (/home/runner/.gradle/caches/build-cache-1) removing files not accessed on or after Mon Jun 22 09:58:07 UTC 2026.
+2026-06-22T10:17:15.8675706Z Build cache (/home/runner/.gradle/caches/build-cache-1) cleanup deleted 0 files/directories.
+2026-06-22T10:17:15.8723165Z Build cache (/home/runner/.gradle/caches/build-cache-1) cleaned up in 0.145 secs.
+2026-06-22T10:17:15.8742942Z groovy-dsl removing files not accessed on or after Mon Jun 22 09:58:07 UTC 2026.
+2026-06-22T10:17:15.8763227Z groovy-dsl cleanup deleted 0 files/directories.
+2026-06-22T10:17:15.8772556Z groovy-dsl cleaned up in 0.017 secs.
+2026-06-22T10:17:15.8773938Z jars (/home/runner/.gradle/caches/jars-9) cleanup deleted 0 files/directories.
+2026-06-22T10:17:15.8805545Z jars (/home/runner/.gradle/caches/jars-9) removing files not accessed on or after Mon Jun 22 09:58:07 UTC 2026.
+2026-06-22T10:17:15.9663868Z jars (/home/runner/.gradle/caches/jars-9) cleanup deleted 1 files/directories.
+2026-06-22T10:17:15.9667663Z jars (/home/runner/.gradle/caches/jars-9) cleaned up in 0.021 secs.
+2026-06-22T10:17:15.9677551Z artifact cache (/home/runner/.gradle/caches/modules-2) cleanup deleted 0 files/directories.
+2026-06-22T10:17:15.9679549Z artifact cache (/home/runner/.gradle/caches/modules-2) [subdir: /home/runner/.gradle/caches/modules-2/resources-2.1] cleanup deleted 0 files/directories.
+2026-06-22T10:17:15.9682290Z artifact cache (/home/runner/.gradle/caches/modules-2) [subdir: /home/runner/.gradle/caches/modules-2/resources-2.1] removing files not accessed on or after Mon Jun 22 09:58:07 UTC 2026.
+2026-06-22T10:17:15.9684741Z artifact cache (/home/runner/.gradle/caches/modules-2) [subdir: /home/runner/.gradle/caches/modules-2/resources-2.1] cleanup deleted 0 files/directories.
+2026-06-22T10:17:15.9686892Z artifact cache (/home/runner/.gradle/caches/modules-2) [subdir: /home/runner/.gradle/caches/modules-2/files-2.1] cleanup deleted 0 files/directories.
+2026-06-22T10:17:15.9689214Z artifact cache (/home/runner/.gradle/caches/modules-2) [subdir: /home/runner/.gradle/caches/modules-2/files-2.1] removing files not accessed on or after Mon Jun 22 09:58:07 UTC 2026.
+2026-06-22T10:17:16.1714310Z artifact cache (/home/runner/.gradle/caches/modules-2) [subdir: /home/runner/.gradle/caches/modules-2/files-2.1] cleanup deleted 0 files/directories.
+2026-06-22T10:17:16.1783125Z artifact cache (/home/runner/.gradle/caches/modules-2) [subdir: /home/runner/.gradle/caches/modules-2/metadata-2.107] cleanup deleted 0 files/directories.
+2026-06-22T10:17:16.1784924Z artifact cache (/home/runner/.gradle/caches/modules-2) cleanup deleted 0 files/directories.
+2026-06-22T10:17:16.1804749Z artifact cache (/home/runner/.gradle/caches/modules-2) cleaned up in 0.28 secs.
+2026-06-22T10:17:16.2343700Z ##[endgroup]
+2026-06-22T10:17:16.2349314Z ##[group]Caching Gradle state
+2026-06-22T10:17:17.8934066Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/Tournex/Tournex --files-from manifest.txt --use-compress-program zstdmt
+2026-06-22T10:17:18.7899353Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/Tournex/Tournex --files-from manifest.txt --use-compress-program zstdmt
+2026-06-22T10:17:18.7926193Z Sent 147039 of 147039 (100.0%), 1.9 MBs/sec
+2026-06-22T10:17:18.8475517Z Saved cache entry with key gradle-instrumented-jars-v1-07de689d5dd74f3bfc1bf03431eed805 from /home/runner/.gradle/caches/jars-*/*/ in 452ms
+2026-06-22T10:17:18.8684624Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/Tournex/Tournex --files-from manifest.txt --use-compress-program zstdmt
+2026-06-22T10:17:18.8686394Z Sent 261515 of 261515 (100.0%), 5.8 MBs/sec
+2026-06-22T10:17:18.8689466Z Saved cache entry with key gradle-groovy-dsl-v1-10882e099109db2b12e82c0053f8d200 from /home/runner/.gradle/caches/*/groovy-dsl/*/ in 619ms
+2026-06-22T10:17:25.3709731Z Sent 0 of 883392773 (0.0%), 0.0 MBs/sec
+2026-06-22T10:17:26.3711349Z Sent 480739589 of 883392773 (54.4%), 229.0 MBs/sec
+2026-06-22T10:17:27.3418951Z Sent 883392773 of 883392773 (100.0%), 283.6 MBs/sec
+2026-06-22T10:17:27.4743107Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/Tournex/Tournex --files-from manifest.txt --use-compress-program zstdmt
+2026-06-22T10:17:27.6303865Z Saved cache entry with key gradle-dependencies-v1-2191a118075c6a789fc193599a0035ea from /home/runner/.gradle/caches/modules-*/files-*/*/*/*/* in 9790ms
+2026-06-22T10:17:41.6028882Z Sent 0 of 594982830 (0.0%), 0.0 MBs/sec
+2026-06-22T10:17:42.6048806Z Sent 536870912 of 594982830 (90.2%), 255.6 MBs/sec
+2026-06-22T10:17:42.7017764Z Sent 594982830 of 594982830 (100.0%), 270.2 MBs/sec
+2026-06-22T10:17:42.8385103Z Saved cache entry with key gradle-transforms-v1-bdfd0fd12a844ac5899ac010a5edf844 from /home/runner/.gradle/caches/transforms-4/*/,/home/runner/.gradle/caches/*/transforms/*/ in 19071ms
+2026-06-22T10:17:43.8533452Z [command]/usr/bin/tar --posix -cf cache.tzst --exclude cache.tzst -P -C /home/runner/work/Tournex/Tournex --files-from manifest.txt --use-compress-program zstdmt
+2026-06-22T10:17:45.7942630Z Sent 37400166 of 37400166 (100.0%), 69.4 MBs/sec
+2026-06-22T10:17:45.7946312Z Saved cache entry with key gradle-home-v1|Linux-X64|appium-test[bbf0570734129f0a2c0854bd4d5c10e8]-456ec8c2b6feb7c7f655220b6da05650a13f79dc from /home/runner/.gradle/caches,/home/runner/.gradle/notifications,/home/runner/.gradle/.setup-gradle in 1366ms
+2026-06-22T10:17:45.7949848Z ##[endgroup]
+2026-06-22T10:17:45.7950363Z Generating Job Summary
+2026-06-22T10:17:45.7950904Z Completed post-action step
+2026-06-22T10:17:45.8088046Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-06-22T10:17:45.8089387Z Post job cleanup.
+2026-06-22T10:17:45.9616289Z (node:5838) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-06-22T10:17:45.9617583Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-06-22T10:17:45.9701120Z Node 20 is being deprecated. This workflow is running with Node 24 by default. If you need to temporarily use Node 20, you can set the ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION=true environment variable. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-06-22T10:17:45.9702768Z Post job cleanup.
+2026-06-22T10:17:46.2117126Z [command]/usr/bin/git version
+2026-06-22T10:17:46.2117767Z git version 2.54.0
+2026-06-22T10:17:46.2121379Z Temporarily overriding HOME='/home/runner/work/_temp/f1a2a346-642e-4d7d-858c-4f9c2ecb1f31' before making global git config changes
+2026-06-22T10:17:46.2123039Z Adding repository directory to the temporary git global config as a safe directory
+2026-06-22T10:17:46.2124263Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/Tournex/Tournex
+2026-06-22T10:17:46.2133241Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-06-22T10:17:46.2136173Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-06-22T10:17:46.2138778Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-06-22T10:17:46.2139757Z http.https://github.com/.extraheader
+2026-06-22T10:17:46.2141348Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-06-22T10:17:46.2145032Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-06-22T10:17:46.2148017Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-06-22T10:17:46.2150535Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-06-22T10:17:46.2247955Z Cleaning up orphan processes
+2026-06-22T10:17:46.2736362Z Terminate orphan process: pid (2149) (npm start)
+2026-06-22T10:17:46.2785902Z Terminate orphan process: pid (2171) (sh)
+2026-06-22T10:17:46.2820223Z Terminate orphan process: pid (2172) (node)
+2026-06-22T10:17:46.2860513Z Terminate orphan process: pid (5034) (node)
+2026-06-22T10:17:46.3006333Z Terminate orphan process: pid (5417) (adb)
+2026-06-22T10:17:46.3036234Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-java@v4, actions/setup-node@v4, actions/upload-artifact@v4, gradle/actions/setup-gradle@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

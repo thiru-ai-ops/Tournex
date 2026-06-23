@@ -9,13 +9,17 @@ import {
   TextInput,
   Alert,
   ActivityIndicator,
+  RefreshControl,
   SafeAreaView
 } from 'react-native';
 import { api } from '../services/api';
+import theme from '../theme';
+import haptics from '../utils/haptics';
 
 export default function ProfileScreen({ navigation }) {
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const [updatingProfile, setUpdatingProfile] = useState(false);
 
   // Edit fields
@@ -25,7 +29,6 @@ export default function ProfileScreen({ navigation }) {
 
   const fetchProfile = async () => {
     try {
-      setLoading(true);
       const profRes = await api.getProfile();
       if (profRes.success && profRes.data?.user) {
         const u = profRes.data.user;
@@ -38,15 +41,25 @@ export default function ProfileScreen({ navigation }) {
       console.warn('Error fetching profile:', e.message);
     } finally {
       setLoading(false);
+      setRefreshing(false);
     }
   };
 
   useEffect(() => {
+    setLoading(true);
     fetchProfile();
   }, []);
 
+  const onRefresh = () => {
+    haptics.selection();
+    setRefreshing(true);
+    fetchProfile();
+  };
+
   const handleUpdateProfile = async () => {
+    haptics.selection();
     if (!editName.trim()) {
+      haptics.error();
       Alert.alert('Validation Error', 'Name cannot be blank.');
       return;
     }
@@ -60,10 +73,12 @@ export default function ProfileScreen({ navigation }) {
         role: profile.role || 'user'
       });
       if (res.success && res.data?.user) {
+        haptics.success();
         setProfile(res.data.user);
         Alert.alert('Profile Saved', 'Explorer credentials updated successfully!');
       }
     } catch (err) {
+      haptics.error();
       Alert.alert('Error', err.message);
     } finally {
       setUpdatingProfile(false);
@@ -71,30 +86,45 @@ export default function ProfileScreen({ navigation }) {
   };
 
   const handleLogout = () => {
+    haptics.selection();
     api.logout();
-    // Tab navigator screen needs to replace root stack route to Login screen
+    haptics.success();
     navigation.replace('Login');
   };
 
   if (loading && !profile) {
     return (
       <SafeAreaView style={[styles.container, styles.center]}>
-        <ActivityIndicator size="large" color="#2563eb" />
+        <ActivityIndicator size="large" color={theme.colors.primary} />
       </SafeAreaView>
     );
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollBody} showsVerticalScrollIndicator={false}>
+      {/* Header Panel */}
+      <View style={styles.pageHeader}>
+        <Text style={styles.pageTitle}>Explorer Profile</Text>
+        <Text style={styles.pageSubtitle}>Manage your traveler account settings</Text>
+      </View>
+
+      <ScrollView 
+        contentContainerStyle={styles.scrollBody} 
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={[theme.colors.primary]} />
+        }
+      >
         {/* User Stats Card */}
         <View style={styles.profileCard}>
           <Image source={{ uri: profile?.avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150' }} style={styles.profileAvatar} />
+          
           <View style={[styles.statusBadge, api.isOfflineMode() ? styles.statusBadgeOffline : styles.statusBadgeOnline]}>
             <Text style={[styles.statusBadgeText, api.isOfflineMode() ? styles.statusBadgeTextOffline : styles.statusBadgeTextOnline]}>
               {api.isOfflineMode() ? '● Offline Sandbox Mode' : '● Live Sync Active'}
             </Text>
           </View>
+          
           <Text style={styles.profileName}>{profile?.name}</Text>
           <Text style={styles.profileMeta}>{profile?.location} • Lvl {profile?.level || 1}</Text>
           <Text style={styles.profileBio}>{profile?.bio}</Text>
@@ -104,10 +134,12 @@ export default function ProfileScreen({ navigation }) {
               <Text style={styles.pStatNum}>{profile?.stats?.statesVisited || 0}</Text>
               <Text style={styles.pStatLabel}>States</Text>
             </View>
+            <View style={styles.dividerCol} />
             <View style={styles.pStatBox}>
               <Text style={styles.pStatNum}>{profile?.stats?.savedTripsCount || 0}</Text>
               <Text style={styles.pStatLabel}>Trips</Text>
             </View>
+            <View style={styles.dividerCol} />
             <View style={styles.pStatBox}>
               <Text style={styles.pStatNum}>{profile?.stats?.reviewsCount || 0}</Text>
               <Text style={styles.pStatLabel}>Reviews</Text>
@@ -125,7 +157,7 @@ export default function ProfileScreen({ navigation }) {
             value={editName}
             onChangeText={setEditName}
             placeholder="Your Name"
-            placeholderTextColor="#64748b"
+            placeholderTextColor={theme.colors.textLight}
           />
 
           <Text style={styles.fieldLabel}>LOCATION</Text>
@@ -133,8 +165,8 @@ export default function ProfileScreen({ navigation }) {
             style={styles.formInput}
             value={editLocation}
             onChangeText={setEditLocation}
-            placeholder="e.g. New Delhi, India"
-            placeholderTextColor="#64748b"
+            placeholder="e.g. Jaipur, Rajasthan"
+            placeholderTextColor={theme.colors.textLight}
           />
 
           <Text style={styles.fieldLabel}>SHORT BIO</Text>
@@ -143,9 +175,9 @@ export default function ProfileScreen({ navigation }) {
             value={editBio}
             onChangeText={setEditBio}
             placeholder="Share your travel experiences..."
-            placeholderTextColor="#64748b"
+            placeholderTextColor={theme.colors.textLight}
             multiline
-            numberOfLines={3}
+            numberOfLines={2}
           />
 
           <TouchableOpacity 
@@ -173,48 +205,68 @@ export default function ProfileScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0f172a',
+    backgroundColor: theme.colors.background,
   },
   center: {
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  pageHeader: {
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 12,
+    backgroundColor: '#ffffff',
+    borderBottomWidth: 1,
+    borderColor: theme.colors.border,
+  },
+  pageTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: theme.colors.text,
+  },
+  pageSubtitle: {
+    fontSize: 11,
+    color: theme.colors.textMuted,
+    marginTop: 2,
   },
   scrollBody: {
     padding: 16,
     paddingBottom: 40,
   },
   profileCard: {
-    backgroundColor: '#1e293b',
-    borderRadius: 20,
+    backgroundColor: '#ffffff',
+    borderRadius: theme.radius.card,
     padding: 16,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: theme.colors.border,
     alignItems: 'center',
     marginBottom: 16,
+    ...theme.shadows.small,
   },
   profileAvatar: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-    borderWidth: 2,
-    borderColor: '#2563eb',
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    borderWidth: 3,
+    borderColor: theme.colors.primaryLight,
     marginBottom: 10,
   },
   profileName: {
-    color: '#ffffff',
-    fontSize: 16,
+    color: theme.colors.text,
+    fontSize: 18,
     fontWeight: 'bold',
+    marginTop: 4,
   },
   profileMeta: {
-    color: '#64748b',
-    fontSize: 11,
+    color: theme.colors.textMuted,
+    fontSize: 12,
     marginTop: 2,
   },
   profileBio: {
-    color: '#cbd5e1',
+    color: theme.colors.textMuted,
     fontSize: 12,
     textAlign: 'center',
-    lineHeight: 16,
+    lineHeight: 18,
     marginTop: 8,
     marginBottom: 16,
     paddingHorizontal: 12,
@@ -222,112 +274,125 @@ const styles = StyleSheet.create({
   profileStatsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    backgroundColor: '#0f172a',
-    borderRadius: 12,
+    backgroundColor: theme.colors.primaryLightest,
+    borderRadius: theme.radius.card - 4,
     padding: 12,
     width: '100%',
+    borderWidth: 1,
+    borderColor: theme.colors.primaryLight,
   },
   pStatBox: {
     alignItems: 'center',
     flex: 1,
   },
   pStatNum: {
-    color: '#ffffff',
-    fontSize: 14,
+    color: theme.colors.text,
+    fontSize: 16,
     fontWeight: 'bold',
   },
   pStatLabel: {
-    color: '#94a3b8',
-    fontSize: 9,
+    color: theme.colors.textMuted,
+    fontSize: 10,
     fontWeight: '600',
     marginTop: 2,
   },
+  dividerCol: {
+    width: 1,
+    height: 24,
+    backgroundColor: theme.colors.primaryLight,
+  },
   formCard: {
-    backgroundColor: '#1e293b',
-    borderRadius: 20,
+    backgroundColor: '#ffffff',
+    borderRadius: theme.radius.card,
     padding: 16,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: theme.colors.border,
     marginBottom: 16,
+    ...theme.shadows.small,
   },
   formTitle: {
-    color: '#ffffff',
+    color: theme.colors.text,
     fontSize: 14,
     fontWeight: 'bold',
     marginBottom: 12,
   },
   fieldLabel: {
-    color: '#94a3b8',
-    fontSize: 8,
+    color: theme.colors.textLight,
+    fontSize: 9,
     fontWeight: 'bold',
     letterSpacing: 1,
     marginBottom: 4,
   },
   formInput: {
-    backgroundColor: '#0f172a',
-    borderRadius: 10,
+    backgroundColor: '#ffffff',
+    borderRadius: theme.radius.input,
     paddingHorizontal: 12,
     paddingVertical: 8,
-    color: '#ffffff',
+    color: theme.colors.text,
     fontSize: 12,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: theme.colors.border,
     marginBottom: 10,
   },
   formTextArea: {
-    height: 60,
+    height: 55,
     textAlignVertical: 'top',
   },
   submitBtn: {
-    backgroundColor: '#2563eb',
-    borderRadius: 10,
-    paddingVertical: 10,
+    backgroundColor: theme.colors.primary,
+    borderRadius: theme.radius.button,
+    paddingVertical: 11,
     alignItems: 'center',
     marginTop: 4,
+    shadowColor: theme.colors.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 2,
   },
   submitBtnText: {
     color: '#ffffff',
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: 'bold',
   },
   logoutBtn: {
-    backgroundColor: 'rgba(239, 68, 68, 0.1)',
-    borderRadius: 12,
+    backgroundColor: 'rgba(239, 68, 68, 0.08)',
+    borderRadius: theme.radius.button,
     paddingVertical: 12,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(239, 68, 68, 0.2)',
+    borderColor: 'rgba(239, 68, 68, 0.15)',
   },
   logoutBtnText: {
-    color: '#f87171',
-    fontSize: 12,
+    color: theme.colors.error,
+    fontSize: 13,
     fontWeight: 'bold',
   },
   statusBadge: {
     paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 8,
-    marginBottom: 10,
+    marginBottom: 6,
     marginTop: 4,
   },
   statusBadgeOnline: {
-    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+    backgroundColor: theme.colors.successBg,
     borderWidth: 1,
-    borderColor: 'rgba(16, 185, 129, 0.3)',
+    borderColor: 'rgba(16, 185, 129, 0.2)',
   },
   statusBadgeOffline: {
-    backgroundColor: 'rgba(245, 158, 11, 0.1)',
+    backgroundColor: theme.colors.warningBg,
     borderWidth: 1,
-    borderColor: 'rgba(245, 158, 11, 0.3)',
+    borderColor: 'rgba(245, 158, 11, 0.2)',
   },
   statusBadgeText: {
     fontSize: 10,
     fontWeight: 'bold',
   },
   statusBadgeTextOnline: {
-    color: '#10b981',
+    color: theme.colors.success,
   },
   statusBadgeTextOffline: {
-    color: '#f59e0b',
+    color: theme.colors.warning,
   },
 });

@@ -13,6 +13,8 @@ import {
   Alert
 } from 'react-native';
 import { api, setAuthToken } from '../services/api';
+import theme from '../theme';
+import haptics from '../utils/haptics';
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState('');
@@ -21,7 +23,9 @@ export default function LoginScreen({ navigation }) {
   const [error, setError] = useState('');
 
   const handleLogin = async () => {
+    haptics.selection();
     if (!email.trim() || !password.trim()) {
+      haptics.error();
       setError('Please fill in all fields.');
       return;
     }
@@ -30,9 +34,11 @@ export default function LoginScreen({ navigation }) {
     try {
       const res = await api.login(email.trim(), password);
       if (res.success && res.data?.user) {
+        haptics.success();
         navigation.replace('Home');
       }
     } catch (err) {
+      haptics.error();
       setError(err.message || 'Invalid email or password.');
     } finally {
       setLoading(false);
@@ -40,6 +46,7 @@ export default function LoginScreen({ navigation }) {
   };
 
   const handleGoogleSignIn = () => {
+    haptics.selection();
     Alert.alert(
       'Sign in with Google',
       'Select a sandbox Google account to authenticate:',
@@ -68,7 +75,6 @@ export default function LoginScreen({ navigation }) {
     setLoading(true);
     setError('');
     try {
-      // First, attempt to auto-register this simulated google profile in the backend
       try {
         await api.register({
           name,
@@ -80,16 +86,16 @@ export default function LoginScreen({ navigation }) {
           role: 'user'
         });
       } catch (regErr) {
-        // Skips if user document is already set up, which is expected for returning users
         console.log('Google auto-register status:', regErr.message);
       }
 
-      // Log in using the registered simulated keys
       const res = await api.login(email, 'google_oauth_bypass_pass');
       if (res.success && res.data?.user) {
+        haptics.success();
         navigation.replace('Home');
       }
     } catch (err) {
+      haptics.error();
       setError(err.message || 'Google Auth simulation failed.');
     } finally {
       setLoading(false);
@@ -103,21 +109,25 @@ export default function LoginScreen({ navigation }) {
         style={styles.keyboardView}
       >
         <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
+          {/* Logo Brand Header */}
           <View style={styles.logoContainer}>
-            <View style={styles.logoIcon}>
-              <Text style={styles.logoIconText}>T</Text>
+            <View style={styles.logoBadge}>
+              <Text style={styles.logoIcon}>🏛️</Text>
             </View>
-            <Text style={styles.logoText}>Tour<Text style={styles.logoAccent}>Nex</Text></Text>
-            <Text style={styles.logoSubtext}>AI TRAVEL COMPANION</Text>
+            <Text style={styles.logoText}>
+              Tour<Text style={styles.logoAccent}>Nex</Text>
+            </Text>
+            <Text style={styles.logoSubtext}>AI TRAVEL ENGINE</Text>
           </View>
 
-          <View style={styles.formContainer}>
+          {/* Form Content Card */}
+          <View style={styles.formCard}>
             <Text style={styles.title}>Welcome Back</Text>
-            <Text style={styles.subtitle}>Log in to access your travel dashboard</Text>
+            <Text style={styles.subtitle}>Enter credentials to access your travel profile</Text>
 
             {error ? (
               <View style={styles.errorContainer}>
-                <Text style={styles.errorText}>{error}</Text>
+                <Text style={styles.errorText}>⚠️ {error}</Text>
               </View>
             ) : null}
 
@@ -128,7 +138,7 @@ export default function LoginScreen({ navigation }) {
                 testID="emailInput"
                 accessibilityLabel="emailInput"
                 placeholder="explorer@tournex.com"
-                placeholderTextColor="#94a3b8"
+                placeholderTextColor={theme.colors.textLight}
                 keyboardType="email-address"
                 autoCapitalize="none"
                 value={email}
@@ -143,7 +153,7 @@ export default function LoginScreen({ navigation }) {
                 testID="passwordInput"
                 accessibilityLabel="passwordInput"
                 placeholder="Enter passcode"
-                placeholderTextColor="#94a3b8"
+                placeholderTextColor={theme.colors.textLight}
                 secureTextEntry
                 autoCapitalize="none"
                 value={password}
@@ -151,6 +161,7 @@ export default function LoginScreen({ navigation }) {
               />
             </View>
 
+            {/* Login button */}
             <TouchableOpacity 
               style={styles.button}
               testID="loginButton"
@@ -168,7 +179,7 @@ export default function LoginScreen({ navigation }) {
             {/* SSO Divider */}
             <View style={styles.dividerContainer}>
               <View style={styles.dividerLine} />
-              <Text style={styles.dividerText}>OR</Text>
+              <Text style={styles.dividerText}>OR SECURE LOG IN</Text>
               <View style={styles.dividerLine} />
             </View>
 
@@ -178,7 +189,7 @@ export default function LoginScreen({ navigation }) {
               onPress={handleGoogleSignIn}
               disabled={loading}
             >
-              <Text style={styles.googleIcon}>G</Text>
+              <Text style={styles.googleIconEmoji}>🌐</Text>
               <Text style={styles.googleButtonText}>Continue with Google</Text>
             </TouchableOpacity>
 
@@ -186,6 +197,7 @@ export default function LoginScreen({ navigation }) {
             <TouchableOpacity 
               style={styles.guestButton}
               onPress={() => {
+                haptics.selection();
                 setAuthToken('mock-guest-token');
                 navigation.replace('Home');
               }}
@@ -194,13 +206,14 @@ export default function LoginScreen({ navigation }) {
               <Text style={styles.guestButtonText}>Explore as Guest (Offline Mode) →</Text>
             </TouchableOpacity>
 
+            {/* Switch to Signup */}
             <TouchableOpacity 
               style={styles.switchButton}
-              onPress={() => navigation.navigate('Signup')}
+              onPress={() => { haptics.selection(); navigation.navigate('Signup'); }}
               disabled={loading}
             >
               <Text style={styles.switchButtonText}>
-                Don't have keys yet? <Text style={styles.switchTextAccent}>Create Account</Text>
+                New traveler? <Text style={styles.switchTextAccent}>Create Account</Text>
               </Text>
             </TouchableOpacity>
           </View>
@@ -213,87 +226,82 @@ export default function LoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0f172a', // deep dark slate
+    backgroundColor: theme.colors.background,
   },
   keyboardView: {
     flex: 1,
   },
   scrollContainer: {
-    paddingHorizontal: 24,
-    paddingVertical: 30,
+    paddingHorizontal: 20,
+    paddingVertical: 40,
     justifyContent: 'center',
   },
   logoContainer: {
     alignItems: 'center',
-    marginBottom: 30,
+    marginBottom: 28,
   },
-  logoIcon: {
-    width: 60,
-    height: 60,
-    borderRadius: 18,
-    backgroundColor: '#2563eb', // royal blue
+  logoBadge: {
+    width: 64,
+    height: 64,
+    borderRadius: 20,
+    backgroundColor: theme.colors.primary,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 12,
-    shadowColor: '#2563eb',
+    shadowColor: theme.colors.primary,
     shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.3,
+    shadowOpacity: 0.25,
     shadowRadius: 12,
     elevation: 6,
   },
-  logoIconText: {
+  logoIcon: {
+    fontSize: 32,
     color: '#ffffff',
-    fontSize: 28,
-    fontWeight: '900',
   },
   logoText: {
-    color: '#ffffff',
-    fontSize: 26,
+    color: theme.colors.text,
+    fontSize: 28,
     fontWeight: 'bold',
   },
   logoAccent: {
-    color: '#2563eb',
+    color: theme.colors.primary,
   },
   logoSubtext: {
-    color: '#94a3b8',
+    color: theme.colors.textLight,
     fontSize: 10,
     fontWeight: 'bold',
     letterSpacing: 2,
     marginTop: 4,
   },
-  formContainer: {
-    backgroundColor: '#1e293b', // slate-800
-    borderRadius: 24,
-    padding: 24,
+  formCard: {
+    backgroundColor: '#ffffff',
+    borderRadius: theme.radius.card,
+    padding: 20,
     borderWidth: 1,
-    borderColor: '#334155', // slate-700
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.25,
-    shadowRadius: 20,
-    elevation: 8,
+    borderColor: theme.colors.border,
+    ...theme.shadows.medium,
   },
   title: {
-    color: '#ffffff',
+    color: theme.colors.text,
     fontSize: 20,
     fontWeight: 'bold',
   },
   subtitle: {
-    color: '#94a3b8',
+    color: theme.colors.textMuted,
     fontSize: 12,
     marginTop: 4,
     marginBottom: 20,
   },
   errorContainer: {
-    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+    backgroundColor: theme.colors.errorBg,
     borderWidth: 1,
-    borderColor: 'rgba(239, 68, 68, 0.3)',
-    borderRadius: 12,
-    padding: 12,
+    borderColor: 'rgba(239, 68, 68, 0.2)',
+    borderRadius: 10,
+    padding: 10,
     marginBottom: 16,
   },
   errorText: {
-    color: '#f87171',
+    color: theme.colors.error,
     fontSize: 12,
     fontWeight: '600',
     textAlign: 'center',
@@ -302,30 +310,30 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   inputLabel: {
-    color: '#94a3b8',
+    color: theme.colors.textLight,
     fontSize: 9,
     fontWeight: 'bold',
     letterSpacing: 1.5,
     marginBottom: 6,
   },
   input: {
-    backgroundColor: '#0f172a',
-    borderRadius: 12,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    color: '#ffffff',
-    fontSize: 14,
+    backgroundColor: '#ffffff',
+    borderRadius: theme.radius.input,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    color: theme.colors.text,
+    fontSize: 13,
     fontWeight: '600',
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: theme.colors.border,
   },
   button: {
-    backgroundColor: '#2563eb',
-    borderRadius: 12,
+    backgroundColor: theme.colors.primary,
+    borderRadius: theme.radius.button,
     paddingVertical: 14,
     alignItems: 'center',
-    marginTop: 10,
-    shadowColor: '#2563eb',
+    marginTop: 8,
+    shadowColor: theme.colors.primary,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
@@ -344,50 +352,48 @@ const styles = StyleSheet.create({
   dividerLine: {
     flex: 1,
     height: 1,
-    backgroundColor: '#334155',
+    backgroundColor: theme.colors.border,
   },
   dividerText: {
-    color: '#64748b',
+    color: theme.colors.textLight,
     paddingHorizontal: 12,
-    fontSize: 10,
+    fontSize: 9,
     fontWeight: 'bold',
+    letterSpacing: 1,
   },
   googleButton: {
     backgroundColor: '#ffffff',
-    borderRadius: 12,
-    paddingVertical: 13,
+    borderRadius: theme.radius.button,
+    paddingVertical: 12,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    ...theme.shadows.small,
   },
-  googleIcon: {
+  googleIconEmoji: {
     fontSize: 14,
-    fontWeight: 'bold',
-    color: '#2563eb',
     marginRight: 8,
   },
   googleButtonText: {
-    color: '#0f172a',
+    color: theme.colors.text,
     fontSize: 13,
     fontWeight: 'bold',
   },
   guestButton: {
     backgroundColor: 'transparent',
-    borderRadius: 12,
-    paddingVertical: 13,
+    borderRadius: theme.radius.button,
+    paddingVertical: 12,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: theme.colors.primary,
+    borderStyle: 'dashed',
     marginTop: 12,
   },
   guestButtonText: {
-    color: '#3b82f6',
+    color: theme.colors.primary,
     fontSize: 13,
     fontWeight: 'bold',
   },
@@ -396,11 +402,11 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   switchButtonText: {
-    color: '#94a3b8',
+    color: theme.colors.textMuted,
     fontSize: 12,
   },
   switchTextAccent: {
-    color: '#2563eb',
+    color: theme.colors.primary,
     fontWeight: 'bold',
   },
 });

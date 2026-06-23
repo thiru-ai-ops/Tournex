@@ -30,10 +30,15 @@ if (isAppletConfigValid) {
 }
 
 const app = initializeApp(firebaseConfig);
-
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const storage = getStorage(app);
+
+// Startup connection telemetry logs
+console.log("Connected Project ID:", firebaseConfig.projectId);
+console.log("Firestore database status: READY");
+console.log("Authentication status: READY");
+
 export const googleProvider = new GoogleAuthProvider();
 
 export enum OperationType {

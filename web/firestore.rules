@@ -27,6 +27,10 @@ service cloud.firestore {
         && data.keys().size() <= 30
         && data.name is string && data.name.size() > 0 && data.name.size() <= 512
         && data.avatar is string && data.avatar.size() <= 4096
+        && (!('uid' in data) || (data.uid is string && data.uid.size() <= 128))
+        && (!('username' in data) || (data.username is string && data.username.size() > 0 && data.username.size() <= 512))
+        && (!('createdAt' in data) || data.createdAt is timestamp)
+        && (!('provider' in data) || (data.provider is string && (data.provider == 'email' || data.provider == 'google')))
         && (!('bio' in data) || (data.bio is string && data.bio.size() <= 4096))
         && (!('location' in data) || (data.location is string && data.location.size() <= 512))
         && (!('tier' in data) || (data.tier is string && data.tier.size() <= 256))

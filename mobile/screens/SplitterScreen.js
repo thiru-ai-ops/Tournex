@@ -8,13 +8,17 @@ import {
   TextInput, 
   Alert,
   ActivityIndicator,
+  RefreshControl,
   SafeAreaView
 } from 'react-native';
 import { api } from '../services/api';
+import theme from '../theme';
+import haptics from '../utils/haptics';
 
 export default function SplitterScreen() {
   const [expenses, setExpenses] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   // Form State
   const [expDesc, setExpDesc] = useState('');
@@ -30,6 +34,9 @@ export default function SplitterScreen() {
       }
     } catch (e) {
       console.warn('Error fetching expenses:', e.message);
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
     }
   };
 
@@ -37,13 +44,22 @@ export default function SplitterScreen() {
     fetchExpenses();
   }, []);
 
+  const onRefresh = () => {
+    haptics.selection();
+    setRefreshing(true);
+    fetchExpenses();
+  };
+
   const handleAddExpense = async () => {
+    haptics.selection();
     if (!expDesc.trim() || !expAmount.trim()) {
+      haptics.error();
       Alert.alert('Validation Alert', 'Please enter a description and amount.');
       return;
     }
     const amountNum = parseFloat(expAmount);
     if (isNaN(amountNum) || amountNum <= 0) {
+      haptics.error();
       Alert.alert('Validation Alert', 'Please enter a valid positive number for amount.');
       return;
     }
@@ -61,11 +77,13 @@ export default function SplitterScreen() {
     try {
       setLoading(true);
       await api.addExpense(newExpense);
+      haptics.success();
       await fetchExpenses();
       setExpDesc('');
       setExpAmount('');
       Alert.alert('Expense Added', `Split recorded: "${newExpense.description}" for ₹${newExpense.amount}`);
     } catch (err) {
+      haptics.error();
       Alert.alert('Error', err.message);
     } finally {
       setLoading(false);
@@ -73,11 +91,14 @@ export default function SplitterScreen() {
   };
 
   const handleDeleteExpense = async (id) => {
+    haptics.selection();
     try {
       setLoading(true);
       await api.deleteExpense(id);
+      haptics.success();
       await fetchExpenses();
     } catch (err) {
+      haptics.error();
       Alert.alert('Error', err.message);
     } finally {
       setLoading(false);
@@ -85,31 +106,38 @@ export default function SplitterScreen() {
   };
 
   const handleClearExpenses = async () => {
+    haptics.selection();
     try {
       setLoading(true);
       await api.clearExpenses();
+      haptics.success();
       setExpenses([]);
       Alert.alert('Expenses Cleared', 'All split-bill records have been wiped.');
     } catch (err) {
+      haptics.error();
       Alert.alert('Error', err.message);
     } finally {
       setLoading(false);
     }
   };
 
-  if (loading && expenses.length === 0) {
-    return (
-      <SafeAreaView style={[styles.container, styles.center]}>
-        <ActivityIndicator size="large" color="#2563eb" />
-      </SafeAreaView>
-    );
-  }
-
   const totalExpenses = expenses.reduce((acc, curr) => acc + (curr.amount || 0), 0);
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollBody} showsVerticalScrollIndicator={false}>
+      {/* Header Panel */}
+      <View style={styles.pageHeader}>
+        <Text style={styles.pageTitle}>Splitter Ledger</Text>
+        <Text style={styles.pageSubtitle}>Regulate and split group travel expenses</Text>
+      </View>
+
+      <ScrollView 
+        contentContainerStyle={styles.scrollBody} 
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={[theme.colors.primary]} />
+        }
+      >
         <View style={styles.budgetOverview}>
           <Text style={styles.budgetTitle}>Group Travel Ledger</Text>
           <Text style={styles.budgetAmount}>₹{totalExpenses.toLocaleString()}</Text>
@@ -121,14 +149,14 @@ export default function SplitterScreen() {
           )}
         </View>
 
-        {/* Split Form */}
+        {/* Record Transaction Form */}
         <View style={styles.formCard}>
           <Text style={styles.formTitle}>Record Transaction</Text>
           
           <TextInput 
             style={styles.formInput}
             placeholder="Expense Description (e.g. Dinner at Lassiwala)"
-            placeholderTextColor="#64748b"
+            placeholderTextColor={theme.colors.textLight}
             value={expDesc}
             onChangeText={setExpDesc}
           />
@@ -136,7 +164,7 @@ export default function SplitterScreen() {
           <TextInput 
             style={styles.formInput}
             placeholder="Amount (₹)"
-            placeholderTextColor="#64748b"
+            placeholderTextColor={theme.colors.textLight}
             keyboardType="numeric"
             value={expAmount}
             onChangeText={txt => setExpAmount(txt.replace(/[^0-9.]/g, ''))}
@@ -144,28 +172,32 @@ export default function SplitterScreen() {
 
           <View style={styles.selectRow}>
             <Text style={styles.selectLabel}>Category:</Text>
-            {['Food', 'Stay', 'Transit', 'Activity'].map((cat) => (
-              <TouchableOpacity 
-                key={cat} 
-                style={[styles.selectBtn, expCategory === cat ? styles.selectBtnActive : {}]}
-                onPress={() => setExpCategory(cat)}
-              >
-                <Text style={[styles.selectBtnText, expCategory === cat ? styles.selectBtnTextActive : {}]}>{cat}</Text>
-              </TouchableOpacity>
-            ))}
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.selectScroll}>
+              {['Food', 'Stay', 'Transit', 'Activity'].map((cat) => (
+                <TouchableOpacity 
+                  key={cat} 
+                  style={[styles.selectBtn, expCategory === cat ? styles.selectBtnActive : {}]}
+                  onPress={() => { haptics.selection(); setExpCategory(cat); }}
+                >
+                  <Text style={[styles.selectBtnText, expCategory === cat ? styles.selectBtnTextActive : {}]}>{cat}</Text>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
           </View>
 
           <View style={styles.selectRow}>
             <Text style={styles.selectLabel}>Paid By:</Text>
-            {['Arjun', 'Priya', 'Rahul'].map((payee) => (
-              <TouchableOpacity 
-                key={payee} 
-                style={[styles.selectBtn, expPaidBy === payee ? styles.selectBtnActive : {}]}
-                onPress={() => setExpPaidBy(payee)}
-              >
-                <Text style={[styles.selectBtnText, expPaidBy === payee ? styles.selectBtnTextActive : {}]}>{payee}</Text>
-              </TouchableOpacity>
-            ))}
+            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.selectScroll}>
+              {['Arjun', 'Priya', 'Rahul'].map((payee) => (
+                <TouchableOpacity 
+                  key={payee} 
+                  style={[styles.selectBtn, expPaidBy === payee ? styles.selectBtnActive : {}]}
+                  onPress={() => { haptics.selection(); setExpPaidBy(payee); }}
+                >
+                  <Text style={[styles.selectBtnText, expPaidBy === payee ? styles.selectBtnTextActive : {}]}>{payee}</Text>
+                </TouchableOpacity>
+              ))}
+            </ScrollView>
           </View>
 
           <TouchableOpacity style={styles.submitBtn} onPress={handleAddExpense}>
@@ -203,142 +235,167 @@ export default function SplitterScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0f172a',
+    backgroundColor: theme.colors.background,
   },
-  center: {
-    justifyContent: 'center',
-    alignItems: 'center',
+  pageHeader: {
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 12,
+    backgroundColor: '#ffffff',
+    borderBottomWidth: 1,
+    borderColor: theme.colors.border,
+  },
+  pageTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: theme.colors.text,
+  },
+  pageSubtitle: {
+    fontSize: 11,
+    color: theme.colors.textMuted,
+    marginTop: 2,
   },
   scrollBody: {
     padding: 16,
     paddingBottom: 40,
   },
   budgetOverview: {
-    backgroundColor: '#1e293b',
-    borderRadius: 20,
+    backgroundColor: '#ffffff',
+    borderRadius: theme.radius.card,
     padding: 18,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: theme.colors.border,
     alignItems: 'center',
     marginBottom: 16,
+    ...theme.shadows.small,
   },
   budgetTitle: {
-    color: '#94a3b8',
-    fontSize: 12,
+    color: theme.colors.textLight,
+    fontSize: 11,
     fontWeight: 'bold',
+    textTransform: 'uppercase',
   },
   budgetAmount: {
-    color: '#10b981',
-    fontSize: 26,
+    color: theme.colors.success,
+    fontSize: 28,
     fontWeight: 'bold',
     marginVertical: 4,
   },
   budgetDesc: {
-    color: '#64748b',
-    fontSize: 10,
+    color: theme.colors.textMuted,
+    fontSize: 11,
     textAlign: 'center',
     marginBottom: 12,
   },
   clearLedgerBtn: {
-    borderColor: '#ef444480',
+    borderColor: theme.colors.error,
     borderWidth: 1,
     borderRadius: 8,
     paddingHorizontal: 12,
     paddingVertical: 5,
+    backgroundColor: 'rgba(239, 68, 68, 0.05)',
   },
   clearLedgerBtnText: {
-    color: '#ef4444',
+    color: theme.colors.error,
     fontSize: 10,
     fontWeight: 'bold',
   },
   formCard: {
-    backgroundColor: '#1e293b',
-    borderRadius: 20,
+    backgroundColor: '#ffffff',
+    borderRadius: theme.radius.card,
     padding: 16,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: theme.colors.border,
     marginBottom: 16,
+    ...theme.shadows.small,
   },
   formTitle: {
-    color: '#ffffff',
+    color: theme.colors.text,
     fontSize: 14,
     fontWeight: 'bold',
     marginBottom: 12,
   },
   formInput: {
-    backgroundColor: '#0f172a',
-    borderRadius: 10,
+    backgroundColor: '#ffffff',
+    borderRadius: theme.radius.input,
     paddingHorizontal: 12,
     paddingVertical: 8,
-    color: '#ffffff',
-    fontSize: 12,
+    color: theme.colors.text,
+    fontSize: 13,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: theme.colors.border,
     marginBottom: 10,
   },
   selectRow: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 10,
-    flexWrap: 'wrap',
-    gap: 6,
   },
   selectLabel: {
-    color: '#94a3b8',
-    fontSize: 10,
+    color: theme.colors.textMuted,
+    fontSize: 11,
     fontWeight: 'bold',
-    marginRight: 6,
+    marginRight: 8,
+    width: 60,
+  },
+  selectScroll: {
+    gap: 6,
   },
   selectBtn: {
-    backgroundColor: '#0f172a',
+    backgroundColor: '#ffffff',
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: theme.colors.border,
     borderRadius: 6,
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
   },
   selectBtnActive: {
-    backgroundColor: 'rgba(37, 99, 235, 0.15)',
-    borderColor: '#2563eb',
+    backgroundColor: theme.colors.primaryLightest,
+    borderColor: theme.colors.primary,
   },
   selectBtnText: {
-    color: '#64748b',
+    color: theme.colors.textMuted,
     fontSize: 10,
   },
   selectBtnTextActive: {
-    color: '#3b82f6',
+    color: theme.colors.primary,
     fontWeight: 'bold',
   },
   submitBtn: {
-    backgroundColor: '#2563eb',
-    borderRadius: 10,
-    paddingVertical: 10,
+    backgroundColor: theme.colors.primary,
+    borderRadius: theme.radius.button,
+    paddingVertical: 12,
     alignItems: 'center',
     marginTop: 4,
+    shadowColor: theme.colors.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 2,
   },
   submitBtnText: {
     color: '#ffffff',
-    fontSize: 12,
+    fontSize: 13,
     fontWeight: 'bold',
   },
   subTitle: {
-    color: '#ffffff',
+    color: theme.colors.text,
     fontSize: 15,
     fontWeight: 'bold',
     marginTop: 10,
     marginBottom: 12,
   },
   emptyCard: {
-    backgroundColor: 'rgba(30, 41, 59, 0.5)',
-    borderRadius: 12,
-    padding: 20,
+    backgroundColor: '#ffffff',
+    borderRadius: theme.radius.card,
+    padding: 24,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(51, 65, 85, 0.3)',
+    borderColor: theme.colors.border,
     borderStyle: 'dashed',
   },
   emptyText: {
-    color: '#64748b',
+    color: theme.colors.textLight,
     fontSize: 12,
     fontWeight: '600',
   },
@@ -346,41 +403,42 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#1e293b',
-    borderRadius: 12,
-    padding: 12,
+    backgroundColor: '#ffffff',
+    borderRadius: theme.radius.card,
+    padding: 14,
     marginBottom: 8,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: theme.colors.border,
+    ...theme.shadows.small,
   },
   expenseLeft: {
     flex: 1,
     marginRight: 10,
   },
   expenseName: {
-    color: '#ffffff',
-    fontSize: 12,
+    color: theme.colors.text,
+    fontSize: 13,
     fontWeight: 'bold',
   },
   expenseMeta: {
-    color: '#64748b',
-    fontSize: 9,
+    color: theme.colors.textMuted,
+    fontSize: 10,
     marginTop: 2,
   },
   expenseRight: {
     alignItems: 'flex-end',
   },
   expenseVal: {
-    color: '#10b981',
-    fontSize: 13,
+    color: theme.colors.success,
+    fontSize: 14,
     fontWeight: 'bold',
   },
   delExpenseBtn: {
     marginTop: 4,
   },
   delExpenseText: {
-    color: '#ef4444',
-    fontSize: 9,
+    color: theme.colors.error,
+    fontSize: 10,
     fontWeight: 'bold',
   },
 });

@@ -1,10 +1,10 @@
 {
-  "projectId": "atlantean-balancer-nnzsc",
-  "appId": "1:374407709134:web:4cfd4434ff01c1d06fab9f",
-  "apiKey": "AIzaSyAdsE0ldU7Rk5UN4vlAfiPHpPhkujqeFQ4",
-  "authDomain": "atlantean-balancer-nnzsc.firebaseapp.com",
+  "projectId": "tournex-74d9f",
+  "appId": "1:731444686163:web:c0ebec591639015d0d45a6",
+  "apiKey": "AIzaSyDy-n3gelM61tw5sjied_sHQa-xVDPGlx8",
+  "authDomain": "tournex-74d9f.firebaseapp.com",
   "firestoreDatabaseId": "default",
-  "storageBucket": "atlantean-balancer-nnzsc.firebasestorage.app",
-  "messagingSenderId": "374407709134",
-  "measurementId": ""
+  "storageBucket": "tournex-74d9f.firebasestorage.app",
+  "messagingSenderId": "731444686163",
+  "measurementId": "G-52KWF6E5L6"
 }

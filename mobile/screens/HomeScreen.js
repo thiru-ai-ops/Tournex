@@ -1,26 +1,28 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { StyleSheet, Text } from 'react-native';
+import theme from '../theme';
+import haptics from '../utils/haptics';
 
+import DashboardScreen from './DashboardScreen';
 import ExploreScreen from './ExploreScreen';
 import ChatScreen from './ChatScreen';
 import SplitterScreen from './SplitterScreen';
-import BookingsScreen from './BookingsScreen';
 import ProfileScreen from './ProfileScreen';
 
 const Tab = createBottomTabNavigator();
 
-export default function HomeScreen({ navigation }) {
+export default function HomeScreen() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
-        tabBarActiveTintColor: '#2563eb',
-        tabBarInactiveTintColor: '#64748b',
+        tabBarActiveTintColor: theme.colors.primary,
+        tabBarInactiveTintColor: theme.colors.textMuted,
         tabBarStyle: {
-          backgroundColor: '#1e293b',
+          backgroundColor: '#ffffff',
           borderTopWidth: 1,
-          borderColor: '#334155',
+          borderColor: theme.colors.border,
           paddingBottom: 6,
           paddingTop: 6,
           height: 60,
@@ -31,29 +33,50 @@ export default function HomeScreen({ navigation }) {
         },
         tabBarIcon: ({ color, size }) => {
           let icon = '🧭';
-          if (route.name === 'Explore') icon = '🧭';
+          if (route.name === 'Dashboard') icon = '🏠';
+          else if (route.name === 'Explore') icon = '🧭';
           else if (route.name === 'Chat') icon = '💬';
           else if (route.name === 'Splitter') icon = '💸';
-          else if (route.name === 'Bookings') icon = '🎫';
           else if (route.name === 'Profile') icon = '👤';
 
           return <Text style={{ fontSize: 18, color }}>{icon}</Text>;
         },
       })}
     >
-      <Tab.Screen name="Explore" component={ExploreScreen} />
-      <Tab.Screen name="Chat" component={ChatScreen} />
-      <Tab.Screen name="Splitter" component={SplitterScreen} />
-      <Tab.Screen name="Bookings" component={BookingsScreen} />
+      <Tab.Screen 
+        name="Dashboard" 
+        component={DashboardScreen} 
+        listeners={{
+          tabPress: () => haptics.selection(),
+        }}
+      />
+      <Tab.Screen 
+        name="Explore" 
+        component={ExploreScreen} 
+        listeners={{
+          tabPress: () => haptics.selection(),
+        }}
+      />
+      <Tab.Screen 
+        name="Chat" 
+        component={ChatScreen} 
+        listeners={{
+          tabPress: () => haptics.selection(),
+        }}
+      />
+      <Tab.Screen 
+        name="Splitter" 
+        component={SplitterScreen} 
+        listeners={{
+          tabPress: () => haptics.selection(),
+        }}
+      />
       <Tab.Screen 
         name="Profile" 
         component={ProfileScreen} 
-        // Pass navigation prop to Profile screen for stack replacing (logout)
-        listeners={({ navigation }) => ({
-          focus: () => {
-            // Can be used to run callbacks on focus
-          }
-        })}
+        listeners={{
+          tabPress: () => haptics.selection(),
+        }}
       />
     </Tab.Navigator>
   );

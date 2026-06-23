@@ -7,17 +7,24 @@ import {
   TouchableOpacity, 
   Image, 
   Alert,
-  ActivityIndicator,
+  TextInput,
+  RefreshControl,
   SafeAreaView
 } from 'react-native';
 import { api } from '../services/api';
 import { ALL_DESTINATIONS } from '../data';
+import theme from '../theme';
+import haptics from '../utils/haptics';
+import SkeletonLoader from '../components/SkeletonLoader';
 
 export default function ExploreScreen() {
   const [selectedDest, setSelectedDest] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleBookHotel = async (hotel) => {
+    haptics.selection();
     const randomId = `TNX-STAY-${Math.floor(100000 + Math.random() * 900000)}`;
     const newBooking = {
       id: `booking-${Date.now()}`,
@@ -31,8 +38,10 @@ export default function ExploreScreen() {
     try {
       setLoading(true);
       await api.addBooking(newBooking);
+      haptics.success();
       Alert.alert('Reservation Locked', `Successfully booked ${hotel.name}. Booking ID: ${randomId}`);
     } catch (err) {
+      haptics.error();
       Alert.alert('Error', err.message);
     } finally {
       setLoading(false);
@@ -40,6 +49,7 @@ export default function ExploreScreen() {
   };
 
   const handleBookPackage = async (destination) => {
+    haptics.selection();
     const randomId = `TNX-PKHST-${Math.floor(100000 + Math.random() * 900000)}`;
     const newBooking = {
       id: `booking-${Date.now()}`,
@@ -53,18 +63,42 @@ export default function ExploreScreen() {
     try {
       setLoading(true);
       await api.addBooking(newBooking);
+      haptics.success();
       Alert.alert('Package Registered', `Successfully booked ${destination.name} Package. Booking ID: ${randomId}`);
     } catch (err) {
+      haptics.error();
       Alert.alert('Error', err.message);
     } finally {
       setLoading(false);
     }
   };
 
+  const onRefresh = () => {
+    haptics.selection();
+    setRefreshing(true);
+    // Simulate refresh reload
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 1000);
+  };
+
+  // Filter destinations by search query
+  const filteredDestinations = ALL_DESTINATIONS.filter(dest => {
+    const q = searchQuery.toLowerCase();
+    return (
+      dest.name.toLowerCase().includes(q) ||
+      dest.state.toLowerCase().includes(q) ||
+      dest.category.toLowerCase().includes(q)
+    );
+  });
+
   if (loading) {
     return (
-      <SafeAreaView style={[styles.container, styles.center]}>
-        <ActivityIndicator size="large" color="#2563eb" />
+      <SafeAreaView style={styles.container}>
+        <ScrollView contentContainerStyle={styles.scrollBody}>
+          <SkeletonLoader type="card" />
+          <SkeletonLoader type="card" />
+        </ScrollView>
       </SafeAreaView>
     );
   }
@@ -73,7 +107,10 @@ export default function ExploreScreen() {
     <SafeAreaView style={styles.container}>
       {selectedDest ? (
         <ScrollView contentContainerStyle={styles.scrollBody} showsVerticalScrollIndicator={false}>
-          <TouchableOpacity style={styles.backBtn} onPress={() => setSelectedDest(null)}>
+          <TouchableOpacity 
+            style={styles.backBtn} 
+            onPress={() => { haptics.selection(); setSelectedDest(null); }}
+          >
             <Text style={styles.backBtnText}>← Back to Destinations</Text>
           </TouchableOpacity>
           <Image source={{ uri: selectedDest.image }} style={styles.detailImage} />
@@ -120,25 +157,60 @@ export default function ExploreScreen() {
           </View>
         </ScrollView>
       ) : (
-        <ScrollView contentContainerStyle={styles.scrollBody} showsVerticalScrollIndicator={false}>
-          <View style={styles.sectionHeader}>
+        <View style={{ flex: 1 }}>
+          {/* Header & Search */}
+          <View style={styles.searchHeader}>
             <Text style={styles.mainTitle}>Explore India</Text>
-            <Text style={styles.mainSub}>Regulated ASI sites and partner resorts</Text>
+            <Text style={styles.mainSub}>ASI heritage sites and partner stays</Text>
+            
+            <View style={styles.searchContainer}>
+              <Text style={styles.searchIcon}>🔍</Text>
+              <TextInput 
+                style={styles.searchInput}
+                placeholder="Search name, category, or state..."
+                placeholderTextColor={theme.colors.textLight}
+                value={searchQuery}
+                onChangeText={setSearchQuery}
+              />
+              {searchQuery ? (
+                <TouchableOpacity onPress={() => setSearchQuery('')}>
+                  <Text style={styles.clearSearchIcon}>❌</Text>
+                </TouchableOpacity>
+              ) : null}
+            </View>
           </View>
 
-          {ALL_DESTINATIONS.map((dest) => (
-            <TouchableOpacity key={dest.id} style={styles.destCard} onPress={() => setSelectedDest(dest)}>
-              <Image source={{ uri: dest.image }} style={styles.destImage} />
-              <View style={styles.destOverlay}>
-                <Text style={styles.destHotness}>{dest.hotness}</Text>
-                <View>
-                  <Text style={styles.destName}>{dest.name}</Text>
-                  <Text style={styles.destMeta}>{dest.state} • ⭐ {dest.rating}</Text>
-                </View>
+          <ScrollView 
+            contentContainerStyle={styles.scrollBody} 
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+              <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={[theme.colors.primary]} />
+            }
+          >
+            {filteredDestinations.length === 0 ? (
+              <View style={styles.emptyCard}>
+                <Text style={styles.emptyText}>🔍 No destinations match your query</Text>
               </View>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+            ) : (
+              filteredDestinations.map((dest) => (
+                <TouchableOpacity 
+                  key={dest.id} 
+                  style={styles.destCard} 
+                  onPress={() => { haptics.selection(); setSelectedDest(dest); }}
+                >
+                  <Image source={{ uri: dest.image }} style={styles.destImage} />
+                  <View style={styles.destOverlay}>
+                    <Text style={styles.destHotness}>{dest.hotness}</Text>
+                    <View>
+                      <Text style={styles.destName}>{dest.name}</Text>
+                      <Text style={styles.destMeta}>{dest.state} • ⭐ {dest.rating}</Text>
+                    </View>
+                  </View>
+                </TouchableOpacity>
+              ))
+            )}
+          </ScrollView>
+        </View>
       )}
     </SafeAreaView>
   );
@@ -147,36 +219,63 @@ export default function ExploreScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0f172a',
-  },
-  center: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: theme.colors.background,
   },
   scrollBody: {
     padding: 16,
     paddingBottom: 40,
   },
-  sectionHeader: {
-    marginBottom: 20,
+  searchHeader: {
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 12,
+    backgroundColor: '#ffffff',
+    borderBottomWidth: 1,
+    borderColor: theme.colors.border,
   },
   mainTitle: {
-    color: '#ffffff',
+    color: theme.colors.text,
     fontSize: 22,
     fontWeight: 'bold',
   },
   mainSub: {
-    color: '#94a3b8',
+    color: theme.colors.textMuted,
     fontSize: 12,
-    marginTop: 4,
+    marginTop: 2,
+    marginBottom: 12,
+  },
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: theme.colors.background,
+    borderRadius: theme.radius.input,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    paddingHorizontal: 12,
+    height: 42,
+  },
+  searchIcon: {
+    fontSize: 14,
+    marginRight: 8,
+  },
+  searchInput: {
+    flex: 1,
+    color: theme.colors.text,
+    fontSize: 13,
+    fontWeight: '500',
+  },
+  clearSearchIcon: {
+    fontSize: 12,
+    marginLeft: 6,
   },
   destCard: {
     height: 160,
-    borderRadius: 20,
+    borderRadius: theme.radius.card,
     overflow: 'hidden',
     marginBottom: 16,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: theme.colors.border,
+    ...theme.shadows.small,
   },
   destImage: {
     width: '100%',
@@ -185,13 +284,13 @@ const styles = StyleSheet.create({
   },
   destOverlay: {
     flex: 1,
-    backgroundColor: 'rgba(15, 23, 42, 0.45)',
+    backgroundColor: 'rgba(15, 23, 42, 0.4)',
     justifyContent: 'space-between',
     padding: 16,
   },
   destHotness: {
     alignSelf: 'flex-start',
-    backgroundColor: '#2563eb',
+    backgroundColor: theme.colors.primary,
     color: '#ffffff',
     fontSize: 9,
     fontWeight: 'bold',
@@ -206,7 +305,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   destMeta: {
-    color: '#cbd5e1',
+    color: '#e2e8f0',
     fontSize: 11,
     marginTop: 2,
   },
@@ -215,24 +314,25 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   backBtnText: {
-    color: '#3b82f6',
-    fontSize: 13,
+    color: theme.colors.primary,
+    fontSize: 14,
     fontWeight: 'bold',
   },
   detailImage: {
     width: '100%',
     height: 180,
-    borderRadius: 16,
+    borderRadius: theme.radius.card,
     marginBottom: 16,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: theme.colors.border,
   },
   detailCard: {
-    backgroundColor: '#1e293b',
-    borderRadius: 20,
+    backgroundColor: '#ffffff',
+    borderRadius: theme.radius.card,
     padding: 16,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: theme.colors.border,
+    ...theme.shadows.small,
   },
   detailTitleRow: {
     flexDirection: 'row',
@@ -241,30 +341,30 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   detailTitle: {
-    color: '#ffffff',
+    color: theme.colors.text,
     fontSize: 20,
     fontWeight: 'bold',
   },
   detailState: {
-    color: '#94a3b8',
+    color: theme.colors.textMuted,
     fontSize: 13,
     fontWeight: '600',
   },
   detailCategory: {
-    color: '#3b82f6',
+    color: theme.colors.primary,
     fontSize: 12,
     fontWeight: 'bold',
     marginBottom: 12,
   },
   detailDesc: {
-    color: '#cbd5e1',
+    color: theme.colors.textMuted,
     fontSize: 13,
     lineHeight: 18,
     marginBottom: 16,
   },
   pkgBtn: {
-    backgroundColor: '#2563eb',
-    borderRadius: 12,
+    backgroundColor: theme.colors.primary,
+    borderRadius: theme.radius.button,
     paddingVertical: 12,
     alignItems: 'center',
     marginBottom: 20,
@@ -275,7 +375,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   subTitle: {
-    color: '#ffffff',
+    color: theme.colors.text,
     fontSize: 15,
     fontWeight: 'bold',
     marginTop: 10,
@@ -283,12 +383,12 @@ const styles = StyleSheet.create({
   },
   spotItem: {
     flexDirection: 'row',
-    backgroundColor: '#0f172a',
+    backgroundColor: theme.colors.background,
     borderRadius: 12,
     padding: 10,
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: 'rgba(51, 65, 85, 0.2)',
+    borderColor: theme.colors.border,
   },
   spotImage: {
     width: 50,
@@ -301,23 +401,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   spotName: {
-    color: '#ffffff',
+    color: theme.colors.text,
     fontSize: 12,
     fontWeight: 'bold',
   },
   spotDesc: {
-    color: '#64748b',
+    color: theme.colors.textMuted,
     fontSize: 10,
     marginTop: 2,
   },
   hotelItem: {
     flexDirection: 'row',
-    backgroundColor: '#0f172a',
+    backgroundColor: theme.colors.background,
     borderRadius: 12,
     padding: 12,
     marginBottom: 10,
     borderWidth: 1,
-    borderColor: 'rgba(51, 65, 85, 0.2)',
+    borderColor: theme.colors.border,
   },
   hotelImage: {
     width: 70,
@@ -330,31 +430,48 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   hotelName: {
-    color: '#ffffff',
+    color: theme.colors.text,
     fontSize: 12,
     fontWeight: 'bold',
   },
   hotelLoc: {
-    color: '#64748b',
+    color: theme.colors.textMuted,
     fontSize: 10,
     marginTop: 2,
   },
   hotelRate: {
-    color: '#2563eb',
+    color: theme.colors.primary,
     fontSize: 10,
     fontWeight: 'bold',
     marginTop: 2,
   },
   hotelBookBtn: {
-    backgroundColor: 'rgba(37, 99, 235, 0.15)',
+    backgroundColor: theme.colors.primaryLightest,
+    borderWidth: 1,
+    borderColor: theme.colors.primaryLight,
     paddingVertical: 5,
     borderRadius: 6,
     alignItems: 'center',
     marginTop: 6,
   },
   hotelBookBtnText: {
-    color: '#3b82f6',
+    color: theme.colors.primary,
     fontSize: 10,
     fontWeight: 'bold',
+  },
+  emptyCard: {
+    backgroundColor: '#ffffff',
+    borderRadius: theme.radius.card,
+    padding: 30,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    borderStyle: 'dashed',
+    marginTop: 10,
+  },
+  emptyText: {
+    color: theme.colors.textLight,
+    fontSize: 12,
+    fontWeight: '600',
   },
 });

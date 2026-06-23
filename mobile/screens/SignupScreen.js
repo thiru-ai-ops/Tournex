@@ -10,9 +10,35 @@ import {
   ScrollView,
   KeyboardAvoidingView, 
   Platform,
+  Image,
   Alert
 } from 'react-native';
-import { api, setAuthToken } from '../services/api';
+import { api } from '../services/api';
+import theme from '../theme';
+import haptics from '../utils/haptics';
+
+const AVATAR_PRESETS = [
+  {
+    id: 'av1',
+    name: 'Mountain Trekker',
+    url: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150'
+  },
+  {
+    id: 'av2',
+    name: 'Backwater Explorer',
+    url: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150'
+  },
+  {
+    id: 'av3',
+    name: 'Heritage Chronicler',
+    url: 'https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?auto=format&fit=crop&q=80&w=150'
+  },
+  {
+    id: 'av4',
+    name: 'Spiritual Pilgrim',
+    url: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=150'
+  }
+];
 
 export default function SignupScreen({ navigation }) {
   const [name, setName] = useState('');
@@ -20,20 +46,26 @@ export default function SignupScreen({ navigation }) {
   const [password, setPassword] = useState('');
   const [location, setLocation] = useState('New Delhi, India');
   const [bio, setBio] = useState('Wandering the cultural trails of India in search of stories and flavors.');
+  const [selectedAvatar, setSelectedAvatar] = useState(AVATAR_PRESETS[0].url);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   const handleSignup = async () => {
+    haptics.selection();
     if (!name.trim() || !email.trim() || !password.trim()) {
+      haptics.error();
       setError('Name, email, and password are required.');
       return;
     }
     if (password.length < 6) {
+      haptics.error();
       setError('Password must be at least 6 characters.');
       return;
     }
     setLoading(true);
     setError('');
+    setSuccess('');
     try {
       const res = await api.register({
         name: name.trim(),
@@ -41,22 +73,36 @@ export default function SignupScreen({ navigation }) {
         password,
         location: location.trim(),
         bio: bio.trim(),
-        avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150',
-        role: 'user'
+        avatar: selectedAvatar,
+        role: 'user',
+        provider: 'email'
       });
       if (res.success) {
-        // Auto login on success
-        await api.login(email.trim(), password);
-        navigation.replace('Home');
+        haptics.success();
+        setSuccess('Account created successfully! Logging you in...');
+        setTimeout(async () => {
+          try {
+            await api.login(email.trim(), password);
+            navigation.replace('Home');
+          } catch (loginErr) {
+            haptics.error();
+            setError(loginErr.message || 'Auto-login failed. Please try logging in manually.');
+            setSuccess('');
+            setLoading(false);
+          }
+        }, 1500);
+      } else {
+        setLoading(false);
       }
     } catch (err) {
+      haptics.error();
       setError(err.message || 'Error creating account.');
-    } finally {
       setLoading(false);
     }
   };
 
   const handleGoogleSignIn = () => {
+    haptics.selection();
     Alert.alert(
       'Sign in with Google',
       'Select a sandbox Google account to authenticate:',
@@ -101,9 +147,11 @@ export default function SignupScreen({ navigation }) {
 
       const res = await api.login(email, 'google_oauth_bypass_pass');
       if (res.success && res.data?.user) {
+        haptics.success();
         navigation.replace('Home');
       }
     } catch (err) {
+      haptics.error();
       setError(err.message || 'Google Auth simulation failed.');
     } finally {
       setLoading(false);
@@ -117,27 +165,40 @@ export default function SignupScreen({ navigation }) {
         style={styles.keyboardView}
       >
         <ScrollView contentContainerStyle={styles.scrollContainer} showsVerticalScrollIndicator={false}>
+          {/* Logo Brand Header */}
           <View style={styles.logoContainer}>
-            <Text style={styles.logoText}>Tour<Text style={styles.logoAccent}>Nex</Text></Text>
-            <Text style={styles.logoSubtext}>CREATE EXPLORER PROFILE</Text>
+            <View style={styles.logoBadge}>
+              <Text style={styles.logoIcon}>🏛️</Text>
+            </View>
+            <Text style={styles.logoText}>
+              Tour<Text style={styles.logoAccent}>Nex</Text>
+            </Text>
+            <Text style={styles.logoSubtext}>CREATE TRAVELER KEYS</Text>
           </View>
 
+          {/* Sign Up Form Content Card */}
           <View style={styles.formContainer}>
             <Text style={styles.title}>Register Account</Text>
-            <Text style={styles.subtitle}>Set up your traveler keys securely</Text>
+            <Text style={styles.subtitle}>Set up your travel profile and start exploring</Text>
 
             {error ? (
               <View style={styles.errorContainer}>
-                <Text style={styles.errorText}>{error}</Text>
+                <Text style={styles.errorText}>⚠️ {error}</Text>
+              </View>
+            ) : null}
+
+            {success ? (
+              <View style={styles.successContainer} id="signup-success-alert-mobile">
+                <Text style={styles.successText}>🎉 {success}</Text>
               </View>
             ) : null}
 
             <View style={styles.inputGroup}>
-              <Text style={styles.inputLabel}>FULL NAME</Text>
+              <Text style={styles.inputLabel}> traveler NAME</Text>
               <TextInput 
                 style={styles.input}
-                placeholder="e.g. Satyajit Ray"
-                placeholderTextColor="#94a3b8"
+                placeholder="e.g. Arjun Dev"
+                placeholderTextColor={theme.colors.textLight}
                 value={name}
                 onChangeText={(txt) => { setName(txt); setError(''); }}
               />
@@ -148,7 +209,7 @@ export default function SignupScreen({ navigation }) {
               <TextInput 
                 style={styles.input}
                 placeholder="explorer@tournex.com"
-                placeholderTextColor="#94a3b8"
+                placeholderTextColor={theme.colors.textLight}
                 keyboardType="email-address"
                 autoCapitalize="none"
                 value={email}
@@ -161,7 +222,7 @@ export default function SignupScreen({ navigation }) {
               <TextInput 
                 style={styles.input}
                 placeholder="Create passcode"
-                placeholderTextColor="#94a3b8"
+                placeholderTextColor={theme.colors.textLight}
                 secureTextEntry
                 autoCapitalize="none"
                 value={password}
@@ -173,11 +234,30 @@ export default function SignupScreen({ navigation }) {
               <Text style={styles.inputLabel}>CURRENT LOCATION</Text>
               <TextInput 
                 style={styles.input}
-                placeholder="e.g. New Delhi, India"
-                placeholderTextColor="#94a3b8"
+                placeholder="e.g. Jaipur, Rajasthan"
+                placeholderTextColor={theme.colors.textLight}
                 value={location}
                 onChangeText={setLocation}
               />
+            </View>
+
+            {/* Avatar Preset Selector */}
+            <View style={styles.avatarSelectionContainer}>
+              <Text style={styles.inputLabel}>CHOOSE TRAVELER AVATAR</Text>
+              <View style={styles.avatarRow}>
+                {AVATAR_PRESETS.map((av) => {
+                  const isSelected = selectedAvatar === av.url;
+                  return (
+                    <TouchableOpacity 
+                      key={av.id} 
+                      style={[styles.avatarWrapper, isSelected ? styles.avatarWrapperActive : {}]}
+                      onPress={() => { haptics.selection(); setSelectedAvatar(av.url); }}
+                    >
+                      <Image source={{ uri: av.url }} style={styles.avatarImg} />
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
             </View>
 
             <View style={styles.inputGroup}>
@@ -185,14 +265,15 @@ export default function SignupScreen({ navigation }) {
               <TextInput 
                 style={[styles.input, styles.textArea]}
                 placeholder="Share your travel style..."
-                placeholderTextColor="#94a3b8"
+                placeholderTextColor={theme.colors.textLight}
                 multiline
-                numberOfLines={3}
+                numberOfLines={2}
                 value={bio}
                 onChangeText={setBio}
               />
             </View>
 
+            {/* Signup button */}
             <TouchableOpacity 
               style={styles.button}
               onPress={handleSignup}
@@ -205,27 +286,28 @@ export default function SignupScreen({ navigation }) {
               )}
             </TouchableOpacity>
 
-            {/* SSO Divider */}
+            {/* Divider */}
             <View style={styles.dividerContainer}>
               <View style={styles.dividerLine} />
-              <Text style={styles.dividerText}>OR</Text>
+              <Text style={styles.dividerText}>OR SECURE LOG IN</Text>
               <View style={styles.dividerLine} />
             </View>
 
-            {/* Google Button */}
+            {/* Google button */}
             <TouchableOpacity 
               style={styles.googleButton}
               onPress={handleGoogleSignIn}
               disabled={loading}
             >
-              <Text style={styles.googleIcon}>G</Text>
+              <Text style={styles.googleIconEmoji}>🌐</Text>
               <Text style={styles.googleButtonText}>Continue with Google</Text>
             </TouchableOpacity>
 
-            {/* Guest Bypass Button */}
+            {/* Guest Bypass button */}
             <TouchableOpacity 
               style={styles.guestButton}
               onPress={() => {
+                haptics.selection();
                 setAuthToken('mock-guest-token');
                 navigation.replace('Home');
               }}
@@ -234,13 +316,14 @@ export default function SignupScreen({ navigation }) {
               <Text style={styles.guestButtonText}>Explore as Guest (Offline Mode) →</Text>
             </TouchableOpacity>
 
+            {/* Switch to login */}
             <TouchableOpacity 
               style={styles.switchButton}
-              onPress={() => navigation.navigate('Login')}
+              onPress={() => { haptics.selection(); navigation.navigate('Login'); }}
               disabled={loading}
             >
               <Text style={styles.switchButtonText}>
-                Already have credentials? <Text style={styles.switchTextAccent}>Log In</Text>
+                Already have traveler credentials? <Text style={styles.switchTextAccent}>Log In</Text>
               </Text>
             </TouchableOpacity>
           </View>
@@ -253,63 +336,96 @@ export default function SignupScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0f172a',
+    backgroundColor: theme.colors.background,
   },
   keyboardView: {
     flex: 1,
   },
   scrollContainer: {
     paddingHorizontal: 20,
-    paddingVertical: 15,
+    paddingVertical: 30,
     justifyContent: 'center',
   },
   logoContainer: {
     alignItems: 'center',
-    marginBottom: 12,
+    marginBottom: 20,
+  },
+  logoBadge: {
+    width: 54,
+    height: 54,
+    borderRadius: 16,
+    backgroundColor: theme.colors.primary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+    shadowColor: theme.colors.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 10,
+    elevation: 4,
+  },
+  logoIcon: {
+    fontSize: 28,
+    color: '#ffffff',
   },
   logoText: {
-    color: '#ffffff',
+    color: theme.colors.text,
     fontSize: 24,
     fontWeight: 'bold',
   },
   logoAccent: {
-    color: '#2563eb',
+    color: theme.colors.primary,
   },
   logoSubtext: {
-    color: '#94a3b8',
-    fontSize: 8,
+    color: theme.colors.textLight,
+    fontSize: 9,
     fontWeight: 'bold',
     letterSpacing: 2,
     marginTop: 2,
   },
   formContainer: {
-    backgroundColor: '#1e293b',
-    borderRadius: 20,
-    padding: 16,
+    backgroundColor: '#ffffff',
+    borderRadius: theme.radius.card,
+    padding: 20,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: theme.colors.border,
+    ...theme.shadows.medium,
   },
   title: {
-    color: '#ffffff',
+    color: theme.colors.text,
     fontSize: 18,
     fontWeight: 'bold',
   },
   subtitle: {
-    color: '#94a3b8',
+    color: theme.colors.textMuted,
     fontSize: 11,
     marginTop: 2,
     marginBottom: 14,
   },
   errorContainer: {
-    backgroundColor: 'rgba(239, 68, 68, 0.1)',
+    backgroundColor: theme.colors.errorBg,
     borderWidth: 1,
-    borderColor: 'rgba(239, 68, 68, 0.3)',
+    borderColor: 'rgba(239, 68, 68, 0.2)',
     borderRadius: 10,
     padding: 10,
     marginBottom: 12,
   },
   errorText: {
-    color: '#f87171',
+    color: theme.colors.error,
+    fontSize: 11,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  successContainer: {
+    backgroundColor: theme.colors.successBg,
+    borderWidth: 1,
+    borderColor: 'rgba(34, 197, 94, 0.2)',
+    borderRadius: 10,
+    padding: 10,
+    marginBottom: 12,
+  },
+  successText: {
+    color: theme.colors.success,
     fontSize: 11,
     fontWeight: '600',
     textAlign: 'center',
@@ -318,33 +434,60 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   inputLabel: {
-    color: '#94a3b8',
+    color: theme.colors.textLight,
     fontSize: 8,
     fontWeight: 'bold',
     letterSpacing: 1,
     marginBottom: 4,
   },
   input: {
-    backgroundColor: '#0f172a',
-    borderRadius: 10,
+    backgroundColor: '#ffffff',
+    borderRadius: theme.radius.input,
     paddingHorizontal: 12,
     paddingVertical: 8,
-    color: '#ffffff',
+    color: theme.colors.text,
     fontSize: 13,
     fontWeight: '600',
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: theme.colors.border,
   },
   textArea: {
-    height: 55,
+    height: 50,
     textAlignVertical: 'top',
   },
+  avatarSelectionContainer: {
+    marginBottom: 12,
+  },
+  avatarRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 4,
+  },
+  avatarWrapper: {
+    borderWidth: 2,
+    borderColor: 'transparent',
+    borderRadius: 24,
+    padding: 2,
+  },
+  avatarWrapperActive: {
+    borderColor: theme.colors.primary,
+  },
+  avatarImg: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+  },
   button: {
-    backgroundColor: '#2563eb',
-    borderRadius: 10,
+    backgroundColor: theme.colors.primary,
+    borderRadius: theme.radius.button,
     paddingVertical: 12,
     alignItems: 'center',
-    marginTop: 8,
+    marginTop: 6,
+    shadowColor: theme.colors.primary,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    elevation: 4,
   },
   buttonText: {
     color: '#ffffff',
@@ -354,55 +497,53 @@ const styles = StyleSheet.create({
   dividerContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 10,
+    marginVertical: 12,
   },
   dividerLine: {
     flex: 1,
     height: 1,
-    backgroundColor: '#334155',
+    backgroundColor: theme.colors.border,
   },
   dividerText: {
-    color: '#64748b',
+    color: theme.colors.textLight,
     paddingHorizontal: 10,
     fontSize: 9,
     fontWeight: 'bold',
+    letterSpacing: 0.5,
   },
   googleButton: {
     backgroundColor: '#ffffff',
-    borderRadius: 10,
-    paddingVertical: 10,
+    borderRadius: theme.radius.button,
+    paddingVertical: 11,
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
-    shadowColor: '#000000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 2,
+    borderWidth: 1,
+    borderColor: theme.colors.border,
+    ...theme.shadows.small,
   },
-  googleIcon: {
+  googleIconEmoji: {
     fontSize: 13,
-    fontWeight: 'bold',
-    color: '#2563eb',
     marginRight: 6,
   },
   googleButtonText: {
-    color: '#0f172a',
+    color: theme.colors.text,
     fontSize: 12,
     fontWeight: 'bold',
   },
   guestButton: {
     backgroundColor: 'transparent',
-    borderRadius: 10,
+    borderRadius: theme.radius.button,
     paddingVertical: 11,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: theme.colors.primary,
+    borderStyle: 'dashed',
     marginTop: 10,
   },
   guestButtonText: {
-    color: '#3b82f6',
+    color: theme.colors.primary,
     fontSize: 12,
     fontWeight: 'bold',
   },
@@ -411,11 +552,11 @@ const styles = StyleSheet.create({
     marginTop: 14,
   },
   switchButtonText: {
-    color: '#94a3b8',
+    color: theme.colors.textMuted,
     fontSize: 11,
   },
   switchTextAccent: {
-    color: '#2563eb',
+    color: theme.colors.primary,
     fontWeight: 'bold',
   },
 });

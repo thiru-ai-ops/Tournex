@@ -1,5 +1,5 @@
 const axios = require('axios');
-const { auth, db } = require('../config/firebase');
+const { auth, db, admin } = require('../config/firebase');
 
 /**
  * @desc    Register a new user in Firebase Auth and store profile in Firestore
@@ -8,7 +8,7 @@ const { auth, db } = require('../config/firebase');
  */
 const registerUser = async (req, res, next) => {
   try {
-    const { name, email, password, avatar, role, bio, location } = req.body;
+    const { name, email, password, avatar, role, bio, location, provider } = req.body;
 
     // Validation
     if (!name || !email || !password) {
@@ -24,8 +24,11 @@ const registerUser = async (req, res, next) => {
 
     let uid;
     const userProfile = {
+      username: name,
       name,
       email: email.toLowerCase(),
+      createdAt: admin.firestore.FieldValue.serverTimestamp(),
+      provider: provider || (password === 'google_oauth_bypass_pass' ? 'google' : 'email'),
       avatar: avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150',
       role: role || 'user',
       bio: bio || 'Wandering the cultural trails of India in search of stories and flavors.',
@@ -43,6 +46,7 @@ const registerUser = async (req, res, next) => {
     if (isLocalTest || !apiKey) {
       // Mock register locally
       uid = 'mock-user-id-' + email.toLowerCase().replace(/[^a-z0-9]/g, '');
+      userProfile.uid = uid;
       await db.collection('users').doc(uid).set(userProfile);
     } else {
       try {
@@ -64,6 +68,7 @@ const registerUser = async (req, res, next) => {
         }
       }
       // Store user profile in Firestore
+      userProfile.uid = uid;
       await db.collection('users').doc(uid).set(userProfile);
     }
 
@@ -79,7 +84,21 @@ const registerUser = async (req, res, next) => {
     });
   } catch (error) {
     console.error('Registration Error:', error.message);
-    res.status(400).json({ success: false, message: error.message });
+    let status = 400;
+    let message = error.message || 'Error creating account';
+
+    if (error.code === 'auth/email-already-exists') {
+      message = 'The email address is already in use by another account.';
+    } else if (error.code === 'auth/invalid-password' || (error.message && error.message.includes('password') && error.message.includes('characters'))) {
+      message = 'The password must be at least 6 characters long.';
+    } else if (error.code === 'auth/invalid-email') {
+      message = 'The email address is badly formatted.';
+    } else if (error.code === 'auth/network-request-failed') {
+      status = 503;
+      message = 'A network error occurred. Please check your internet connection.';
+    }
+
+    res.status(status).json({ success: false, message });
   }
 };
 
@@ -125,8 +144,12 @@ const loginUser = async (req, res, next) => {
       if (!userSnap.exists) {
         // Automatically create a mock Firestore profile
         const mockProfile = {
+          uid: localId,
+          username: userRecord.displayName || email.split('@')[0],
           name: userRecord.displayName || email.split('@')[0],
           email: email.toLowerCase(),
+          createdAt: admin.firestore.FieldValue.serverTimestamp(),
+          provider: 'google',
           avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150',
           role: 'user',
           bio: 'Authenticated securely via simulated Google Account integration.',
@@ -158,8 +181,12 @@ const loginUser = async (req, res, next) => {
       if (!userSnap.exists) {
         // Automatically create a mock Firestore profile
         const mockProfile = {
+          uid: localId,
+          username: email.split('@')[0].replace(/\./g, ' '),
           name: email.split('@')[0].replace(/\./g, ' '),
           email: email.toLowerCase(),
+          createdAt: admin.firestore.FieldValue.serverTimestamp(),
+          provider: 'email',
           avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150',
           role: 'user',
           bio: 'Offline developer profile credentials.',
@@ -245,8 +272,12 @@ const getCurrentUserProfile = async (req, res, next) => {
     if (!userSnap.exists) {
       // Create a default profile
       const defaultProfile = {
+        uid: req.user.uid,
+        username: req.user.name || 'Explorer',
         name: req.user.name || 'Explorer',
         email: req.user.email || '',
+        createdAt: admin.firestore.FieldValue.serverTimestamp(),
+        provider: 'google',
         avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150',
         role: 'user',
         bio: 'Wandering the cultural trails of India in search of stories and flavors.',

@@ -140,7 +140,8 @@ export default function App() {
                 location: 'New Delhi, India',
                 avatar: currentUser.photoURL || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150',
                 role: 'user',
-                bio: `Securely logged in using cloud-connected Google Account (${currentUser.email}).`
+                bio: `Securely logged in using cloud-connected Google Account (${currentUser.email}).`,
+                provider: 'google'
               });
               profileResponse = await api.getProfile();
             } catch (regErr) {

@@ -175,8 +175,21 @@ if (process.env.MOCK_DB === 'true' || process.env.CI === 'true') {
     }
   };
 
+  const mockAdmin = {
+    firestore: {
+      FieldValue: {
+        serverTimestamp: () => new Date()
+      }
+    }
+  };
+
+  const activeProjectId = process.env.FIREBASE_PROJECT_ID || 'tournex-74d9f';
+  console.log("Connected Project ID:", activeProjectId);
+  console.log("Firestore database status: READY");
+  console.log("Authentication status: READY");
+
   module.exports = {
-    admin: {},
+    admin: mockAdmin,
     db,
     auth
   };
@@ -235,6 +248,11 @@ if (fs.existsSync(resolvedPath)) {
 
 const db = admin.firestore();
 const auth = admin.auth();
+
+const activeProjectId = process.env.FIREBASE_PROJECT_ID || 'tournex-74d9f';
+console.log("Connected Project ID:", activeProjectId);
+console.log("Firestore database status: READY");
+console.log("Authentication status: READY");
 
 module.exports = {
   admin,

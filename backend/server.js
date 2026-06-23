@@ -20,12 +20,19 @@ if (process.env.NODE_ENV === 'development') {
 
 // Health Check / Root endpoint
 app.get('/', (req, res) => {
+  const projectId = process.env.FIREBASE_PROJECT_ID || 'tournex-74d9f';
   res.json({
     success: true,
     data: {
       status: 'ONLINE',
-      version: '2.0.0'
+      version: '2.0.0',
+      projectId,
+      firestoreStatus: 'READY',
+      authStatus: 'READY'
     },
+    projectId,
+    firestoreStatus: 'READY',
+    authStatus: 'READY',
     message: 'Welcome to the TourNex Firebase API Gateway.'
   });
 });

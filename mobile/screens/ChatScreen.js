@@ -10,6 +10,8 @@ import {
   SafeAreaView
 } from 'react-native';
 import { api } from '../services/api';
+import theme from '../theme';
+import haptics from '../utils/haptics';
 
 export default function ChatScreen() {
   const [messages, setMessages] = useState([]);
@@ -33,6 +35,7 @@ export default function ChatScreen() {
 
   const handleSendChatMessage = async () => {
     if (!chatInput.trim()) return;
+    haptics.selection();
     const text = chatInput.trim();
     setChatInput('');
 
@@ -59,7 +62,7 @@ export default function ChatScreen() {
         } else if (lower.includes('guide')) {
           aiText = "We found 2 government-accredited local guides available tomorrow morning. They speak fluent English/Hindi and charge standard regulated rates of ₹800/hour. Let me know if you would like me to book one!";
         } else {
-          aiText = `Sure! I am monitoring standard travel metrics for your current query. Let me know if you would like custom guide lists, weather charts, or local food reviews!`;
+          aiText = `Sure! I am monitoring standard travel metrics for your query "${text}". Let me know if you would like custom guide lists, weather charts, or local food reviews!`;
         }
 
         const aiMsg = {
@@ -69,26 +72,37 @@ export default function ChatScreen() {
         };
 
         await api.addMessage(aiMsg);
+        haptics.success();
         await fetchMessages();
-      }, 1200);
+      }, 1000);
 
     } catch (err) {
+      haptics.error();
       Alert.alert('Error', err.message);
     }
   };
 
   const handleClearChatHistory = async () => {
+    haptics.selection();
     try {
       await api.clearMessages();
       setMessages([]);
-      Alert.alert('Chat Cleared', 'Simulated companion chat log has been cleared.');
+      haptics.success();
+      Alert.alert('Chat Cleared', 'Companion conversation history cleared successfully.');
     } catch (err) {
+      haptics.error();
       Alert.alert('Error', err.message);
     }
   };
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* Header Panel */}
+      <View style={styles.chatHeader}>
+        <Text style={styles.chatHeaderTitle}>AI Travel Companion</Text>
+        <Text style={styles.chatHeaderSubtitle}>24/7 Conversational Intelligence Engine</Text>
+      </View>
+
       <View style={styles.chatContainer}>
         <ScrollView 
           ref={chatScrollRef}
@@ -99,32 +113,36 @@ export default function ChatScreen() {
           {messages.length === 0 ? (
             <View style={styles.chatEmpty}>
               <Text style={styles.chatEmptyIcon}>💬</Text>
-              <Text style={styles.chatEmptyTitle}>Conversational Intellect</Text>
+              <Text style={styles.chatEmptyTitle}>How can I help you today?</Text>
               <Text style={styles.chatEmptyDesc}>
                 Ask me about crowd timing at Hawa Mahal, local regulatory guidelines, or book local guides directly.
               </Text>
             </View>
           ) : (
-            messages.map((msg, i) => (
-              <View 
-                key={msg.id || i} 
-                style={[
-                  styles.chatMsgBox, 
-                  msg.sender === 'user' ? styles.chatMsgUser : styles.chatMsgAI
-                ]}
-              >
-                <Text style={styles.chatMsgText}>{msg.text}</Text>
-                <Text style={styles.chatMsgTime}>{msg.time}</Text>
-              </View>
-            ))
+            messages.map((msg, i) => {
+              const isUser = msg.sender === 'user';
+              return (
+                <View 
+                  key={msg.id || i} 
+                  style={[
+                    styles.chatMsgBox, 
+                    isUser ? styles.chatMsgUser : styles.chatMsgAI
+                  ]}
+                >
+                  <Text style={[styles.chatMsgText, isUser ? styles.chatMsgTextUser : styles.chatMsgTextAI]}>{msg.text}</Text>
+                  <Text style={[styles.chatMsgTime, isUser ? styles.chatMsgTimeUser : styles.chatMsgTimeAI]}>{msg.time}</Text>
+                </View>
+              );
+            })
           )}
         </ScrollView>
 
+        {/* Input Bar */}
         <View style={styles.chatInputRow}>
           <TextInput 
             style={styles.chatInputField}
             placeholder="Ask travel companion..."
-            placeholderTextColor="#64748b"
+            placeholderTextColor={theme.colors.textLight}
             value={chatInput}
             onChangeText={setChatInput}
             onSubmitEditing={handleSendChatMessage}
@@ -144,11 +162,28 @@ export default function ChatScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0f172a',
+    backgroundColor: theme.colors.background,
+  },
+  chatHeader: {
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 12,
+    backgroundColor: '#ffffff',
+    borderBottomWidth: 1,
+    borderColor: theme.colors.border,
+  },
+  chatHeaderTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: theme.colors.text,
+  },
+  chatHeaderSubtitle: {
+    fontSize: 11,
+    color: theme.colors.textMuted,
+    marginTop: 2,
   },
   chatContainer: {
     flex: 1,
-    backgroundColor: '#0f172a',
   },
   chatScroll: {
     padding: 16,
@@ -165,69 +200,81 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   chatEmptyTitle: {
-    color: '#ffffff',
+    color: theme.colors.text,
     fontSize: 16,
     fontWeight: 'bold',
     marginBottom: 6,
   },
   chatEmptyDesc: {
-    color: '#64748b',
+    color: theme.colors.textMuted,
     fontSize: 12,
     textAlign: 'center',
     lineHeight: 18,
   },
   chatMsgBox: {
     maxWidth: '80%',
-    borderRadius: 14,
+    borderRadius: theme.radius.card,
     paddingHorizontal: 14,
     paddingVertical: 10,
     marginBottom: 12,
   },
   chatMsgUser: {
-    backgroundColor: '#2563eb',
+    backgroundColor: theme.colors.primary,
     alignSelf: 'flex-end',
     borderBottomRightRadius: 2,
+    ...theme.shadows.small,
   },
   chatMsgAI: {
-    backgroundColor: '#1e293b',
+    backgroundColor: '#ffffff',
     alignSelf: 'flex-start',
     borderBottomLeftRadius: 2,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: theme.colors.border,
+    ...theme.shadows.small,
   },
   chatMsgText: {
-    color: '#ffffff',
     fontSize: 13,
     lineHeight: 18,
   },
+  chatMsgTextUser: {
+    color: '#ffffff',
+  },
+  chatMsgTextAI: {
+    color: theme.colors.text,
+  },
   chatMsgTime: {
-    color: 'rgba(255, 255, 255, 0.45)',
-    fontSize: 9,
+    fontSize: 8,
     alignSelf: 'flex-end',
     marginTop: 4,
+  },
+  chatMsgTimeUser: {
+    color: 'rgba(255, 255, 255, 0.6)',
+  },
+  chatMsgTimeAI: {
+    color: theme.colors.textLight,
   },
   chatInputRow: {
     flexDirection: 'row',
     alignItems: 'center',
     padding: 12,
     borderTopWidth: 1,
-    borderColor: '#1e293b',
-    backgroundColor: '#0f172a',
+    borderColor: theme.colors.border,
+    backgroundColor: '#ffffff',
   },
   chatInputField: {
     flex: 1,
-    backgroundColor: '#1e293b',
-    borderRadius: 10,
+    backgroundColor: theme.colors.background,
+    borderRadius: theme.radius.input,
     paddingHorizontal: 14,
     paddingVertical: 8,
-    color: '#ffffff',
+    color: theme.colors.text,
     fontSize: 13,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: theme.colors.border,
     marginRight: 8,
   },
   chatSendBtn: {
-    backgroundColor: '#2563eb',
+    backgroundColor: theme.colors.primary,
     borderRadius: 10,
     paddingHorizontal: 14,
     paddingVertical: 9,
@@ -241,13 +288,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   chatClearBtn: {
-    backgroundColor: '#1e293b',
+    backgroundColor: '#ffffff',
     borderRadius: 10,
     padding: 8,
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: theme.colors.border,
   },
   chatClearBtnText: {
     fontSize: 12,

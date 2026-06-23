@@ -6,17 +6,21 @@ import {
   ScrollView, 
   Image, 
   ActivityIndicator,
+  RefreshControl,
   SafeAreaView
 } from 'react-native';
 import { api } from '../services/api';
+import theme from '../theme';
+import haptics from '../utils/haptics';
+import SkeletonLoader from '../components/SkeletonLoader';
 
 export default function BookingsScreen() {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
 
   const fetchBookings = async () => {
     try {
-      setLoading(true);
       const bookRes = await api.getBookings();
       if (bookRes.success) {
         setBookings(bookRes.data.bookings || []);
@@ -25,29 +29,47 @@ export default function BookingsScreen() {
       console.warn('Error fetching bookings:', e.message);
     } finally {
       setLoading(false);
+      setRefreshing(false);
     }
   };
 
   useEffect(() => {
+    setLoading(true);
     fetchBookings();
   }, []);
 
+  const onRefresh = () => {
+    haptics.selection();
+    setRefreshing(true);
+    fetchBookings();
+  };
+
   if (loading && bookings.length === 0) {
     return (
-      <SafeAreaView style={[styles.container, styles.center]}>
-        <ActivityIndicator size="large" color="#2563eb" />
+      <SafeAreaView style={styles.container}>
+        <ScrollView contentContainerStyle={styles.scrollBody}>
+          <SkeletonLoader type="card" />
+          <SkeletonLoader type="card" />
+        </ScrollView>
       </SafeAreaView>
     );
   }
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollBody} showsVerticalScrollIndicator={false}>
-        <View style={styles.sectionHeader}>
-          <Text style={styles.mainTitle}>My Reservations</Text>
-          <Text style={styles.mainSub}>Verify your ticket barcodes and active stays</Text>
-        </View>
+      {/* Header Panel */}
+      <View style={styles.pageHeader}>
+        <Text style={styles.pageTitle}>My Reservations</Text>
+        <Text style={styles.pageSubtitle}>Verify your ticket barcodes and active stays</Text>
+      </View>
 
+      <ScrollView 
+        contentContainerStyle={styles.scrollBody} 
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} colors={[theme.colors.primary]} />
+        }
+      >
         {bookings.length === 0 ? (
           <View style={styles.emptyCard}>
             <Text style={styles.emptyText}>🎫 No active reservations registered yet</Text>
@@ -76,51 +98,53 @@ export default function BookingsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#0f172a',
+    backgroundColor: theme.colors.background,
   },
-  center: {
-    justifyContent: 'center',
-    alignItems: 'center',
+  pageHeader: {
+    paddingHorizontal: 16,
+    paddingTop: 16,
+    paddingBottom: 12,
+    backgroundColor: '#ffffff',
+    borderBottomWidth: 1,
+    borderColor: theme.colors.border,
+  },
+  pageTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: theme.colors.text,
+  },
+  pageSubtitle: {
+    fontSize: 11,
+    color: theme.colors.textMuted,
+    marginTop: 2,
   },
   scrollBody: {
     padding: 16,
     paddingBottom: 40,
   },
-  sectionHeader: {
-    marginBottom: 20,
-  },
-  mainTitle: {
-    color: '#ffffff',
-    fontSize: 22,
-    fontWeight: 'bold',
-  },
-  mainSub: {
-    color: '#94a3b8',
-    fontSize: 12,
-    marginTop: 4,
-  },
   emptyCard: {
-    backgroundColor: 'rgba(30, 41, 59, 0.5)',
-    borderRadius: 12,
-    padding: 20,
+    backgroundColor: '#ffffff',
+    borderRadius: theme.radius.card,
+    padding: 24,
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: 'rgba(51, 65, 85, 0.3)',
+    borderColor: theme.colors.border,
     borderStyle: 'dashed',
   },
   emptyText: {
-    color: '#64748b',
+    color: theme.colors.textLight,
     fontSize: 12,
     fontWeight: '600',
   },
   bookingCard: {
     flexDirection: 'row',
-    backgroundColor: '#1e293b',
-    borderRadius: 16,
-    padding: 10,
+    backgroundColor: '#ffffff',
+    borderRadius: theme.radius.card,
+    padding: 12,
     marginBottom: 12,
     borderWidth: 1,
-    borderColor: '#334155',
+    borderColor: theme.colors.border,
+    ...theme.shadows.small,
   },
   bookingImg: {
     width: 64,
@@ -138,38 +162,38 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   bookingName: {
-    color: '#ffffff',
-    fontSize: 12,
+    color: theme.colors.text,
+    fontSize: 13,
     fontWeight: 'bold',
     flex: 1,
     marginRight: 6,
   },
   bookingStat: {
-    color: '#64748b',
+    color: theme.colors.textMuted,
     fontSize: 8,
     fontWeight: 'bold',
-    backgroundColor: 'rgba(100, 116, 139, 0.15)',
+    backgroundColor: 'rgba(100, 116, 139, 0.1)',
     paddingHorizontal: 6,
     paddingVertical: 1.5,
     borderRadius: 4,
   },
   bookingStatGreen: {
-    color: '#10b981',
-    backgroundColor: 'rgba(16, 185, 129, 0.15)',
+    color: theme.colors.success,
+    backgroundColor: theme.colors.successBg,
   },
   bookingDates: {
-    color: '#cbd5e1',
-    fontSize: 10,
+    color: theme.colors.textMuted,
+    fontSize: 11,
     marginTop: 1,
   },
   bookingCode: {
-    color: '#64748b',
+    color: theme.colors.textLight,
     fontSize: 9,
     marginTop: 1,
   },
   bookingPrice: {
-    color: '#3b82f6',
-    fontSize: 12,
+    color: theme.colors.primary,
+    fontSize: 13,
     fontWeight: 'bold',
     marginTop: 3,
   },

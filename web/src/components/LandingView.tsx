@@ -4,10 +4,57 @@ import {
   Compass, Sparkles, Shield, Receipt, Landmark, ArrowRight, User, MapPin, 
   Check, X, AlertCircle, Sparkle, RefreshCw, Mail, Lock, Eye, EyeOff, LogIn, UserPlus 
 } from 'lucide-react';
-import { signInWithPopup, signInAnonymously, updateProfile } from 'firebase/auth';
-import { auth, googleProvider } from '../lib/firebase';
+import { createUserWithEmailAndPassword, signInWithPopup, signInAnonymously, updateProfile } from 'firebase/auth';
+import { auth, googleProvider, db } from '../lib/firebase';
+import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
 import { api } from '../services/api';
 
+
+async function createFirestoreUserRecord(
+  uid: string,
+  username: string,
+  email: string,
+  provider: 'email' | 'google',
+  avatar?: string,
+  bio?: string,
+  location?: string
+) {
+  const userDocRef = doc(db, 'users', uid);
+  
+  // Prevent duplicate user records by checking existence
+  const docSnap = await getDoc(userDocRef);
+  if (docSnap.exists()) {
+    console.log(`User profile for ${uid} already exists. Skipping creation to prevent duplicate.`);
+    return docSnap.data();
+  }
+
+  const profileData = {
+    uid,
+    username: username || 'Explorer',
+    name: username || 'Explorer',
+    email: email.toLowerCase(),
+    createdAt: serverTimestamp(),
+    provider,
+    avatar: avatar || 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?auto=format&fit=crop&q=80&w=150',
+    role: 'user',
+    bio: bio || 'A passionate voyager setting off on dynamic regional paths.',
+    location: location || 'New Delhi, India',
+    joinDate: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+    statesVisited: 0,
+    savedTripsCount: 0,
+    reviewsCount: 0,
+    savedTotal: 0,
+    level: 1,
+    currentXp: 100,
+    maxXp: 1000
+  };
+
+  console.log(`Attempting Firestore write for users/${uid}...`);
+  await setDoc(userDocRef, profileData);
+  console.log("Firestore write successful");
+  console.log("User document created for", uid);
+  return profileData;
+}
 
 interface LandingViewProps {
   onLogin: (profile: UserProfile, startFresh: boolean) => void;
@@ -66,6 +113,7 @@ export default function LandingView({ onLogin }: LandingViewProps) {
   const [bio, setBio] = useState('Wandering the cultural trails of India in search of stories and flavors.');
   const [startFresh, setStartFresh] = useState(false); // Default to clean/unused state
   const [signupError, setSignupError] = useState('');
+  const [signupSuccess, setSignupSuccess] = useState('');
   const [isAuthLoading, setIsAuthLoading] = useState(false);
 
   // Standard Login Action
@@ -107,32 +155,81 @@ export default function LandingView({ onLogin }: LandingViewProps) {
       setSignupError('Email address and security password are required for sign up.');
       return;
     }
-    if (signupPassword.length < 5) {
-      setSignupError('Please establish a stronger password (minimum 5 characters).');
+    if (signupPassword.length < 6) {
+      setSignupError('Please establish a stronger password (minimum 6 characters).');
       return;
     }
 
     setIsAuthLoading(true);
     setSignupError('');
+    setSignupSuccess('');
     try {
-      const response = await api.register({
-        name: signupName.trim(),
-        email: signupEmail.trim(),
-        password: signupPassword,
-        location: signupLocation.trim(),
-        avatar: selectedAvatar,
-        role: 'user',
-        bio: bio.trim() || 'A passionate voyager setting off on dynamic regional paths.'
+      console.log("Attempting Firebase Authentication signup for:", signupEmail.trim());
+      // 1. Create user in Firebase Authentication
+      const userCredential = await createUserWithEmailAndPassword(auth, signupEmail.trim(), signupPassword);
+      const user = userCredential.user;
+      console.log("Authentication successful. Firebase Auth signup succeeded. UID:", user.uid);
+
+      // 2. Set profile displayName & photoURL in Firebase Auth
+      await updateProfile(user, {
+        displayName: signupName.trim(),
+        photoURL: selectedAvatar
       });
-      if (response.success && response.data) {
-        const loginResponse = await api.login({ email: signupEmail.trim(), password: signupPassword });
-        const { token, user } = loginResponse.data;
-        localStorage.setItem('token', token);
-        onLogin(user, startFresh);
+
+      // 3. Store user details in Firestore
+      await createFirestoreUserRecord(
+        user.uid,
+        signupName.trim(),
+        user.email || signupEmail.trim(),
+        'email',
+        selectedAvatar,
+        bio.trim(),
+        signupLocation.trim()
+      );
+
+      // 4. Synchronize with Express backend database
+      try {
+        await api.register({
+          name: signupName.trim(),
+          email: signupEmail.trim(),
+          password: signupPassword,
+          location: signupLocation.trim(),
+          avatar: selectedAvatar,
+          role: 'user',
+          bio: bio.trim() || 'A passionate voyager setting off on dynamic regional paths.',
+          provider: 'email',
+          uid: user.uid
+        });
+      } catch (backendErr) {
+        console.warn("Backend registration alignment warning:", backendErr);
       }
+
+      setSignupSuccess('Account created successfully! Logging you in...');
+      setTimeout(async () => {
+        try {
+          const loginResponse = await api.login({ email: signupEmail.trim(), password: signupPassword });
+          const { token, user: loggedUser } = loginResponse.data;
+          localStorage.setItem('token', token);
+          onLogin(loggedUser, startFresh);
+        } catch (loginErr: any) {
+          setSignupError(loginErr.message || 'Auto-login failed. Please log in manually.');
+          setSignupSuccess('');
+          setIsAuthLoading(false);
+        }
+      }, 1500);
     } catch (err: any) {
-      setSignupError(err.message || 'Error creating account.');
-    } finally {
+      console.error("Signup flow failed:", err);
+      let errorMsg = err.message || 'Error creating account.';
+      if (err.code === 'auth/email-already-in-use') {
+        errorMsg = 'The email address is already in use by another account.';
+      } else if (err.code === 'auth/weak-password') {
+        errorMsg = 'The password must be at least 6 characters long.';
+      } else if (err.code === 'auth/invalid-email') {
+        errorMsg = 'The email address is badly formatted.';
+      } else if (err.code === 'auth/network-request-failed') {
+        errorMsg = 'A network error occurred. Please check your connection.';
+      }
+      setSignupError(errorMsg);
       setIsAuthLoading(false);
     }
   };
@@ -461,8 +558,24 @@ export default function LandingView({ onLogin }: LandingViewProps) {
                     setIsAuthLoading(true);
                     setLoginError('');
                     signInWithPopup(auth, googleProvider)
-                      .then((result) => {
+                      .then(async (result) => {
                         const user = result.user;
+                        console.log("Authentication successful. Google Sign-In user logged in. UID:", user.uid);
+                        
+                        try {
+                          await createFirestoreUserRecord(
+                            user.uid,
+                            user.displayName || 'Google Explorer',
+                            user.email || '',
+                            'google',
+                            user.photoURL || undefined,
+                            `Securely authenticated via Firebase Google provider (${user.email}).`,
+                            'India'
+                          );
+                        } catch (dbErr) {
+                          console.error("Firestore write failed for Google Sign-In user:", dbErr);
+                        }
+
                         const customProfile: UserProfile = {
                           name: user.displayName || 'Google Explorer',
                           tier: 'Google Explorer VIP',
@@ -732,6 +845,13 @@ export default function LandingView({ onLogin }: LandingViewProps) {
                 <div className="bg-red-50 border border-red-100 rounded-xl p-3 flex gap-2 text-xs text-red-650 font-medium">
                   <AlertCircle className="h-4 w-4 shrink-0 mt-0.5" />
                   <span>{signupError}</span>
+                </div>
+              )}
+
+              {signupSuccess && (
+                <div className="bg-emerald-50 border border-emerald-100 rounded-xl p-3 flex gap-2 text-xs text-emerald-750 font-medium animate-pulse" id="signup-success-alert">
+                  <Check className="h-4 w-4 shrink-0 mt-0.5 text-emerald-600 animate-bounce" />
+                  <span>{signupSuccess}</span>
                 </div>
               )}
 
