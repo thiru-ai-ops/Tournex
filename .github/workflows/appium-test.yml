@@ -99,6 +99,20 @@ jobs:
       - name: Start Appium Server
         run: |
           appium --log appium.log &
+          # Wait for Appium to start
+          timeout=30
+          elapsed=0
+          while ! curl -s http://127.0.0.1:4723/status > /dev/null && [ "$elapsed" -lt "$timeout" ]; do
+            echo "Waiting for Appium server to start... ($elapsed/$timeout s)"
+            sleep 2
+            elapsed=$((elapsed + 2))
+          done
+          if ! curl -s http://127.0.0.1:4723/status > /dev/null; then
+            echo "❌ ERROR: Appium server failed to start on port 4723"
+            cat appium.log
+            exit 1
+          fi
+          echo "✅ Appium server is up and running!"
 
       - name: Enable KVM group perms
         run: |
@@ -116,7 +130,43 @@ jobs:
           disable-animations: true
           emulator-boot-timeout: 900
           emulator-options: -no-window -gpu swiftshader -no-audio -no-boot-anim -camera-back none -camera-front none
-          script: cd mobile/appium-java-tests && mvn clean test
+          script: |
+            echo "=== Check adb devices ==="
+            adb devices
+            
+            echo "=== Wait for emulator boot ==="
+            adb wait-for-device
+            
+            boot_completed=0
+            timeout=180
+            elapsed=0
+            while [ "$boot_completed" -ne 1 ] && [ "$elapsed" -lt "$timeout" ]; do
+              boot_completed=$(adb shell getprop sys.boot_completed 2>/dev/null | tr -d '\r')
+              if [ -z "$boot_completed" ]; then
+                boot_completed=0
+              fi
+              if [ "$boot_completed" -ne 1 ]; then
+                echo "Waiting for emulator boot completion... ($elapsed/$timeout s)"
+                sleep 5
+                elapsed=$((elapsed + 5))
+              fi
+            done
+            
+            if [ "$boot_completed" -ne 1 ]; then
+              echo "❌ ERROR: Emulator failed to boot within $timeout seconds"
+              exit 1
+            fi
+            echo "✅ Emulator boot completed!"
+            
+            echo "=== Start logcat capturing ==="
+            adb logcat -v time > /tmp/emulator.log &
+            
+            echo "=== Appium Driver Validation ==="
+            appium driver list --installed
+            
+            echo "=== Run Appium Tests ==="
+            cd mobile/appium-java-tests
+            mvn clean test
 
       - name: Generate Workflow Summary and Quality Gate
         if: always()
@@ -242,4 +292,12 @@ jobs:
         with:
           name: Appium-Driver-Log
           path: appium.log
+          retention-days: 30
+
+      - name: Upload Emulator Logcat
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Emulator-Logcat
+          path: /tmp/emulator.log
           retention-days: 30
