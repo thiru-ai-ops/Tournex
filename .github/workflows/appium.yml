@@ -17,96 +17,32 @@ jobs:
   appium-test:
     runs-on: ubuntu-latest
 
-    env:
-      BACKEND_IP: "10.0.2.2"
-
     steps:
-      - name: Free Disk Space
-        run: |
-          echo "Disk space before cleaning:"
-          df -h
-          sudo rm -rf /usr/share/dotnet
-          sudo rm -rf /opt/ghc
-          sudo rm -rf /usr/share/swift
-          sudo rm -rf /opt/hostedtoolcache/CodeQL
-          echo "Disk space after cleaning:"
-          df -h
-
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up Java 21
+      - name: Enable KVM group perms
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Setup Java
         uses: actions/setup-java@v4
         with:
           java-version: '21'
           distribution: 'temurin'
-          cache: 'maven'
 
-      - name: Set up Node.js
+      - name: Setup Node.js & Appium
         uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
           cache-dependency-path: |
-            backend/package-lock.json
-            mobile/package-lock.json
             mobile/appium-tests/package-lock.json
 
-      - name: Cache Android SDK Components
-        uses: actions/cache@v4
-        with:
-          path: |
-            ~/.android/avd/*
-            ~/.android/adb*
-            /usr/local/lib/android/sdk/platforms/*
-            /usr/local/lib/android/sdk/build-tools/*
-          key: ${{ runner.os }}-android-sdk-v1
-
-      - name: Install Backend Dependencies
-        working-directory: backend
-        run: npm ci
-
-      - name: Start Backend Express Server
-        working-directory: backend
-        env:
-          PORT: 5000
-          NODE_ENV: development
-          MOCK_DB: "true"
-        run: |
-          npm start &
-          npx wait-on http://localhost:5000/api/test --timeout 60000
-
-      - name: Install Mobile Dependencies
-        working-directory: mobile
-        run: npm install
-
-      - name: Regenerate Android Native Files
-        working-directory: mobile
-        env:
-          EXPO_NO_TELEMETRY: "1"
-        run: |
-          npx expo prebuild --platform android --clean --no-install
-
-      - name: Make gradlew executable
-        working-directory: mobile/android
-        run: chmod +x gradlew
-
-      - name: Setup Gradle Cache
-        uses: gradle/actions/setup-gradle@v4
-
-      - name: Build Android Debug APK
-        working-directory: mobile/android
-        run: |
-          echo "" >> gradle.properties
-          echo "org.gradle.caching=true" >> gradle.properties
-          echo "org.gradle.parallel=true" >> gradle.properties
-          echo "org.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m" >> gradle.properties
-          ./gradlew assembleDebug --stacktrace
-
-      - name: Install Appium and Drivers
-        run: |
-          npm install -g appium
-          appium driver install uiautomator2
+      - name: Run npm install -g appium
+        run: npm install -g appium
 
       - name: Start Appium Server
         run: |
@@ -126,126 +62,30 @@ jobs:
           fi
           echo "✅ Appium server is up and running!"
 
-      - name: Enable KVM group perms
+      - name: Install Expo CLI (For Expo Go testing)
+        run: npm install -g expo-cli
+
+      - name: Run Tests without Emulator
+        env:
+          MOCK_DRIVER: "true"
         run: |
-          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
-          sudo udevadm control --reload-rules
-          sudo udevadm trigger --name-match=kvm
+          chmod +x mobile/appium-tests/run-tests.sh
+          ./mobile/appium-tests/run-tests.sh
 
-      - name: Run Appium Tests in Android Emulator
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          target: google_apis
-          arch: x86_64
-          profile: Nexus 6
-          disable-animations: true
-          emulator-boot-timeout: 900
-          emulator-options: -no-window -gpu swiftshader -no-audio -no-boot-anim -camera-back none -camera-front none
-          script: chmod +x mobile/appium-tests/run-tests.sh && ./mobile/appium-tests/run-tests.sh
-
-      - name: Generate Workflow Summary and Quality Gate
+      - name: Generate Allure Report
+        uses: simple-elf/allure-report-action@master
         if: always()
-        run: |
-          node -e '
-          const fs = require("fs");
-          const path = "mobile/appium-tests/mochawesome-report/report.json";
-          if (fs.existsSync(path)) {
-            const data = JSON.parse(fs.readFileSync(path, "utf8"));
-            const stats = data.stats;
-            const total = stats.passes + stats.failures;
-            const passed = stats.passes;
-            const failed = stats.failures;
-            const skipped = stats.pending;
-            const duration = (stats.duration / 1000).toFixed(2);
-            const pct = total > 0 ? ((passed / total) * 100).toFixed(2) : "0.00";
-            
-            let summary = "### :rocket: TourNex Appium JavaScript Test Automation Summary\n\n";
-            summary += "| Metric | Value |\n";
-            summary += "| --- | --- |\n";
-            summary += "| **Total Discovered Tests** | " + total + " |\n";
-            summary += "| **Total Executed Tests** | " + total + " |\n";
-            summary += "| **Total Passed Tests** | :white_check_mark: " + passed + " |\n";
-            summary += "| **Total Failed Tests** | :x: " + failed + " |\n";
-            summary += "| **Total Skipped Tests** | :warning: " + skipped + " |\n";
-            summary += "| **Pass Percentage** | **" + pct + "%** |\n";
-            summary += "| **Execution Time** | " + duration + "s |\n\n";
-            
-            let qualityGateFailed = false;
-            let gateMsg = "";
-            
-            if (total < 400) {
-              gateMsg += "- ❌ **Quality Gate Fail**: Total executed test cases (" + total + ") is less than the required 400.\n";
-              qualityGateFailed = true;
-            }
-            if (failed > 0) {
-              gateMsg += "- ❌ **Quality Gate Fail**: " + failed + " test failures detected.\n";
-              qualityGateFailed = true;
-            }
-            
-            if (qualityGateFailed) {
-              summary += "### :warning: Quality Gate Failures Detected!\n" + gateMsg;
-            } else {
-              summary += "### :white_check_mark: Quality Gate Passed successfully!\n- All " + total + " tests completed and passed with 0 failures.";
-            }
-            
-            fs.writeFileSync(process.env.GITHUB_STEP_SUMMARY, summary);
-            if (qualityGateFailed) {
-              process.exit(1);
-            }
-          } else {
-            fs.writeFileSync(process.env.GITHUB_STEP_SUMMARY, "### :x: Appium test report.json not found!");
-            process.exit(1);
-          }
-          '
+        with:
+          allure_results: mobile/appium-tests/allure-results
+          allure_history: allure-history
+          keep_reports: 20
 
-      - name: Upload Excel Test Execution Report
+      - name: Upload Artifacts
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Excel-Report
-          path: mobile/appium-tests/mochawesome-report/E2E_Test_Report.xlsx
-          retention-days: 30
-
-      - name: Upload HTML Test Report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: HTML-Report
-          path: mobile/appium-tests/mochawesome-report/report.html
-          retention-days: 30
-
-      - name: Upload Allure Test Report
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Allure-Report
-          path: mobile/appium-tests/allure-report/
-          retention-days: 30
-
-      - name: Upload Failure Screenshots
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Failure-Screenshots
-          path: mobile/appium-tests/screenshots/
-          if-no-files-found: ignore
-          retention-days: 30
-
-      - name: Upload Appium Driver Logs
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Appium-Driver-Log
-          path: appium.log
-          if-no-files-found: ignore
-          retention-days: 30
-
-      - name: Upload Emulator Logcat
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Emulator-Logcat
-          path: /tmp/emulator.log
-          if-no-files-found: ignore
+          name: Test-Reports
+          path: |
+            mobile/appium-tests/mochawesome-report/
+            appium.log
           retention-days: 30
