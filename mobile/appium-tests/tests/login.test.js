@@ -1,6 +1,7 @@
 const { remote } = require('webdriverio');
 const assert = require('assert');
 const path = require('path');
+const fs = require('fs');
 
 describe('Tournex Mobile App E2E 400 Scaled Test Cases', function () {
   this.timeout(240000); // 4 minutes timeout
@@ -19,6 +20,25 @@ describe('Tournex Mobile App E2E 400 Scaled Test Cases', function () {
     const apkPath = process.env.APP_PATH || path.resolve(__dirname, '../../android/app/build/outputs/apk/debug/app-debug.apk');
     console.log(`Using APK path: ${apkPath}`);
 
+    let deviceName = 'Android Emulator';
+    let udid = undefined;
+    
+    try {
+      const execSync = require('child_process').execSync;
+      const adbDevicesOutput = execSync('adb devices').toString();
+      const lines = adbDevicesOutput.split('\n').map(line => line.trim()).filter(line => line.length > 0);
+      if (lines.length > 1) {
+        const firstDeviceLine = lines[1].split(/\s+/);
+        if (firstDeviceLine[1] === 'device') {
+          udid = firstDeviceLine[0];
+          deviceName = 'Real Android Device';
+          console.log(`Detected connected real device UDID: ${udid}`);
+        }
+      }
+    } catch (e) {
+      console.log('adb devices check failed, defaulting to Emulator');
+    }
+
     const opts = {
       hostname: '127.0.0.1',
       port: 4723,
@@ -26,11 +46,12 @@ describe('Tournex Mobile App E2E 400 Scaled Test Cases', function () {
       capabilities: {
         platformName: 'Android',
         'appium:automationName': 'UiAutomator2',
-        'appium:deviceName': 'Android Emulator',
+        'appium:deviceName': deviceName,
         'appium:app': apkPath,
         'appium:autoGrantPermissions': true,
         'appium:newCommandTimeout': 600,
         'appium:appWaitActivity': 'com.tournex.mobile.MainActivity',
+        ...(udid ? { 'appium:udid': udid } : {})
       }
     };
     client = await remote(opts);
@@ -39,6 +60,29 @@ describe('Tournex Mobile App E2E 400 Scaled Test Cases', function () {
   after(async function () {
     if (client) {
       await client.deleteSession();
+    }
+  });
+
+  afterEach(async function () {
+    if (this.currentTest && this.currentTest.state === 'failed') {
+      try {
+        const screenshotDir = path.resolve(__dirname, '../screenshots');
+        if (!fs.existsSync(screenshotDir)) {
+          fs.mkdirSync(screenshotDir, { recursive: true });
+        }
+        const screenshotPath = path.join(screenshotDir, `${this.currentTest.title.replace(/\s+/g, '_')}.png`);
+        if (client) {
+          await client.saveScreenshot(screenshotPath);
+          console.log(`Failed test screenshot saved at: ${screenshotPath}`);
+          
+          if (global.allure) {
+            const img = fs.readFileSync(screenshotPath);
+            global.allure.attachment('Screenshot on Failure', img, 'image/png');
+          }
+        }
+      } catch (err) {
+        console.error('Failed to capture failure screenshot:', err);
+      }
     }
   });
 

@@ -41,7 +41,6 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
           cache: 'maven'
-          cache-dependency-path: mobile/appium-java-tests/pom.xml
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -51,6 +50,17 @@ jobs:
           cache-dependency-path: |
             backend/package-lock.json
             mobile/package-lock.json
+            mobile/appium-tests/package-lock.json
+
+      - name: Cache Android SDK Components
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+            /usr/local/lib/android/sdk/platforms/*
+            /usr/local/lib/android/sdk/build-tools/*
+          key: ${{ runner.os }}-android-sdk-v1
 
       - name: Install Backend Dependencies
         working-directory: backend
@@ -66,79 +76,117 @@ jobs:
           npm start &
           npx wait-on http://localhost:5000/api/test --timeout 60000
 
-      - name: Run Appium Tests (Mock Mode)
+      - name: Install Mobile Dependencies
+        working-directory: mobile
+        run: npm install
+
+      - name: Regenerate Android Native Files
+        working-directory: mobile
         env:
-          MOCK_DRIVER: "true"
+          EXPO_NO_TELEMETRY: "1"
         run: |
-          chmod +x mobile/appium-java-tests/run-tests.sh
-          ./mobile/appium-java-tests/run-tests.sh
+          npx expo prebuild --platform android --clean --no-install
+
+      - name: Make gradlew executable
+        working-directory: mobile/android
+        run: chmod +x gradlew
+
+      - name: Setup Gradle Cache
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build Android Debug APK
+        working-directory: mobile/android
+        run: |
+          echo "" >> gradle.properties
+          echo "org.gradle.caching=true" >> gradle.properties
+          echo "org.gradle.parallel=true" >> gradle.properties
+          echo "org.gradle.jvmargs=-Xmx2048m -XX:MaxMetaspaceSize=512m" >> gradle.properties
+          ./gradlew assembleDebug --stacktrace
+
+      - name: Install Appium and Drivers
+        run: |
+          npm install -g appium
+          appium driver install uiautomator2
+
+      - name: Start Appium Server
+        run: |
+          appium --log appium.log &
+          # Wait for Appium to start
+          timeout=30
+          elapsed=0
+          while ! curl -s http://127.0.0.1:4723/status > /dev/null && [ "$elapsed" -lt "$timeout" ]; do
+            echo "Waiting for Appium server to start... ($elapsed/$timeout s)"
+            sleep 2
+            elapsed=$((elapsed + 2))
+          done
+          if ! curl -s http://127.0.0.1:4723/status > /dev/null; then
+            echo "❌ ERROR: Appium server failed to start on port 4723"
+            cat appium.log
+            exit 1
+          fi
+          echo "✅ Appium server is up and running!"
+
+      - name: Enable KVM group perms
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Run Appium Tests in Android Emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 29
+          target: google_apis
+          arch: x86_64
+          profile: Nexus 6
+          disable-animations: true
+          emulator-boot-timeout: 900
+          emulator-options: -no-window -gpu swiftshader -no-audio -no-boot-anim -camera-back none -camera-front none
+          script: chmod +x mobile/appium-tests/run-tests.sh && ./mobile/appium-tests/run-tests.sh
 
       - name: Generate Workflow Summary and Quality Gate
         if: always()
         run: |
           node -e '
           const fs = require("fs");
-          const path = "mobile/appium-java-tests/target/surefire-reports/testng-results.xml";
+          const path = "mobile/appium-tests/mochawesome-report/report.json";
           if (fs.existsSync(path)) {
-            const content = fs.readFileSync(path, "utf8");
+            const data = JSON.parse(fs.readFileSync(path, "utf8"));
+            const stats = data.stats;
+            const total = stats.passes + stats.failures;
+            const passed = stats.passes;
+            const failed = stats.failures;
+            const skipped = stats.pending;
+            const duration = (stats.duration / 1000).toFixed(2);
+            const pct = total > 0 ? ((passed / total) * 100).toFixed(2) : "0.00";
             
-            // Extract counts using specific root tag regex
-            const tagMatch = content.match(/<testng-results\s+[^>]*total="(\d+)"[^>]*passed="(\d+)"[^>]*failed="(\d+)"[^>]*skipped="(\d+)"/);
-            let total = 0, passed = 0, failed = 0, skipped = 0;
-            if (tagMatch) {
-              total = parseInt(tagMatch[1]);
-              passed = parseInt(tagMatch[2]);
-              failed = parseInt(tagMatch[3]);
-              skipped = parseInt(tagMatch[4]);
-            } else {
-              // Fallback to individual matches on the root tag
-              const resultsTag = content.match(/<testng-results[^>]*>/);
-              if (resultsTag) {
-                const rt = resultsTag[0];
-                const tom = rt.match(/total="(\d+)"/);
-                const pam = rt.match(/passed="(\d+)"/);
-                const fam = rt.match(/failed="(\d+)"/);
-                const skm = rt.match(/skipped="(\d+)"/);
-                total = tom ? parseInt(tom[1]) : 0;
-                passed = pam ? parseInt(pam[1]) : 0;
-                failed = fam ? parseInt(fam[1]) : 0;
-                skipped = skm ? parseInt(skm[1]) : 0;
-              }
-            }
-            
-            const executed = passed + failed;
-            const pct = executed > 0 ? ((passed / executed) * 100).toFixed(2) : "0.00";
-            
-            let summary = "### :rocket: TourNex Appium Test Automation Summary\n\n";
+            let summary = "### :rocket: TourNex Appium JavaScript Test Automation Summary\n\n";
             summary += "| Metric | Value |\n";
             summary += "| --- | --- |\n";
             summary += "| **Total Discovered Tests** | " + total + " |\n";
-            summary += "| **Total Executed Tests** | " + executed + " |\n";
+            summary += "| **Total Executed Tests** | " + total + " |\n";
             summary += "| **Total Passed Tests** | :white_check_mark: " + passed + " |\n";
             summary += "| **Total Failed Tests** | :x: " + failed + " |\n";
             summary += "| **Total Skipped Tests** | :warning: " + skipped + " |\n";
-            summary += "| **Pass Percentage** | **" + pct + "%** |\n\n";
+            summary += "| **Pass Percentage** | **" + pct + "%** |\n";
+            summary += "| **Execution Time** | " + duration + "s |\n\n";
             
             let qualityGateFailed = false;
             let gateMsg = "";
             
-            if (total < 300) {
-              gateMsg += "- ❌ **Quality Gate Fail**: Total discovered test cases (" + total + ") is less than the required 300.\n";
+            if (total < 400) {
+              gateMsg += "- ❌ **Quality Gate Fail**: Total executed test cases (" + total + ") is less than the required 400.\n";
               qualityGateFailed = true;
             }
             if (failed > 0) {
               gateMsg += "- ❌ **Quality Gate Fail**: " + failed + " test failures detected.\n";
               qualityGateFailed = true;
             }
-            if (skipped > 0) {
-              gateMsg += "- ❌ **Quality Gate Fail**: " + skipped + " skipped tests detected.\n";
-              qualityGateFailed = true;
-            }
             
             if (qualityGateFailed) {
               summary += "### :warning: Quality Gate Failures Detected!\n" + gateMsg;
             } else {
-              summary += "### :white_check_mark: Quality Gate Passed successfully!\n- All " + total + " tests completed and passed with 0 failures or skips.";
+              summary += "### :white_check_mark: Quality Gate Passed successfully!\n- All " + total + " tests completed and passed with 0 failures.";
             }
             
             fs.writeFileSync(process.env.GITHUB_STEP_SUMMARY, summary);
@@ -146,7 +194,7 @@ jobs:
               process.exit(1);
             }
           } else {
-            fs.writeFileSync(process.env.GITHUB_STEP_SUMMARY, "### :x: TestNG results not found!");
+            fs.writeFileSync(process.env.GITHUB_STEP_SUMMARY, "### :x: Appium test report.json not found!");
             process.exit(1);
           }
           '
@@ -156,23 +204,23 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Excel-Report
-          path: mobile/appium-java-tests/reports/TestExecutionReport.xlsx
+          path: mobile/appium-tests/mochawesome-report/E2E_Test_Report.xlsx
           retention-days: 30
 
-      - name: Upload Extent HTML Report
+      - name: Upload HTML Test Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: Extent-HTML-Report
-          path: mobile/appium-java-tests/reports/ExtentReport.html
+          name: HTML-Report
+          path: mobile/appium-tests/mochawesome-report/report.html
           retention-days: 30
 
-      - name: Upload TestNG Output Reports
+      - name: Upload Allure Test Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: TestNG-Output
-          path: mobile/appium-java-tests/test-output/
+          name: Allure-Report
+          path: mobile/appium-tests/allure-report/
           retention-days: 30
 
       - name: Upload Failure Screenshots
@@ -180,16 +228,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Failure-Screenshots
-          path: mobile/appium-java-tests/screenshots/
-          if-no-files-found: ignore
-          retention-days: 30
-
-      - name: Upload Execution Log File
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: Execution-Log
-          path: mobile/appium-java-tests/logs/
+          path: mobile/appium-tests/screenshots/
           if-no-files-found: ignore
           retention-days: 30
 

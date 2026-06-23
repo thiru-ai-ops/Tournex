@@ -4,11 +4,14 @@
   "description": "Appium E2E automation tests for Tournex mobile app",
   "main": "tests/login.test.js",
   "scripts": {
-    "test": "mocha tests/**/*.test.js --reporter ./custom-reporter.js --timeout 180000",
-    "login": "mocha tests/login.test.js --reporter ./custom-reporter.js --timeout 180000"
+    "test": "mocha tests/**/*.test.js --reporter mocha-multi-reporters --reporter-options configFile=reporter-config.json --timeout 240000",
+    "login": "mocha tests/login.test.js --reporter mocha-multi-reporters --reporter-options configFile=reporter-config.json --timeout 240000"
   },
   "devDependencies": {
+    "allure-commandline": "^2.29.0",
+    "allure-mocha": "^3.0.0-beta.10",
     "mocha": "^10.4.0",
+    "mocha-multi-reporters": "^1.5.0",
     "webdriverio": "^8.36.0"
   },
   "dependencies": {
