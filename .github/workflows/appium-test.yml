@@ -127,36 +127,67 @@ jobs:
           if (fs.existsSync(path)) {
             const content = fs.readFileSync(path, "utf8");
             
-            // Extract counts using broad match
-            const totalMatch = content.match(/total="(\d+)"/);
-            const passedMatch = content.match(/passed="(\d+)"/);
-            const failedMatch = content.match(/failed="(\d+)"/);
-            const skippedMatch = content.match(/skipped="(\d+)"/);
+            // Extract counts using specific root tag regex
+            const tagMatch = content.match(/<testng-results\s+[^>]*total="(\d+)"[^>]*passed="(\d+)"[^>]*failed="(\d+)"[^>]*skipped="(\d+)"/);
+            let total = 0, passed = 0, failed = 0, skipped = 0;
+            if (tagMatch) {
+              total = parseInt(tagMatch[1]);
+              passed = parseInt(tagMatch[2]);
+              failed = parseInt(tagMatch[3]);
+              skipped = parseInt(tagMatch[4]);
+            } else {
+              // Fallback to individual matches on the root tag
+              const resultsTag = content.match(/<testng-results[^>]*>/);
+              if (resultsTag) {
+                const rt = resultsTag[0];
+                const tom = rt.match(/total="(\d+)"/);
+                const pam = rt.match(/passed="(\d+)"/);
+                const fam = rt.match(/failed="(\d+)"/);
+                const skm = rt.match(/skipped="(\d+)"/);
+                total = tom ? parseInt(tom[1]) : 0;
+                passed = pam ? parseInt(pam[1]) : 0;
+                failed = fam ? parseInt(fam[1]) : 0;
+                skipped = skm ? parseInt(skm[1]) : 0;
+              }
+            }
             
-            const total = totalMatch ? parseInt(totalMatch[1]) : 0;
-            const passed = passedMatch ? parseInt(passedMatch[1]) : 0;
-            const failed = failedMatch ? parseInt(failedMatch[1]) : 0;
-            const skipped = skippedMatch ? parseInt(skippedMatch[1]) : 0;
-            const pct = total > 0 ? ((passed / total) * 100).toFixed(2) : "0.00";
+            const executed = passed + failed;
+            const pct = executed > 0 ? ((passed / executed) * 100).toFixed(2) : "0.00";
             
             let summary = "### :rocket: TourNex Appium Test Automation Summary\n\n";
             summary += "| Metric | Value |\n";
             summary += "| --- | --- |\n";
-            summary += "| **Total Test Cases** | " + total + " |\n";
-            summary += "| **Passed** | :white_check_mark: " + passed + " |\n";
-            summary += "| **Failed** | :x: " + failed + " |\n";
-            summary += "| **Skipped** | :warning: " + skipped + " |\n";
+            summary += "| **Total Discovered Tests** | " + total + " |\n";
+            summary += "| **Total Executed Tests** | " + executed + " |\n";
+            summary += "| **Total Passed Tests** | :white_check_mark: " + passed + " |\n";
+            summary += "| **Total Failed Tests** | :x: " + failed + " |\n";
+            summary += "| **Total Skipped Tests** | :warning: " + skipped + " |\n";
             summary += "| **Pass Percentage** | **" + pct + "%** |\n\n";
             
+            let qualityGateFailed = false;
+            let gateMsg = "";
+            
+            if (total < 400) {
+              gateMsg += "- ❌ **Quality Gate Fail**: Total discovered test cases (" + total + ") is less than the required 400.\n";
+              qualityGateFailed = true;
+            }
             if (failed > 0) {
-              summary += "### :warning: Quality Gate Failures Detected!\n";
-              summary += "Failed test cases details are available in the logs and downloadable Excel/HTML reports.\n";
+              gateMsg += "- ❌ **Quality Gate Fail**: " + failed + " test failures detected.\n";
+              qualityGateFailed = true;
+            }
+            if (skipped > 0) {
+              gateMsg += "- ❌ **Quality Gate Fail**: " + skipped + " skipped tests detected.\n";
+              qualityGateFailed = true;
+            }
+            
+            if (qualityGateFailed) {
+              summary += "### :warning: Quality Gate Failures Detected!\n" + gateMsg;
             } else {
-              summary += "### :white_check_mark: Quality Gate Passed successfully!\n";
+              summary += "### :white_check_mark: Quality Gate Passed successfully!\n- All " + total + " tests completed and passed with 0 failures or skips.";
             }
             
             fs.writeFileSync(process.env.GITHUB_STEP_SUMMARY, summary);
-            if (failed > 0) {
+            if (qualityGateFailed) {
               process.exit(1);
             }
           } else {

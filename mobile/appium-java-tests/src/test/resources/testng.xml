@@ -6,8 +6,15 @@
     </listeners>
     
     <test name="E2E Integration and Scaled Parallel Tests">
-        <classes>
-            <class name="com.tournex.tests.TournexE2ETests" />
-        </classes>
+        <packages>
+            <package name="com.tournex.tests.authentication" />
+            <package name="com.tournex.tests.navigation" />
+            <package name="com.tournex.tests.profile" />
+            <package name="com.tournex.tests.dashboard" />
+            <package name="com.tournex.tests.search" />
+            <package name="com.tournex.tests.settings" />
+            <package name="com.tournex.tests.firebase" />
+            <package name="com.tournex.tests.regression" />
+        </packages>
     </test>
 </suite>
