@@ -45,8 +45,8 @@ public class SmokeTests extends BaseTest {
         DashboardPage dashboard = new DashboardPage(getDriver());
         dashboard.clickExploreShortcut();
         ExplorePage explore = new ExplorePage(getDriver());
-        Assert.assertTrue(explore.isExploreScreenLoaded(), "Explore screen failed to load.");
-        explore.navigateToHomeTab();
+        Assert.assertTrue(explore.isExploreLoaded(), "Explore screen failed to load.");
+        dashboard.navigateToHomeTab();
         dashboard.navigateToProfileTab();
         ProfilePage profile = new ProfilePage(getDriver());
         profile.clickLogout();
@@ -61,7 +61,7 @@ public class SmokeTests extends BaseTest {
         dashboard.clickChatShortcut();
         ChatPage chat = new ChatPage(getDriver());
         Assert.assertTrue(chat.isChatLoaded(), "Chat screen failed to load.");
-        chat.navigateToHomeTab();
+        dashboard.navigateToHomeTab();
         dashboard.navigateToProfileTab();
         ProfilePage profile = new ProfilePage(getDriver());
         profile.clickLogout();
@@ -76,7 +76,7 @@ public class SmokeTests extends BaseTest {
         dashboard.clickSplitterShortcut();
         SplitterPage splitter = new SplitterPage(getDriver());
         Assert.assertTrue(splitter.isSplitterLoaded(), "Splitter screen failed to load.");
-        splitter.navigateToHomeTab();
+        dashboard.navigateToHomeTab();
         dashboard.navigateToProfileTab();
         ProfilePage profile = new ProfilePage(getDriver());
         profile.clickLogout();

@@ -53,12 +53,12 @@ public class PerformanceTests extends BaseTest {
         long startTime = System.currentTimeMillis();
         dashboard.clickExploreShortcut();
         ExplorePage explore = new ExplorePage(getDriver());
-        boolean loaded = explore.isExploreScreenLoaded();
+        boolean loaded = explore.isExploreLoaded();
         long duration = System.currentTimeMillis() - startTime;
         Assert.assertTrue(loaded, "Explore screen should be loaded.");
         TestLogger.info("Explore transition duration: " + duration + " ms");
         Assert.assertTrue(duration < 3000, "Transition duration should be under 3 seconds.");
-        explore.navigateToHomeTab();
+        dashboard.navigateToHomeTab();
         dashboard.navigateToProfileTab();
         ProfilePage profile = new ProfilePage(getDriver());
         profile.clickLogout();
@@ -78,7 +78,7 @@ public class PerformanceTests extends BaseTest {
         Assert.assertTrue(loaded, "Chat screen should be loaded.");
         TestLogger.info("Chat transition duration: " + duration + " ms");
         Assert.assertTrue(duration < 3000, "Transition duration should be under 3 seconds.");
-        chat.navigateToHomeTab();
+        dashboard.navigateToHomeTab();
         dashboard.navigateToProfileTab();
         ProfilePage profile = new ProfilePage(getDriver());
         profile.clickLogout();
@@ -98,7 +98,7 @@ public class PerformanceTests extends BaseTest {
         Assert.assertTrue(loaded, "Splitter screen should be loaded.");
         TestLogger.info("Splitter transition duration: " + duration + " ms");
         Assert.assertTrue(duration < 3000, "Transition duration should be under 3 seconds.");
-        splitter.navigateToHomeTab();
+        dashboard.navigateToHomeTab();
         dashboard.navigateToProfileTab();
         ProfilePage profile = new ProfilePage(getDriver());
         profile.clickLogout();
